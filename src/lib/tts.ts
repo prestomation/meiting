@@ -11,12 +11,13 @@ export function getZhVoices(): SpeechSynthesisVoice[] {
   return window.speechSynthesis.getVoices().filter((v) => v.lang.includes('zh'))
 }
 
-export function speak(text: string, voiceName?: string): void {
+export function speak(text: string, voiceName?: string, rate: number = 1): void {
   if (!isSupported()) return
   stopSpeaking()
 
   const utterance = new SpeechSynthesisUtterance(text)
   utterance.lang = 'zh-CN'
+  utterance.rate = rate
 
   const targetName = voiceName ?? getStorage(KEYS.PREFERRED_VOICE)
   if (targetName) {

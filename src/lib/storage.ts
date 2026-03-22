@@ -7,6 +7,7 @@ export const KEYS = {
   STREAK_DAYS: 'meiting_streak_days',
   LAST_ACTIVE_DATE: 'meiting_last_active',
   SESSION_HISTORY: 'meiting_history',
+  PLAYBACK_RATE: 'meiting_playback_rate',
 } as const
 
 export type KeyName = (typeof KEYS)[keyof typeof KEYS]
@@ -119,6 +120,20 @@ export function addSessionResult(result: SessionResult): void {
   // Keep only last 100 sessions to prevent localStorage quota exceeded
   const bounded = history.slice(-100)
   setStorage(KEYS.SESSION_HISTORY, JSON.stringify(bounded))
+}
+
+const PLAYBACK_RATE_MIN = 0.5
+const PLAYBACK_RATE_MAX = 1.0
+const PLAYBACK_RATE_DEFAULT = 1.0
+
+export function getPlaybackRate(): number {
+  const v = parseFloat(getStorage(KEYS.PLAYBACK_RATE) ?? String(PLAYBACK_RATE_DEFAULT))
+  if (isNaN(v) || v < PLAYBACK_RATE_MIN || v > PLAYBACK_RATE_MAX) return PLAYBACK_RATE_DEFAULT
+  return v
+}
+export function setPlaybackRate(rate: number): void {
+  const clamped = Math.min(PLAYBACK_RATE_MAX, Math.max(PLAYBACK_RATE_MIN, rate))
+  setStorage(KEYS.PLAYBACK_RATE, String(clamped))
 }
 
 /** Alias for addSessionResult — saves a completed session result */

@@ -327,3 +327,53 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ── Speed control ────────────────────────────────────── */
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.speed-emoji {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.speed-slider {
+  flex: 1;
+  accent-color: #e8b84b;
+  cursor: pointer;
+}
+
+.speed-label {
+  font-size: 0.85rem;
+  color: #aaa;
+  min-width: 2.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Show text toggle ─────────────────────────────────── */
+
+.show-text-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  align-self: flex-start;
+  color: #555;
+}
+
+.text-reveal {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #e0e0e0;
+  letter-spacing: 0.05em;
+}

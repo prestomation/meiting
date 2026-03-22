@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { speak } from '../lib/tts'
 import { checkAnswer } from '../lib/scoring'
@@ -6,6 +6,8 @@ import {
   getHskLevel,
   getAnswerMode,
   getStreakDays,
+  getPlaybackRate,
+  setPlaybackRate,
   saveSessionResult,
   type AnswerMode,
   type SessionResult,
@@ -41,20 +43,34 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-let activeAudio: HTMLAudioElement | null = null
+function stopActiveAudio(audioRef: React.MutableRefObject<HTMLAudioElement | null>) {
+  if (audioRef.current) {
+    audioRef.current.pause()
+    audioRef.current.currentTime = 0
+    audioRef.current = null
+  }
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    window.speechSynthesis.cancel()
+  }
+}
 
-function playItem(item: ContentItem) {
+function playItem(
+  item: ContentItem,
+  audioRef: React.MutableRefObject<HTMLAudioElement | null>,
+  rate: number = 1,
+) {
+  stopActiveAudio(audioRef)
   if (item.audio) {
-    if (activeAudio) {
-      activeAudio.pause()
-      activeAudio.src = ''
-      activeAudio = null
-    }
     const audio = new Audio(item.audio)
-    activeAudio = audio
-    audio.play().catch(() => speak(item.characters))
+    audio.playbackRate = rate
+    audioRef.current = audio
+    audio.play().catch(() => {
+      // Clear the failed reference before falling back to TTS
+      if (audioRef.current === audio) audioRef.current = null
+      speak(item.characters, undefined, rate)
+    })
   } else {
-    speak(item.characters)
+    speak(item.characters, undefined, rate)
   }
 }
 
@@ -70,6 +86,14 @@ export default function Session() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
 
+  // Audio element ref (per-instance, no module-level state)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  // Playback speed — keep ref in sync so effects always read the latest value
+  const [playbackRate, setPlaybackRateState] = useState<number>(() => getPlaybackRate())
+  const playbackRateRef = useRef<number>(playbackRate)
+  playbackRateRef.current = playbackRate
+
   // Multiple-choice state
   const [choices, setChoices] = useState<string[]>([])
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
@@ -79,9 +103,17 @@ export default function Session() {
   const [typeResult, setTypeResult] = useState<'correct' | 'close' | 'incorrect' | null>(null)
   const [retryUsed, setRetryUsed] = useState(false)
   const [showPinyin, setShowPinyin] = useState(false)
+  const [showText, setShowText] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const currentItem = items[currentIndex]
+
+  // Cleanup audio on component unmount
+  useEffect(() => {
+    return () => {
+      stopActiveAudio(audioRef)
+    }
+  }, [])
 
   // Shuffle choices when item changes
   useEffect(() => {
@@ -98,7 +130,7 @@ export default function Session() {
   // Auto-play on new item (playing phase only)
   useEffect(() => {
     if (phase !== 'playing' || !currentItem) return
-    const t = setTimeout(() => playItem(currentItem), 300)
+    const t = setTimeout(() => playItem(currentItem, audioRef, playbackRateRef.current), 300)
     return () => clearTimeout(t)
   }, [currentIndex, phase, currentItem])
 
@@ -120,6 +152,7 @@ export default function Session() {
     setTypeResult(null)
     setRetryUsed(false)
     setShowPinyin(false)
+    setShowText(false)
     setPhase('playing')
   }
 
@@ -176,6 +209,7 @@ export default function Session() {
       setTypeResult(null)
       setRetryUsed(false)
       setShowPinyin(false)
+      setShowText(false)
       setPhase('playing')
     }
   }
@@ -247,9 +281,21 @@ export default function Session() {
         <div className="progress-text">{currentIndex + 1} / {items.length}</div>
 
         {/* Replay */}
-        <button className="replay-btn" onClick={() => playItem(currentItem)}>
+        <button className="replay-btn" onClick={() => playItem(currentItem, audioRef, playbackRateRef.current)}>
           ▶ Replay
         </button>
+
+        {/* Show text toggle */}
+        <button
+          className="show-text-btn"
+          onClick={() => setShowText((v) => !v)}
+          type="button"
+        >
+          {showText ? '🙈 Hide text' : '👁 Show text'}
+        </button>
+        {showText && (
+          <div className="text-reveal">{currentItem.characters}</div>
+        )}
 
         {/* Characters (show in answered phase, or type-it during answering) */}
         {phase === 'answered' && (
@@ -343,6 +389,30 @@ export default function Session() {
             {isLastItem ? 'Finish →' : 'Next →'}
           </button>
         )}
+
+        {/* Speed slider */}
+        <div className="speed-control">
+          <span className="speed-emoji">🐢</span>
+          <input
+            type="range"
+            className="speed-slider"
+            min={0.5}
+            max={1.0}
+            step={0.25}
+            value={playbackRate}
+            onChange={(e) => {
+              const rate = parseFloat(e.target.value)
+              setPlaybackRateState(rate)
+              setPlaybackRate(rate)
+              playbackRateRef.current = rate
+              if (audioRef.current) {
+                audioRef.current.playbackRate = rate
+              }
+            }}
+          />
+          <span className="speed-emoji">🐇</span>
+          <span className="speed-label">{playbackRate.toFixed(2)}×</span>
+        </div>
       </div>
     </div>
   )

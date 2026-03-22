@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { isSupported, speak, stopSpeaking } from '../lib/tts'
-import { getPreferredVoice, setPreferredVoice } from '../lib/storage'
+import { getPreferredVoice, setPreferredVoice, getPlaybackRate } from '../lib/storage'
 import './VoiceTest.css'
 
 const TEST_SENTENCE = '你好，欢迎来到美听！今天我们来练习一下听力。'
@@ -77,7 +77,7 @@ export default function VoiceTest() {
 
   function handlePlay(voiceName: string) {
     stopSpeaking()
-    speak(TEST_SENTENCE, voiceName)
+    speak(TEST_SENTENCE, voiceName, getPlaybackRate())
   }
 
   function handleSetPreferred(name: string) {
