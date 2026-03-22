@@ -9,7 +9,6 @@ export default function Nav() {
         <NavLink to="/" end>
           Session
         </NavLink>
-        <NavLink to="/voice-test">Voice Test</NavLink>
         <NavLink to="/stats">Stats</NavLink>
         <NavLink to="/settings">Settings</NavLink>
       </div>
