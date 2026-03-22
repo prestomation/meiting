@@ -41,6 +41,10 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
   recognition.onerror = (event: any) => {
     if (cancelled || resultFired) return
     resultFired = true
+    // Clear handlers to prevent re-entrancy
+    recognition.onresult = null
+    recognition.onerror = null
+    recognition.onend = null
     callback(null, event.error)
   }
 
