@@ -103,6 +103,10 @@ export function getSessionHistory(): SessionResult[] {
       typeof item.hskLevel === 'number' &&
       typeof item.total === 'number' &&
       typeof item.correct === 'number' &&
+      item.hskLevel > 0 &&
+      item.total >= 0 &&
+      item.correct >= 0 &&
+      item.correct <= item.total &&
       (item.answerMode === 'multiple-choice' || item.answerMode === 'type')
     )
   } catch {

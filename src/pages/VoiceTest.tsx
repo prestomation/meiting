@@ -53,9 +53,9 @@ export default function VoiceTest() {
 
     // Handle browsers where voices load asynchronously
     if (window.speechSynthesis.onvoiceschanged !== undefined) {
-      window.speechSynthesis.onvoiceschanged = loadVoices
+      window.speechSynthesis.addEventListener('voiceschanged', loadVoices)
       return () => {
-        window.speechSynthesis.onvoiceschanged = null
+        window.speechSynthesis.removeEventListener('voiceschanged', loadVoices)
         cleanup()
       }
     } else {
