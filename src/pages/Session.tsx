@@ -308,11 +308,7 @@ export default function Session() {
       setTranscript(result.transcript)
       setSpeechState('processing')
 
-      if (!capturedItem) {
-        setSpeechState('idle')
-        return
-      }
-
+      // capturedItem is always defined since we guard with !currentItem before starting
       const answerResult = checkPhoneticAnswer(result.transcript, capturedItem.characters)
 
       if (answerResult === 'correct') {
