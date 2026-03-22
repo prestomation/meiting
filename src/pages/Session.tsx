@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { speak } from '../lib/tts'
 import { checkAnswer } from '../lib/scoring'
@@ -43,28 +43,30 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-let activeAudio: HTMLAudioElement | null = null
-
-function stopActiveAudio() {
-  if (activeAudio) {
-    activeAudio.pause()
-    activeAudio.currentTime = 0
-    activeAudio = null
+function stopActiveAudio(audioRef: React.MutableRefObject<HTMLAudioElement | null>) {
+  if (audioRef.current) {
+    audioRef.current.pause()
+    audioRef.current.currentTime = 0
+    audioRef.current = null
   }
   if (typeof window !== 'undefined' && window.speechSynthesis) {
     window.speechSynthesis.cancel()
   }
 }
 
-function playItem(item: ContentItem, rate: number = 1) {
-  stopActiveAudio()
+function playItem(
+  item: ContentItem,
+  audioRef: React.MutableRefObject<HTMLAudioElement | null>,
+  rate: number = 1,
+) {
+  stopActiveAudio(audioRef)
   if (item.audio) {
     const audio = new Audio(item.audio)
     audio.playbackRate = rate
-    activeAudio = audio
+    audioRef.current = audio
     audio.play().catch(() => {
       // Clear the failed reference before falling back to TTS
-      if (activeAudio === audio) activeAudio = null
+      if (audioRef.current === audio) audioRef.current = null
       speak(item.characters, undefined, rate)
     })
   } else {
@@ -84,9 +86,13 @@ export default function Session() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
 
-  // Playback speed
+  // Audio element ref (per-instance, no module-level state)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  // Playback speed — keep ref in sync so effects always read the latest value
   const [playbackRate, setPlaybackRateState] = useState<number>(() => getPlaybackRate())
   const playbackRateRef = useRef<number>(playbackRate)
+  playbackRateRef.current = playbackRate
 
   // Multiple-choice state
   const [choices, setChoices] = useState<string[]>([])
@@ -105,7 +111,7 @@ export default function Session() {
   // Cleanup audio on component unmount
   useEffect(() => {
     return () => {
-      stopActiveAudio()
+      stopActiveAudio(audioRef)
     }
   }, [])
 
@@ -124,7 +130,7 @@ export default function Session() {
   // Auto-play on new item (playing phase only)
   useEffect(() => {
     if (phase !== 'playing' || !currentItem) return
-    const t = setTimeout(() => playItem(currentItem, playbackRateRef.current), 300)
+    const t = setTimeout(() => playItem(currentItem, audioRef, playbackRateRef.current), 300)
     return () => clearTimeout(t)
   }, [currentIndex, phase, currentItem])
 
@@ -275,7 +281,7 @@ export default function Session() {
         <div className="progress-text">{currentIndex + 1} / {items.length}</div>
 
         {/* Replay */}
-        <button className="replay-btn" onClick={() => playItem(currentItem, playbackRateRef.current)}>
+        <button className="replay-btn" onClick={() => playItem(currentItem, audioRef, playbackRateRef.current)}>
           ▶ Replay
         </button>
 
@@ -399,8 +405,8 @@ export default function Session() {
               setPlaybackRateState(rate)
               setPlaybackRate(rate)
               playbackRateRef.current = rate
-              if (activeAudio) {
-                activeAudio.playbackRate = rate
+              if (audioRef.current) {
+                audioRef.current.playbackRate = rate
               }
             }}
           />
