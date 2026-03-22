@@ -60,9 +60,10 @@ export default function VoiceTest() {
       }
     } else {
       // Fallback polling for browsers that don't support onvoiceschanged (e.g. Safari)
+      let attempts = 0
       const intervalId = setInterval(() => {
         const voices = window.speechSynthesis.getVoices()
-        if (voices.length > 0) {
+        if (voices.length > 0 || ++attempts > 50) {
           loadVoices()
           clearInterval(intervalId)
         }

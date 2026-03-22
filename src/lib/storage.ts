@@ -112,5 +112,7 @@ export function getSessionHistory(): SessionResult[] {
 export function addSessionResult(result: SessionResult): void {
   const history = getSessionHistory()
   history.push(result)
-  setStorage(KEYS.SESSION_HISTORY, JSON.stringify(history))
+  // Keep only last 100 sessions to prevent localStorage quota exceeded
+  const bounded = history.slice(-100)
+  setStorage(KEYS.SESSION_HISTORY, JSON.stringify(bounded))
 }
