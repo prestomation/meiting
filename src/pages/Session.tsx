@@ -212,6 +212,7 @@ export default function Session() {
   useEffect(() => {
     return () => {
       stopRecognitionRef.current?.()
+      stopRecognitionRef.current = null
     }
   }, [currentIndex])
 
@@ -295,6 +296,7 @@ export default function Session() {
     setSpeechState('listening')
     setTranscript('')
 
+    const capturedItem = currentItem
     stopRecognitionRef.current = startSpeechRecognition((result, error) => {
       if (error || !result) {
         setSpeechState('idle')
@@ -304,7 +306,12 @@ export default function Session() {
       setTranscript(result.transcript)
       setSpeechState('processing')
 
-      const answerResult = checkPhoneticAnswer(result.transcript, currentItem.characters)
+      if (!capturedItem) {
+        setSpeechState('idle')
+        return
+      }
+
+      const answerResult = checkPhoneticAnswer(result.transcript, capturedItem.characters)
 
       if (answerResult === 'correct') {
         setSpeechState('idle')

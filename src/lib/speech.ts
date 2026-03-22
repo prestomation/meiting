@@ -13,6 +13,11 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
   const SpeechRecognitionClass =
     (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
 
+  if (!SpeechRecognitionClass) {
+    callback(null, 'not-supported')
+    return () => {}
+  }
+
   const recognition = new SpeechRecognitionClass()
   recognition.lang = 'zh-CN'
   recognition.continuous = false
@@ -23,6 +28,10 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
 
   recognition.onresult = (event: any) => {
     resultFired = true
+    if (!event.results?.[0]?.[0]) {
+      callback(null, 'no-results')
+      return
+    }
     const result = event.results[0][0]
     callback({ transcript: result.transcript, confidence: result.confidence })
   }
