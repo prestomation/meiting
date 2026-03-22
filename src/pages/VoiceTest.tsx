@@ -45,6 +45,11 @@ export default function VoiceTest() {
     window.speechSynthesis.onvoiceschanged = loadVoices
     return () => {
       window.speechSynthesis.onvoiceschanged = null
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current = null
+      }
+      stopSpeaking()
     }
   }, [])
 
@@ -78,7 +83,11 @@ export default function VoiceTest() {
 
     audio.onended = () => setPlayingPolly(null)
     audio.onerror = () => setPlayingPolly(null)
-    audio.play()
+    audio.play().catch((error) => {
+      console.error('Failed to play audio:', error)
+      setPlayingPolly(null)
+      audioRef.current = null
+    })
   }
 
   return (

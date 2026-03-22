@@ -54,7 +54,8 @@ export function setPreferredVoice(name: string): void {
 }
 
 export function getHskLevel(): number {
-  return parseInt(getStorage(KEYS.HSK_LEVEL) ?? '1', 10)
+  const parsed = parseInt(getStorage(KEYS.HSK_LEVEL) ?? '1', 10)
+  return isNaN(parsed) ? 1 : parsed
 }
 export function setHskLevel(level: number): void {
   setStorage(KEYS.HSK_LEVEL, String(level))
@@ -62,14 +63,19 @@ export function setHskLevel(level: number): void {
 
 export type AnswerMode = 'multiple-choice' | 'type'
 export function getAnswerMode(): AnswerMode {
-  return (getStorage(KEYS.ANSWER_MODE) as AnswerMode) ?? 'multiple-choice'
+  const stored = getStorage(KEYS.ANSWER_MODE)
+  if (stored === 'multiple-choice' || stored === 'type') {
+    return stored
+  }
+  return 'multiple-choice'
 }
 export function setAnswerMode(mode: AnswerMode): void {
   setStorage(KEYS.ANSWER_MODE, mode)
 }
 
 export function getStreakDays(): number {
-  return parseInt(getStorage(KEYS.STREAK_DAYS) ?? '0', 10)
+  const parsed = parseInt(getStorage(KEYS.STREAK_DAYS) ?? '0', 10)
+  return isNaN(parsed) ? 0 : parsed
 }
 export function setStreakDays(days: number): void {
   setStorage(KEYS.STREAK_DAYS, String(days))
