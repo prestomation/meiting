@@ -120,3 +120,21 @@ export function addSessionResult(result: SessionResult): void {
   const bounded = history.slice(-100)
   setStorage(KEYS.SESSION_HISTORY, JSON.stringify(bounded))
 }
+
+/** Alias for addSessionResult — saves a completed session result */
+export function saveSessionResult(result: SessionResult): void {
+  addSessionResult(result)
+  // Update streak
+  const today = new Date().toISOString().slice(0, 10)
+  const lastActive = getLastActiveDate()
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
+  if (lastActive === today) {
+    // Already counted today
+  } else if (lastActive === yesterday) {
+    setStreakDays(getStreakDays() + 1)
+    setLastActiveDate(today)
+  } else {
+    setStreakDays(1)
+    setLastActiveDate(today)
+  }
+}
