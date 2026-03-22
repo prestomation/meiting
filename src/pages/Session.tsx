@@ -5,6 +5,7 @@ import { checkAnswer } from '../lib/scoring'
 import {
   getHskLevel,
   getAnswerMode,
+  setAnswerMode,
   getStreakDays,
   getPlaybackRate,
   setPlaybackRate,
@@ -79,7 +80,12 @@ export default function Session() {
 
   // Config — read at session start
   const [hskLevel] = useState(() => getHskLevel())
-  const [answerMode] = useState<AnswerMode>(() => getAnswerMode())
+  const [answerMode, setAnswerModeState] = useState<AnswerMode>(() => getAnswerMode())
+
+  function setMode(mode: AnswerMode) {
+    setAnswerModeState(mode)
+    setAnswerMode(mode)
+  }
 
   const [phase, setPhase] = useState<Phase>('start')
   const [items, setItems] = useState<ContentItem[]>([])
@@ -103,7 +109,6 @@ export default function Session() {
   const [typeResult, setTypeResult] = useState<'correct' | 'close' | 'incorrect' | null>(null)
   const [retryUsed, setRetryUsed] = useState(false)
   const [showPinyin, setShowPinyin] = useState(false)
-  const [showText, setShowText] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const currentItem = items[currentIndex]
@@ -152,7 +157,6 @@ export default function Session() {
     setTypeResult(null)
     setRetryUsed(false)
     setShowPinyin(false)
-    setShowText(false)
     setPhase('playing')
   }
 
@@ -209,7 +213,6 @@ export default function Session() {
       setTypeResult(null)
       setRetryUsed(false)
       setShowPinyin(false)
-      setShowText(false)
       setPhase('playing')
     }
   }
@@ -224,9 +227,20 @@ export default function Session() {
           <p className="start-subtitle">Listening Practice</p>
           <div className="start-meta">
             <span className="meta-badge">HSK {hskLevel}</span>
-            <span className="meta-badge">
-              {answerMode === 'multiple-choice' ? '🔠 Multiple Choice' : '⌨️ Type It'}
-            </span>
+          </div>
+          <div className="mode-toggle">
+            <button
+              className={`mode-toggle-btn ${answerMode === 'multiple-choice' ? 'active' : ''}`}
+              onClick={() => setMode('multiple-choice')}
+            >
+              🔠 Multiple Choice
+            </button>
+            <button
+              className={`mode-toggle-btn ${answerMode === 'type' ? 'active' : ''}`}
+              onClick={() => setMode('type')}
+            >
+              ⌨️ Type It
+            </button>
           </div>
           <p className="start-hint">
             {HSK_DATA[hskLevel]?.length ?? 0} sentences · Audio plays automatically
@@ -280,22 +294,15 @@ export default function Session() {
         </div>
         <div className="progress-text">{currentIndex + 1} / {items.length}</div>
 
+        {/* Mode hint */}
+        <div className="session-mode-hint" onClick={() => navigate('/settings')}>
+          {answerMode === 'multiple-choice' ? '🔠 Multiple Choice' : '⌨️ Type It'} · <span className="change-link">change</span>
+        </div>
+
         {/* Replay */}
         <button className="replay-btn" onClick={() => playItem(currentItem, audioRef, playbackRateRef.current)}>
           ▶ Replay
         </button>
-
-        {/* Show text toggle */}
-        <button
-          className="show-text-btn"
-          onClick={() => setShowText((v) => !v)}
-          type="button"
-        >
-          {showText ? '🙈 Hide text' : '👁 Show text'}
-        </button>
-        {showText && (
-          <div className="text-reveal">{currentItem.characters}</div>
-        )}
 
         {/* Characters (show in answered phase, or type-it during answering) */}
         {phase === 'answered' && (

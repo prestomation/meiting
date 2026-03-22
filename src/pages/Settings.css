@@ -1,0 +1,183 @@
+.settings-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 56px);
+  padding: 1.5rem 1rem;
+  background: #0f0f1a;
+}
+
+.settings-card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a4a;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.settings-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e8b84b;
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Sections ─────────────────────────────────────────── */
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.settings-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.settings-hint {
+  font-size: 0.8rem;
+  color: #555;
+  margin: 0;
+}
+
+/* ── HSK level grid ───────────────────────────────────── */
+
+.level-grid {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.level-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 2px solid #3a3a5a;
+  background: #22223a;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.level-btn:hover:not(:disabled) {
+  border-color: #e8b84b;
+  background: #2e2e4e;
+}
+
+.level-btn.active {
+  background: #e8b84b;
+  border-color: #e8b84b;
+  color: #1a1a2e;
+}
+
+.level-btn.unavailable {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Mode toggle ──────────────────────────────────────── */
+
+.mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.mode-toggle-btn {
+  flex: 1;
+  min-height: 48px;
+  border: 2px solid #3a3a5a;
+  border-radius: 10px;
+  background: #22223a;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.mode-toggle-btn:hover {
+  border-color: #e8b84b;
+  background: #2e2e4e;
+}
+
+.mode-toggle-btn.active {
+  background: #e8b84b;
+  border-color: #e8b84b;
+  color: #1a1a2e;
+  font-weight: 700;
+}
+
+/* ── Voice selector ───────────────────────────────────── */
+
+.voice-select {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #3a3a5a;
+  background: #22223a;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.voice-select:focus {
+  border-color: #e8b84b;
+}
+
+.voice-test-link {
+  align-self: flex-start;
+}
+
+/* ── Buttons (reuse from Session.css patterns) ─────────── */
+
+.btn-primary {
+  background: #e8b84b;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover {
+  background: #f5c95f;
+}
+
+.btn-large {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #aaa;
+  border: 1px solid #3a3a5a;
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  border-color: #6a6a8a;
+}
