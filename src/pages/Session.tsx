@@ -6,6 +6,8 @@ import {
   getHskLevel,
   getAnswerMode,
   getStreakDays,
+  getPlaybackRate,
+  setPlaybackRate,
   saveSessionResult,
   type AnswerMode,
   type SessionResult,
@@ -43,18 +45,26 @@ function shuffle<T>(arr: T[]): T[] {
 
 let activeAudio: HTMLAudioElement | null = null
 
-function playItem(item: ContentItem) {
+function stopActiveAudio() {
+  if (activeAudio) {
+    activeAudio.pause()
+    activeAudio.currentTime = 0
+    activeAudio = null
+  }
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    window.speechSynthesis.cancel()
+  }
+}
+
+function playItem(item: ContentItem, rate: number = 1) {
+  stopActiveAudio()
   if (item.audio) {
-    if (activeAudio) {
-      activeAudio.pause()
-      activeAudio.src = ''
-      activeAudio = null
-    }
     const audio = new Audio(item.audio)
+    audio.playbackRate = rate
     activeAudio = audio
-    audio.play().catch(() => speak(item.characters))
+    audio.play().catch(() => speak(item.characters, undefined, rate))
   } else {
-    speak(item.characters)
+    speak(item.characters, undefined, rate)
   }
 }
 
@@ -69,6 +79,10 @@ export default function Session() {
   const [items, setItems] = useState<ContentItem[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
+
+  // Playback speed
+  const [playbackRate, setPlaybackRateState] = useState<number>(() => getPlaybackRate())
+  const playbackRateRef = useRef<number>(playbackRate)
 
   // Multiple-choice state
   const [choices, setChoices] = useState<string[]>([])
@@ -98,7 +112,7 @@ export default function Session() {
   // Auto-play on new item (playing phase only)
   useEffect(() => {
     if (phase !== 'playing' || !currentItem) return
-    const t = setTimeout(() => playItem(currentItem), 300)
+    const t = setTimeout(() => playItem(currentItem, playbackRateRef.current), 300)
     return () => clearTimeout(t)
   }, [currentIndex, phase, currentItem])
 
@@ -247,7 +261,7 @@ export default function Session() {
         <div className="progress-text">{currentIndex + 1} / {items.length}</div>
 
         {/* Replay */}
-        <button className="replay-btn" onClick={() => playItem(currentItem)}>
+        <button className="replay-btn" onClick={() => playItem(currentItem, playbackRateRef.current)}>
           ▶ Replay
         </button>
 
@@ -343,6 +357,30 @@ export default function Session() {
             {isLastItem ? 'Finish →' : 'Next →'}
           </button>
         )}
+
+        {/* Speed slider */}
+        <div className="speed-control">
+          <span className="speed-emoji">🐢</span>
+          <input
+            type="range"
+            className="speed-slider"
+            min={0.5}
+            max={1.0}
+            step={0.25}
+            value={playbackRate}
+            onChange={(e) => {
+              const rate = parseFloat(e.target.value)
+              setPlaybackRateState(rate)
+              setPlaybackRate(rate)
+              playbackRateRef.current = rate
+              if (activeAudio) {
+                activeAudio.playbackRate = rate
+              }
+            }}
+          />
+          <span className="speed-emoji">🐇</span>
+          <span className="speed-label">{playbackRate.toFixed(2)}×</span>
+        </div>
       </div>
     </div>
   )
