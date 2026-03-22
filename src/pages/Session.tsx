@@ -294,6 +294,7 @@ export default function Session() {
   function handleStartSpeech() {
     if (!canUseSpeech()) return
     if (speechState !== 'idle') return // Prevent multiple concurrent recognitions
+    if (!currentItem) return // Guard against undefined item during transitions
     setSpeechState('listening')
     setTranscript('')
 
