@@ -95,6 +95,9 @@ export default function Session() {
   // Audio element ref (per-instance, no module-level state)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
+  // Prefetch cache: pre-load next 2 Audio elements so playback is instant
+  const prefetchCache = useRef<Map<string, HTMLAudioElement>>(new Map())
+
   // Playback speed — keep ref in sync so effects always read the latest value
   const [playbackRate, setPlaybackRateState] = useState<number>(() => getPlaybackRate())
   const playbackRateRef = useRef<number>(playbackRate)
@@ -113,10 +116,12 @@ export default function Session() {
 
   const currentItem = items[currentIndex]
 
-  // Cleanup audio on component unmount
+  // Cleanup audio and prefetch cache on component unmount
   useEffect(() => {
     return () => {
       stopActiveAudio(audioRef)
+      prefetchCache.current.forEach((audio) => { audio.src = '' })
+      prefetchCache.current.clear()
     }
   }, [])
 
@@ -132,10 +137,60 @@ export default function Session() {
     setSelectedChoice(null)
   }, [currentItem, answerMode])
 
-  // Auto-play on new item (playing phase only)
+  // Prefetch next 2 items' audio whenever index changes
+  useEffect(() => {
+    if (items.length === 0) return
+    const PREFETCH_AHEAD = 2
+    const newCache = new Map<string, HTMLAudioElement>()
+
+    for (let i = 1; i <= PREFETCH_AHEAD; i++) {
+      const nextItem = items[currentIndex + i]
+      if (!nextItem?.audio) continue
+      const url = nextItem.audio
+      // Reuse existing prefetched element if already loaded
+      const existing = prefetchCache.current.get(url)
+      if (existing) {
+        newCache.set(url, existing)
+      } else {
+        const audio = new Audio(url)
+        audio.preload = 'auto'
+        newCache.set(url, audio)
+      }
+    }
+
+    // Clean up stale entries not needed anymore — but never touch the active audio
+    prefetchCache.current.forEach((audio, url) => {
+      if (!newCache.has(url) && audio !== audioRef.current) {
+        audio.src = ''
+      }
+    })
+    prefetchCache.current = newCache
+  }, [currentIndex, items])
+
+  // Auto-play on new item (playing phase only) — use prefetched element if available
   useEffect(() => {
     if (phase !== 'playing' || !currentItem) return
-    const t = setTimeout(() => playItem(currentItem, audioRef, playbackRateRef.current), 300)
+    const t = setTimeout(() => {
+      // Use prefetched Audio element if available, otherwise create fresh
+      if (currentItem.audio) {
+        const cached = prefetchCache.current.get(currentItem.audio)
+        if (cached) {
+          // Remove from cache before making it the active element
+          // so prefetch cleanup never nulls out a playing audio
+          prefetchCache.current.delete(currentItem.audio)
+          stopActiveAudio(audioRef)
+          cached.playbackRate = playbackRateRef.current
+          cached.currentTime = 0
+          audioRef.current = cached
+          cached.play().catch(() => {
+            if (audioRef.current === cached) audioRef.current = null
+            speak(currentItem.characters, undefined, playbackRateRef.current)
+          })
+          return
+        }
+      }
+      playItem(currentItem, audioRef, playbackRateRef.current)
+    }, 300)
     return () => clearTimeout(t)
   }, [currentIndex, phase, currentItem])
 
