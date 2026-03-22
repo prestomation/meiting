@@ -123,7 +123,7 @@ export function addSessionResult(result: SessionResult): void {
 }
 
 const PLAYBACK_RATE_MIN = 0.5
-const PLAYBACK_RATE_MAX = 2.0
+const PLAYBACK_RATE_MAX = 1.0
 const PLAYBACK_RATE_DEFAULT = 1.0
 
 export function getPlaybackRate(): number {
