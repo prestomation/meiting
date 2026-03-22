@@ -66,6 +66,7 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
   // Return cleanup function
   return () => {
     cancelled = true
+    resultFired = true // Prevent any pending callbacks from firing
     // Clear handlers before abort to prevent post-abort callbacks
     recognition.onresult = null
     recognition.onerror = null
