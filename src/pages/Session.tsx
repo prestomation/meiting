@@ -97,6 +97,7 @@ export default function Session() {
   const [typeResult, setTypeResult] = useState<'correct' | 'close' | 'incorrect' | null>(null)
   const [retryUsed, setRetryUsed] = useState(false)
   const [showPinyin, setShowPinyin] = useState(false)
+  const [showText, setShowText] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const currentItem = items[currentIndex]
@@ -145,6 +146,7 @@ export default function Session() {
     setTypeResult(null)
     setRetryUsed(false)
     setShowPinyin(false)
+    setShowText(false)
     setPhase('playing')
   }
 
@@ -201,6 +203,7 @@ export default function Session() {
       setTypeResult(null)
       setRetryUsed(false)
       setShowPinyin(false)
+      setShowText(false)
       setPhase('playing')
     }
   }
@@ -275,6 +278,18 @@ export default function Session() {
         <button className="replay-btn" onClick={() => playItem(currentItem, playbackRateRef.current)}>
           ▶ Replay
         </button>
+
+        {/* Show text toggle */}
+        <button
+          className="show-text-btn"
+          onClick={() => setShowText((v) => !v)}
+          type="button"
+        >
+          {showText ? '🙈 Hide text' : '👁 Show text'}
+        </button>
+        {showText && (
+          <div className="text-reveal">{currentItem.characters}</div>
+        )}
 
         {/* Characters (show in answered phase, or type-it during answering) */}
         {phase === 'answered' && (

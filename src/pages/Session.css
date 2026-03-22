@@ -357,3 +357,23 @@
   text-align: right;
   flex-shrink: 0;
 }
+
+/* ── Show text toggle ─────────────────────────────────── */
+
+.show-text-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  align-self: flex-start;
+  color: #555;
+}
+
+.text-reveal {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #1a1a2e;
+  letter-spacing: 0.05em;
+}
