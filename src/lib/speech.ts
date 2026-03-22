@@ -47,7 +47,13 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
     }
   }
 
-  recognition.start()
+  try {
+    recognition.start()
+  } catch (err) {
+    resultFired = true
+    callback(null, 'start-failed')
+    return () => {}
+  }
 
   // Return cleanup function
   return () => {

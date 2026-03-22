@@ -293,6 +293,7 @@ export default function Session() {
 
   function handleStartSpeech() {
     if (!canUseSpeech()) return
+    if (speechState !== 'idle') return // Prevent multiple concurrent recognitions
     setSpeechState('listening')
     setTranscript('')
 
@@ -329,6 +330,7 @@ export default function Session() {
 
   function handleStopSpeech() {
     stopRecognitionRef.current?.()
+    stopRecognitionRef.current = null
     setSpeechState('idle')
   }
 
