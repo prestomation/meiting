@@ -266,14 +266,12 @@ async function main() {
 
   // Build the Anthropic client
   // oat01 tokens are OAuth tokens - use authToken (Bearer) instead of apiKey (x-api-key)
-  const isOAuthToken = apiKey.includes('sk-ant-oat');
-  const client = new Anthropic({
-    apiKey: isOAuthToken ? null : apiKey,
-    authToken: isOAuthToken ? apiKey : null,
-    defaultHeaders: isOAuthToken ? {
-      'anthropic-beta': 'oauth-2025-04-20',
-    } : {},
-  });
+  const isOAuthToken = apiKey.startsWith('sk-ant-oat');
+  const client = new Anthropic(
+    isOAuthToken
+      ? { authToken: apiKey, defaultHeaders: { 'anthropic-beta': 'oauth-2025-04-20' } }
+      : { apiKey }
+  );
 
   // We'll generate ALL sentences in batches to avoid token limits
   // Split wordlist into chunks of 50 words

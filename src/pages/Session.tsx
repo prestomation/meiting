@@ -41,9 +41,18 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
+let activeAudio: HTMLAudioElement | null = null
+
 function playItem(item: ContentItem) {
   if (item.audio) {
-    new Audio(item.audio).play().catch(() => speak(item.characters))
+    if (activeAudio) {
+      activeAudio.pause()
+      activeAudio.src = ''
+      activeAudio = null
+    }
+    const audio = new Audio(item.audio)
+    activeAudio = audio
+    audio.play().catch(() => speak(item.characters))
   } else {
     speak(item.characters)
   }
@@ -77,6 +86,10 @@ export default function Session() {
   // Shuffle choices when item changes
   useEffect(() => {
     if (!currentItem || answerMode !== 'multiple-choice') return
+    if (currentItem.distractors.length < 3) {
+      console.error(`Item ${currentItem.id} has insufficient distractors`)
+      return
+    }
     const opts = shuffle([...currentItem.distractors.slice(0, 3), currentItem.characters])
     setChoices(opts)
     setSelectedChoice(null)
@@ -228,7 +241,7 @@ export default function Session() {
         <div className="progress-bar-wrap">
           <div
             className="progress-bar-fill"
-            style={{ width: `${((currentIndex + 1) / items.length) * 100}%` }}
+            style={{ width: `${items.length > 0 ? ((currentIndex + 1) / items.length) * 100 : 0}%` }}
           />
         </div>
         <div className="progress-text">{currentIndex + 1} / {items.length}</div>

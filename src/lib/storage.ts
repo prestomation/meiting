@@ -127,9 +127,12 @@ export function saveSessionResult(result: SessionResult): void {
   // Update streak
   const today = new Date().toISOString().slice(0, 10)
   const lastActive = getLastActiveDate()
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
+  const yesterdayDate = new Date()
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1)
+  const yesterday = yesterdayDate.toISOString().slice(0, 10)
   if (lastActive === today) {
-    // Already counted today
+    // Already counted today — do nothing
+    return
   } else if (lastActive === yesterday) {
     setStreakDays(getStreakDays() + 1)
     setLastActiveDate(today)
