@@ -25,8 +25,10 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
   recognition.maxAlternatives = 1
 
   let resultFired = false
+  let cancelled = false
 
   recognition.onresult = (event: any) => {
+    if (cancelled) return
     resultFired = true
     if (!event.results?.[0]?.[0]) {
       callback(null, 'no-results')
@@ -37,12 +39,13 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
   }
 
   recognition.onerror = (event: any) => {
+    if (cancelled || resultFired) return
     resultFired = true
     callback(null, event.error)
   }
 
   recognition.onend = () => {
-    if (!resultFired) {
+    if (!cancelled && !resultFired) {
       callback(null, 'no-speech')
     }
   }
@@ -57,6 +60,7 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
 
   // Return cleanup function
   return () => {
+    cancelled = true
     try {
       recognition.abort()
     } catch {
