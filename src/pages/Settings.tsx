@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   getHskLevel,
   setHskLevel,
   getAnswerMode,
   setAnswerMode,
-  getPreferredVoice,
-  setPreferredVoice,
   type AnswerMode,
 } from '../lib/storage'
 import './Settings.css'
@@ -18,9 +16,6 @@ export default function Settings() {
   const navigate = useNavigate()
   const [hskLevel, setHskLevelState] = useState(() => getHskLevel())
   const [answerMode, setAnswerModeState] = useState<AnswerMode>(() => getAnswerMode())
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
-  const [preferredVoice, setPreferredVoiceState] = useState(() => getPreferredVoice() ?? '')
-
   function handleHskLevel(level: number) {
     setHskLevelState(level)
     setHskLevel(level)
@@ -30,24 +25,6 @@ export default function Settings() {
     setAnswerModeState(mode)
     setAnswerMode(mode)
   }
-
-  function handleVoiceChange(name: string) {
-    setPreferredVoiceState(name)
-    setPreferredVoice(name)
-  }
-
-  useEffect(() => {
-    function loadVoices() {
-      const all = window.speechSynthesis.getVoices()
-      const zh = all.filter((v) => v.lang.startsWith('zh'))
-      setVoices(zh.length > 0 ? zh : all.slice(0, 10))
-    }
-    loadVoices()
-    window.speechSynthesis.onvoiceschanged = loadVoices
-    return () => {
-      window.speechSynthesis.onvoiceschanged = null
-    }
-  }, [])
 
   return (
     <div className="settings-container">
@@ -93,33 +70,6 @@ export default function Settings() {
               ⌨️ Type It
             </button>
           </div>
-        </section>
-
-        {/* Voice */}
-        <section className="settings-section">
-          <h2 className="settings-label">Voice (TTS)</h2>
-          {voices.length === 0 ? (
-            <p className="settings-hint">No voices detected — your browser may not support speech synthesis.</p>
-          ) : (
-            <select
-              className="voice-select"
-              value={preferredVoice}
-              onChange={(e) => handleVoiceChange(e.target.value)}
-            >
-              <option value="">System default</option>
-              {voices.map((v) => (
-                <option key={v.name} value={v.name}>
-                  {v.name} ({v.lang})
-                </option>
-              ))}
-            </select>
-          )}
-          <button
-            className="btn-secondary voice-test-link"
-            onClick={() => navigate('/voice-test')}
-          >
-            🎙 Voice Test →
-          </button>
         </section>
 
         <button className="btn-primary btn-large" onClick={() => navigate('/')}>
