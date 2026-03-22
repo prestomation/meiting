@@ -358,22 +358,53 @@
   flex-shrink: 0;
 }
 
-/* ── Show text toggle ─────────────────────────────────── */
+/* ── Mode toggle (start screen) ───────────────────────── */
 
-.show-text-btn {
-  background: none;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.85rem;
-  cursor: pointer;
-  align-self: flex-start;
-  color: #555;
+.mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 320px;
 }
 
-.text-reveal {
-  font-size: 2.5rem;
-  text-align: center;
+.mode-toggle-btn {
+  flex: 1;
+  min-height: 48px;
+  border: 2px solid #3a3a5a;
+  border-radius: 10px;
+  background: #22223a;
   color: #e0e0e0;
-  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.mode-toggle-btn:hover {
+  border-color: #e8b84b;
+  background: #2e2e4e;
+}
+
+.mode-toggle-btn.active {
+  background: #e8b84b;
+  border-color: #e8b84b;
+  color: #1a1a2e;
+  font-weight: 700;
+}
+
+/* ── Session mode hint ────────────────────────────────── */
+
+.session-mode-hint {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-align: center;
+  cursor: pointer;
+}
+
+.session-mode-hint:hover {
+  color: #3b5bdb;
+}
+
+.change-link {
+  text-decoration: underline;
 }
