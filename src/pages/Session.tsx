@@ -1,8 +1,349 @@
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { speak } from '../lib/tts'
+import { checkAnswer } from '../lib/scoring'
+import {
+  getHskLevel,
+  getAnswerMode,
+  getStreakDays,
+  saveSessionResult,
+  type AnswerMode,
+  type SessionResult,
+} from '../lib/storage'
+import hsk1Data from '../data/hsk1.json'
+import hsk2Data from '../data/hsk2.json'
+import './Session.css'
+
+interface ContentItem {
+  id: string
+  hsk: number
+  type: 'sentence'
+  characters: string
+  pinyin: string
+  english: string
+  audio?: string
+  distractors: string[]
+}
+
+const HSK_DATA: Record<number, ContentItem[]> = {
+  1: hsk1Data as ContentItem[],
+  2: hsk2Data as ContentItem[],
+}
+
+type Phase = 'start' | 'playing' | 'answered' | 'complete'
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+let activeAudio: HTMLAudioElement | null = null
+
+function playItem(item: ContentItem) {
+  if (item.audio) {
+    if (activeAudio) {
+      activeAudio.pause()
+      activeAudio.src = ''
+      activeAudio = null
+    }
+    const audio = new Audio(item.audio)
+    activeAudio = audio
+    audio.play().catch(() => speak(item.characters))
+  } else {
+    speak(item.characters)
+  }
+}
+
 export default function Session() {
+  const navigate = useNavigate()
+
+  // Config — read at session start
+  const [hskLevel] = useState(() => getHskLevel())
+  const [answerMode] = useState<AnswerMode>(() => getAnswerMode())
+
+  const [phase, setPhase] = useState<Phase>('start')
+  const [items, setItems] = useState<ContentItem[]>([])
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [correctCount, setCorrectCount] = useState(0)
+
+  // Multiple-choice state
+  const [choices, setChoices] = useState<string[]>([])
+  const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
+
+  // Type-it state
+  const [typedInput, setTypedInput] = useState('')
+  const [typeResult, setTypeResult] = useState<'correct' | 'close' | 'incorrect' | null>(null)
+  const [retryUsed, setRetryUsed] = useState(false)
+  const [showPinyin, setShowPinyin] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const currentItem = items[currentIndex]
+
+  // Shuffle choices when item changes
+  useEffect(() => {
+    if (!currentItem || answerMode !== 'multiple-choice') return
+    if (currentItem.distractors.length < 3) {
+      console.error(`Item ${currentItem.id} has insufficient distractors`)
+      return
+    }
+    const opts = shuffle([...currentItem.distractors.slice(0, 3), currentItem.characters])
+    setChoices(opts)
+    setSelectedChoice(null)
+  }, [currentItem, answerMode])
+
+  // Auto-play on new item (playing phase only)
+  useEffect(() => {
+    if (phase !== 'playing' || !currentItem) return
+    const t = setTimeout(() => playItem(currentItem), 300)
+    return () => clearTimeout(t)
+  }, [currentIndex, phase, currentItem])
+
+  // Auto-focus input in type mode
+  useEffect(() => {
+    if (phase === 'playing' && answerMode === 'type') {
+      setTimeout(() => inputRef.current?.focus(), 100)
+    }
+  }, [phase, answerMode, currentIndex])
+
+  function startSession() {
+    const data = HSK_DATA[hskLevel] ?? []
+    if (data.length === 0) return
+    setItems(shuffle(data))
+    setCurrentIndex(0)
+    setCorrectCount(0)
+    setSelectedChoice(null)
+    setTypedInput('')
+    setTypeResult(null)
+    setRetryUsed(false)
+    setShowPinyin(false)
+    setPhase('playing')
+  }
+
+  function advanceToAnswered(correct: boolean) {
+    if (correct) setCorrectCount((c) => c + 1)
+    setPhase('answered')
+  }
+
+  function handleChoiceClick(choice: string) {
+    if (selectedChoice !== null) return
+    setSelectedChoice(choice)
+    advanceToAnswered(choice === currentItem.characters)
+  }
+
+  function handleTypeSubmit() {
+    if (!currentItem || typeResult === 'correct') return
+    const result = checkAnswer(typedInput, currentItem.characters)
+
+    if (result === 'correct') {
+      setTypeResult('correct')
+      // Only award correct if this is first attempt (no retry)
+      advanceToAnswered(!retryUsed)
+    } else if (result === 'close' && !retryUsed) {
+      // First close attempt — give hint and allow retry
+      setTypeResult('close')
+      setRetryUsed(true)
+      // Stay in 'playing' phase so input stays active
+      setTimeout(() => inputRef.current?.focus(), 50)
+    } else {
+      // close (2nd attempt) or incorrect — show answer
+      setTypeResult('incorrect')
+      advanceToAnswered(false)
+    }
+  }
+
+  function handleNext() {
+    const nextIndex = currentIndex + 1
+    if (nextIndex >= items.length) {
+      const correct = correctCount
+      const total = items.length
+      const sessionResult: SessionResult = {
+        date: new Date().toISOString(),
+        hskLevel,
+        total,
+        correct,
+        answerMode,
+      }
+      saveSessionResult(sessionResult)
+      setPhase('complete')
+    } else {
+      setCurrentIndex(nextIndex)
+      setSelectedChoice(null)
+      setTypedInput('')
+      setTypeResult(null)
+      setRetryUsed(false)
+      setShowPinyin(false)
+      setPhase('playing')
+    }
+  }
+
+  // ── Render ──────────────────────────────────────────────────────────────
+
+  if (phase === 'start') {
+    return (
+      <div className="session-container">
+        <div className="session-card start-card">
+          <h1 className="session-title">美听</h1>
+          <p className="start-subtitle">Listening Practice</p>
+          <div className="start-meta">
+            <span className="meta-badge">HSK {hskLevel}</span>
+            <span className="meta-badge">
+              {answerMode === 'multiple-choice' ? '🔠 Multiple Choice' : '⌨️ Type It'}
+            </span>
+          </div>
+          <p className="start-hint">
+            {HSK_DATA[hskLevel]?.length ?? 0} sentences · Audio plays automatically
+          </p>
+          <button className="btn-primary btn-large" onClick={startSession}>
+            Start Session ▶
+          </button>
+          <button className="btn-secondary" onClick={() => navigate('/settings')}>
+            ⚙️ Settings
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (phase === 'complete') {
+    const total = items.length
+    const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0
+    const streak = getStreakDays()
+    return (
+      <div className="session-container">
+        <div className="session-card complete-card">
+          <h1 className="session-title">Session Complete! 🎉</h1>
+          <div className="score-display">
+            <span className="score-big">{correctCount} / {total} correct ({pct}%)</span>
+          </div>
+          {streak > 0 && (
+            <div className="streak-badge">🔥 {streak} day streak!</div>
+          )}
+          <button className="btn-primary btn-large" onClick={startSession}>Play Again</button>
+          <button className="btn-secondary" onClick={() => navigate('/settings')}>⚙️ Settings</button>
+        </div>
+      </div>
+    )
+  }
+
+  // playing or answered
+  if (!currentItem) return null
+
+  const isLastItem = currentIndex + 1 >= items.length
+
   return (
-    <div style={{ padding: '2rem', color: '#e0e0e0' }}>
-      <h1>Practice Session</h1>
-      <p style={{ color: '#888' }}>Coming soon — HSK listening sessions will appear here.</p>
+    <div className="session-container">
+      <div className="session-card">
+        {/* Progress */}
+        <div className="progress-bar-wrap">
+          <div
+            className="progress-bar-fill"
+            style={{ width: `${items.length > 0 ? ((currentIndex + 1) / items.length) * 100 : 0}%` }}
+          />
+        </div>
+        <div className="progress-text">{currentIndex + 1} / {items.length}</div>
+
+        {/* Replay */}
+        <button className="replay-btn" onClick={() => playItem(currentItem)}>
+          ▶ Replay
+        </button>
+
+        {/* Characters (show in answered phase, or type-it during answering) */}
+        {phase === 'answered' && (
+          <div className="characters-display">{currentItem.characters}</div>
+        )}
+
+        {/* Answer UI */}
+        {answerMode === 'multiple-choice' ? (
+          <div className="choices-grid">
+            {choices.map((choice) => {
+              let cls = 'answer-btn'
+              if (selectedChoice !== null) {
+                if (choice === currentItem.characters) cls += ' correct'
+                else if (choice === selectedChoice) cls += ' incorrect'
+                else cls += ' dimmed'
+              }
+              return (
+                <button
+                  key={choice}
+                  className={cls}
+                  onClick={() => handleChoiceClick(choice)}
+                  disabled={selectedChoice !== null}
+                >
+                  {choice}
+                </button>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="type-area">
+            {/* Pinyin toggle */}
+            <button
+              className="btn-secondary pinyin-toggle"
+              onClick={() => setShowPinyin((v) => !v)}
+              type="button"
+            >
+              {showPinyin ? 'Hide Pinyin' : 'Show Pinyin'}
+            </button>
+            {showPinyin && (
+              <div className="pinyin-display">{currentItem.pinyin}</div>
+            )}
+
+            <input
+              ref={inputRef}
+              className={`type-input${typeResult ? ` ${typeResult}` : ''}`}
+              type="text"
+              value={typedInput}
+              onChange={(e) => setTypedInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && phase === 'playing') handleTypeSubmit()
+              }}
+              disabled={phase === 'answered'}
+              placeholder="Type the Chinese sentence…"
+              autoComplete="off"
+              autoCorrect="off"
+              spellCheck={false}
+            />
+
+            {/* Close hint — shown when retryUsed is true and still playing */}
+            {typeResult === 'close' && phase === 'playing' && (
+              <div className="hint-close">你快到了！ So close! Try again 🙂</div>
+            )}
+
+            {/* Incorrect reveal */}
+            {typeResult === 'incorrect' && phase === 'answered' && (
+              <div className="correct-reveal">
+                Correct: <span className="correct-chars">{currentItem.characters}</span>
+              </div>
+            )}
+
+            {/* Submit button */}
+            {phase === 'playing' && (
+              <button className="btn-primary" onClick={handleTypeSubmit} type="button">
+                Submit
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* English translation (after answering) */}
+        {phase === 'answered' && (
+          <div className="english-reveal">{currentItem.english}</div>
+        )}
+
+        {/* Next button */}
+        {phase === 'answered' && (
+          <button
+            className="btn-primary next-btn"
+            onClick={() => handleNext()}
+          >
+            {isLastItem ? 'Finish →' : 'Next →'}
+          </button>
+        )}
+      </div>
     </div>
   )
 }
