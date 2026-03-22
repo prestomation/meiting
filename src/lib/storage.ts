@@ -17,7 +17,7 @@ export interface SessionResult {
   hskLevel: number
   total: number
   correct: number
-  answerMode: 'multiple-choice' | 'type'
+  answerMode: 'multiple-choice' | 'type' | 'speak'
 }
 
 // Generic helpers
@@ -62,10 +62,10 @@ export function setHskLevel(level: number): void {
   setStorage(KEYS.HSK_LEVEL, String(level))
 }
 
-export type AnswerMode = 'multiple-choice' | 'type'
+export type AnswerMode = 'multiple-choice' | 'type' | 'speak'
 export function getAnswerMode(): AnswerMode {
   const stored = getStorage(KEYS.ANSWER_MODE)
-  if (stored === 'multiple-choice' || stored === 'type') {
+  if (stored === 'multiple-choice' || stored === 'type' || stored === 'speak') {
     return stored
   }
   return 'multiple-choice'
@@ -108,7 +108,7 @@ export function getSessionHistory(): SessionResult[] {
       item.total >= 0 &&
       item.correct >= 0 &&
       item.correct <= item.total &&
-      (item.answerMode === 'multiple-choice' || item.answerMode === 'type')
+      (item.answerMode === 'multiple-choice' || item.answerMode === 'type' || item.answerMode === 'speak')
     )
   } catch {
     return []

@@ -1,6 +1,11 @@
 // Web Speech API wrapper for Chinese TTS
-
 import { getStorage, KEYS } from './storage'
+
+/** Check if browser supports SpeechRecognition */
+export function canUseSpeech(): boolean {
+  return typeof window !== 'undefined' &&
+    ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)
+}
 
 export function isSupported(): boolean {
   return 'speechSynthesis' in window
