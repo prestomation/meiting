@@ -1,0 +1,96 @@
+// localStorage schema + typed helpers
+
+export const KEYS = {
+  PREFERRED_VOICE: 'meiting_preferred_voice',
+  HSK_LEVEL: 'meiting_hsk_level',
+  ANSWER_MODE: 'meiting_answer_mode',
+  STREAK_DAYS: 'meiting_streak_days',
+  LAST_ACTIVE_DATE: 'meiting_last_active',
+  SESSION_HISTORY: 'meiting_history',
+} as const
+
+export type KeyName = (typeof KEYS)[keyof typeof KEYS]
+
+export interface SessionResult {
+  date: string // ISO
+  hskLevel: number
+  total: number
+  correct: number
+  answerMode: 'multiple-choice' | 'type'
+}
+
+// Generic helpers
+export function getStorage(key: string): string | null {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+export function setStorage(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value)
+  } catch {
+    // storage full or unavailable
+  }
+}
+
+export function removeStorage(key: string): void {
+  try {
+    localStorage.removeItem(key)
+  } catch {
+    // ignore
+  }
+}
+
+// Typed getters/setters
+
+export function getPreferredVoice(): string | null {
+  return getStorage(KEYS.PREFERRED_VOICE)
+}
+export function setPreferredVoice(name: string): void {
+  setStorage(KEYS.PREFERRED_VOICE, name)
+}
+
+export function getHskLevel(): number {
+  return parseInt(getStorage(KEYS.HSK_LEVEL) ?? '1', 10)
+}
+export function setHskLevel(level: number): void {
+  setStorage(KEYS.HSK_LEVEL, String(level))
+}
+
+export type AnswerMode = 'multiple-choice' | 'type'
+export function getAnswerMode(): AnswerMode {
+  return (getStorage(KEYS.ANSWER_MODE) as AnswerMode) ?? 'multiple-choice'
+}
+export function setAnswerMode(mode: AnswerMode): void {
+  setStorage(KEYS.ANSWER_MODE, mode)
+}
+
+export function getStreakDays(): number {
+  return parseInt(getStorage(KEYS.STREAK_DAYS) ?? '0', 10)
+}
+export function setStreakDays(days: number): void {
+  setStorage(KEYS.STREAK_DAYS, String(days))
+}
+
+export function getLastActiveDate(): string | null {
+  return getStorage(KEYS.LAST_ACTIVE_DATE)
+}
+export function setLastActiveDate(date: string): void {
+  setStorage(KEYS.LAST_ACTIVE_DATE, date)
+}
+
+export function getSessionHistory(): SessionResult[] {
+  try {
+    return JSON.parse(getStorage(KEYS.SESSION_HISTORY) ?? '[]')
+  } catch {
+    return []
+  }
+}
+export function addSessionResult(result: SessionResult): void {
+  const history = getSessionHistory()
+  history.push(result)
+  setStorage(KEYS.SESSION_HISTORY, JSON.stringify(history))
+}
