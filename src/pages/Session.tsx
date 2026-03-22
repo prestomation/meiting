@@ -158,9 +158,9 @@ export default function Session() {
       }
     }
 
-    // Clean up stale entries not needed anymore
+    // Clean up stale entries not needed anymore — but never touch the active audio
     prefetchCache.current.forEach((audio, url) => {
-      if (!newCache.has(url)) {
+      if (!newCache.has(url) && audio !== audioRef.current) {
         audio.src = ''
       }
     })
@@ -175,6 +175,9 @@ export default function Session() {
       if (currentItem.audio) {
         const cached = prefetchCache.current.get(currentItem.audio)
         if (cached) {
+          // Remove from cache before making it the active element
+          // so prefetch cleanup never nulls out a playing audio
+          prefetchCache.current.delete(currentItem.audio)
           stopActiveAudio(audioRef)
           cached.playbackRate = playbackRateRef.current
           cached.currentTime = 0
