@@ -90,7 +90,21 @@ export function setLastActiveDate(date: string): void {
 
 export function getSessionHistory(): SessionResult[] {
   try {
-    return JSON.parse(getStorage(KEYS.SESSION_HISTORY) ?? '[]')
+    const data = getStorage(KEYS.SESSION_HISTORY)
+    if (!data) return []
+
+    const parsed = JSON.parse(data)
+    if (!Array.isArray(parsed)) return []
+
+    return parsed.filter((item): item is SessionResult =>
+      item != null &&
+      typeof item === 'object' &&
+      typeof item.date === 'string' &&
+      typeof item.hskLevel === 'number' &&
+      typeof item.total === 'number' &&
+      typeof item.correct === 'number' &&
+      (item.answerMode === 'multiple-choice' || item.answerMode === 'type')
+    )
   } catch {
     return []
   }

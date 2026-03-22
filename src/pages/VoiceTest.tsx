@@ -42,14 +42,35 @@ export default function VoiceTest() {
     }
 
     loadVoices()
-    window.speechSynthesis.onvoiceschanged = loadVoices
-    return () => {
-      window.speechSynthesis.onvoiceschanged = null
+
+    function cleanup() {
       if (audioRef.current) {
         audioRef.current.pause()
         audioRef.current = null
       }
       stopSpeaking()
+    }
+
+    // Handle browsers where voices load asynchronously
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices
+      return () => {
+        window.speechSynthesis.onvoiceschanged = null
+        cleanup()
+      }
+    } else {
+      // Fallback polling for browsers that don't support onvoiceschanged (e.g. Safari)
+      const intervalId = setInterval(() => {
+        const voices = window.speechSynthesis.getVoices()
+        if (voices.length > 0) {
+          loadVoices()
+          clearInterval(intervalId)
+        }
+      }, 100)
+      return () => {
+        clearInterval(intervalId)
+        cleanup()
+      }
     }
   }, [])
 
@@ -69,6 +90,8 @@ export default function VoiceTest() {
 
     if (audioRef.current) {
       audioRef.current.pause()
+      audioRef.current.onended = null
+      audioRef.current.onerror = null
       audioRef.current = null
     }
 
@@ -81,12 +104,18 @@ export default function VoiceTest() {
     audioRef.current = audio
     setPlayingPolly(entry.file)
 
-    audio.onended = () => setPlayingPolly(null)
-    audio.onerror = () => setPlayingPolly(null)
+    audio.onended = () => {
+      setPlayingPolly(null)
+      if (audioRef.current === audio) audioRef.current = null
+    }
+    audio.onerror = () => {
+      setPlayingPolly(null)
+      if (audioRef.current === audio) audioRef.current = null
+    }
     audio.play().catch((error) => {
       console.error('Failed to play audio:', error)
       setPlayingPolly(null)
-      audioRef.current = null
+      if (audioRef.current === audio) audioRef.current = null
     })
   }
 
