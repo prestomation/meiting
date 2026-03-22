@@ -298,7 +298,7 @@ export default function Session() {
     setSpeechState('listening')
     setTranscript('')
 
-    const capturedItem = currentItem
+    const capturedCharacters = currentItem.characters // Capture at call time to avoid TOCTOU
     stopRecognitionRef.current = startSpeechRecognition((result, error) => {
       if (error || !result) {
         setSpeechState('idle')
@@ -308,8 +308,7 @@ export default function Session() {
       setTranscript(result.transcript)
       setSpeechState('processing')
 
-      // capturedItem is always defined since we guard with !currentItem before starting
-      const answerResult = checkPhoneticAnswer(result.transcript, capturedItem.characters)
+      const answerResult = checkPhoneticAnswer(result.transcript, capturedCharacters)
 
       if (answerResult === 'correct') {
         setSpeechState('idle')
@@ -515,7 +514,10 @@ export default function Session() {
               </button>
             )}
             {phase === 'playing' && speechState === 'processing' && (
-              <div className="mic-processing">Processing...</div>
+              <>
+                <div className="mic-processing">Processing...</div>
+                <button className="btn-secondary" onClick={handleStopSpeech}>Cancel</button>
+              </>
             )}
             {/* Close hint for speak mode */}
             {retryUsed && phase === 'playing' && (

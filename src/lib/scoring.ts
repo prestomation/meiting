@@ -62,7 +62,9 @@ export function calcAccuracy(correct: number, total: number): number {
  * e.g. "你好吗" → ["ni", "hao", "ma"]
  */
 export function toPinyinSyllables(text: string): string[] {
-  const result = pinyin(normalize(text), {
+  const normalized = normalize(text)
+  if (normalized.length === 0) return []
+  const result = pinyin(normalized, {
     toneType: 'none',
     type: 'array',
     nonZh: 'removed',
