@@ -7,6 +7,7 @@ import {
   setAnswerMode,
   type AnswerMode,
 } from '../lib/storage'
+import { canUseSpeech } from '../lib/tts'
 import './Settings.css'
 
 const AVAILABLE_HSK_LEVELS = [1, 2]
@@ -69,6 +70,14 @@ export default function Settings() {
             >
               ⌨️ Type It
             </button>
+            {canUseSpeech() && (
+              <button
+                className={`mode-toggle-btn${answerMode === 'speak' ? ' active' : ''}`}
+                onClick={() => handleAnswerMode('speak')}
+              >
+                🎤 Speak It
+              </button>
+            )}
           </div>
         </section>
 

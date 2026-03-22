@@ -408,3 +408,70 @@
 .change-link {
   text-decoration: underline;
 }
+
+/* ── Speak It mode ────────────────────────────────────── */
+
+.speak-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.mic-btn {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #3b5bdb;
+  background: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mic-btn:hover {
+  background: #f0f4ff;
+  transform: scale(1.05);
+}
+
+.mic-btn.listening {
+  background: #ff4444;
+  border-color: #ff4444;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.mic-processing {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.transcript-display {
+  font-size: 0.95rem;
+  color: #555;
+  text-align: center;
+}
+
+.transcript-text {
+  font-size: 1.3rem;
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.speech-unsupported {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: #856404;
+  text-align: center;
+}

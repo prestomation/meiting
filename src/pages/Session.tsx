@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { speak } from '../lib/tts'
-import { checkAnswer } from '../lib/scoring'
+import { speak, canUseSpeech } from '../lib/tts'
+import { checkAnswer, checkPhoneticAnswer } from '../lib/scoring'
+import { startSpeechRecognition } from '../lib/speech'
 import {
   getHskLevel,
   getAnswerMode,
@@ -34,6 +35,7 @@ const HSK_DATA: Record<number, ContentItem[]> = {
 }
 
 type Phase = 'start' | 'playing' | 'answered' | 'complete'
+type SpeechState = 'idle' | 'listening' | 'processing'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -114,14 +116,21 @@ export default function Session() {
   const [showPinyin, setShowPinyin] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  // Speak-it state
+  const [speechState, setSpeechState] = useState<SpeechState>('idle')
+  const [transcript, setTranscript] = useState('')
+  const stopRecognitionRef = useRef<(() => void) | null>(null)
+
   const currentItem = items[currentIndex]
 
-  // Cleanup audio and prefetch cache on component unmount
+  // Cleanup audio, prefetch cache, and speech recognition on component unmount
   useEffect(() => {
     return () => {
       stopActiveAudio(audioRef)
       prefetchCache.current.forEach((audio) => { audio.src = '' })
       prefetchCache.current.clear()
+      stopRecognitionRef.current?.()
+      stopRecognitionRef.current = null
     }
   }, [])
 
@@ -201,6 +210,14 @@ export default function Session() {
     }
   }, [phase, answerMode, currentIndex])
 
+  // Clean up speech recognition on item change or unmount
+  useEffect(() => {
+    return () => {
+      stopRecognitionRef.current?.()
+      stopRecognitionRef.current = null
+    }
+  }, [currentIndex])
+
   function startSession() {
     const data = HSK_DATA[hskLevel] ?? []
     if (data.length === 0) return
@@ -212,6 +229,8 @@ export default function Session() {
     setTypeResult(null)
     setRetryUsed(false)
     setShowPinyin(false)
+    setSpeechState('idle')
+    setTranscript('')
     setPhase('playing')
   }
 
@@ -268,8 +287,49 @@ export default function Session() {
       setTypeResult(null)
       setRetryUsed(false)
       setShowPinyin(false)
+      setSpeechState('idle')
+      setTranscript('')
       setPhase('playing')
     }
+  }
+
+  function handleStartSpeech() {
+    if (!canUseSpeech()) return
+    if (speechState !== 'idle') return // Prevent multiple concurrent recognitions
+    if (!currentItem) return // Guard against undefined item during transitions
+    setSpeechState('listening')
+    setTranscript('')
+
+    const capturedCharacters = currentItem.characters // Capture at call time to avoid TOCTOU
+    stopRecognitionRef.current = startSpeechRecognition((result, error) => {
+      if (error || !result) {
+        setSpeechState('idle')
+        setTranscript(error === 'no-speech' ? '(no speech detected)' : `Error: ${error}`)
+        return
+      }
+      setTranscript(result.transcript)
+      setSpeechState('processing')
+
+      const answerResult = checkPhoneticAnswer(result.transcript, capturedCharacters)
+
+      if (answerResult === 'correct') {
+        setSpeechState('idle')
+        advanceToAnswered(true)
+      } else if (answerResult === 'close' && !retryUsed) {
+        setRetryUsed(true)
+        setSpeechState('idle')
+        // Show hint — allow retry, don't record result yet
+      } else {
+        setSpeechState('idle')
+        advanceToAnswered(false)
+      }
+    })
+  }
+
+  function handleStopSpeech() {
+    stopRecognitionRef.current?.()
+    stopRecognitionRef.current = null
+    setSpeechState('idle')
   }
 
   // ── Render ──────────────────────────────────────────────────────────────
@@ -296,6 +356,14 @@ export default function Session() {
             >
               ⌨️ Type It
             </button>
+            {canUseSpeech() && (
+              <button
+                className={`mode-toggle-btn ${answerMode === 'speak' ? 'active' : ''}`}
+                onClick={() => setMode('speak')}
+              >
+                🎤 Speak It
+              </button>
+            )}
           </div>
           <p className="start-hint">
             {HSK_DATA[hskLevel]?.length ?? 0} sentences · Audio plays automatically
@@ -351,7 +419,7 @@ export default function Session() {
 
         {/* Mode hint */}
         <div className="session-mode-hint" onClick={() => navigate('/settings')}>
-          {answerMode === 'multiple-choice' ? '🔠 Multiple Choice' : '⌨️ Type It'} · <span className="change-link">change</span>
+          {answerMode === 'multiple-choice' ? '🔠 Multiple Choice' : answerMode === 'type' ? '⌨️ Type It' : '🎤 Speak It'} · <span className="change-link">change</span>
         </div>
 
         {/* Replay */}
@@ -386,7 +454,7 @@ export default function Session() {
               )
             })}
           </div>
-        ) : (
+        ) : answerMode === 'type' ? (
           <div className="type-area">
             {/* Pinyin toggle */}
             <button
@@ -433,6 +501,39 @@ export default function Session() {
               <button className="btn-primary" onClick={handleTypeSubmit} type="button">
                 Submit
               </button>
+            )}
+          </div>
+        ) : (
+          <div className="speak-area">
+            {phase === 'playing' && speechState === 'idle' && (
+              <button className="mic-btn" onClick={handleStartSpeech}>
+                🎤 Tap to speak
+              </button>
+            )}
+            {phase === 'playing' && speechState === 'listening' && (
+              <button className="mic-btn listening" onClick={handleStopSpeech}>
+                🔴 Listening... (tap to stop)
+              </button>
+            )}
+            {phase === 'playing' && speechState === 'processing' && (
+              <>
+                <div className="mic-processing">Processing...</div>
+                <button className="btn-secondary" onClick={handleStopSpeech}>Cancel</button>
+              </>
+            )}
+            {/* Close hint for speak mode */}
+            {retryUsed && phase === 'playing' && (
+              <div className="hint-close">你快到了！ So close! Try again 🙂</div>
+            )}
+            {transcript && (
+              <div className="transcript-display">
+                You said: <span className="transcript-text">{transcript}</span>
+              </div>
+            )}
+            {!canUseSpeech() && (
+              <div className="speech-unsupported">
+                ⚠️ Speech recognition not supported in this browser. Use Chrome or Edge.
+              </div>
             )}
           </div>
         )}
