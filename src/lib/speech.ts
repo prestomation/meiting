@@ -50,6 +50,7 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
 
   recognition.onend = () => {
     if (!cancelled && !resultFired) {
+      resultFired = true
       callback(null, 'no-speech')
     }
   }
@@ -65,6 +66,10 @@ export function startSpeechRecognition(callback: RecognitionCallback): () => voi
   // Return cleanup function
   return () => {
     cancelled = true
+    // Clear handlers before abort to prevent post-abort callbacks
+    recognition.onresult = null
+    recognition.onerror = null
+    recognition.onend = null
     try {
       recognition.abort()
     } catch {
