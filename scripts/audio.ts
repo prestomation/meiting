@@ -150,42 +150,51 @@ async function main() {
     region: process.env.AWS_REGION || 'us-east-1',
   });
 
+  const CONCURRENCY = 5; // parallel Polly calls
+  const SAVE_INTERVAL = 20; // write JSON every N completions
+
   let processed = 0;
   let failed = 0;
   const failedIds: string[] = [];
+  let pendingSave = 0;
 
-  for (const item of needsAudio) {
+  // Save helper — debounced by SAVE_INTERVAL
+  const maybeSave = () => {
+    pendingSave++;
+    if (pendingSave >= SAVE_INTERVAL) {
+      fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
+      pendingSave = 0;
+    }
+  };
+
+  // Worker: process one item
+  const processItem = async (item: ContentItem, index: number): Promise<void> => {
     const audioFilePath = getAudioPath(item.id);
     const audioPublicPath = getAudioPublicPath(item.id);
 
     try {
-      process.stdout.write(`[${processed + 1}/${needsAudio.length}] ${item.id}: ${item.characters} ... `);
-
+      process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters} ... `);
       await synthesize(polly, item.characters, audioFilePath);
-
-      // Update item in memory
       item.audio = audioPublicPath;
-
-      // Save after each item so progress is preserved on failure
-      fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
-
       process.stdout.write('✓\n');
       processed++;
-
-      // Small delay to avoid throttling
-      await new Promise((r) => setTimeout(r, 100));
+      maybeSave();
     } catch (err) {
       process.stdout.write(`✗ (${(err as Error).message})\n`);
       failed++;
       failedIds.push(item.id);
-
-      // If we get a throttling error, wait longer
-      if ((err as Error).message?.includes('throttl') || (err as Error).message?.includes('rate')) {
-        console.log('Rate limit detected, waiting 5 seconds...');
-        await new Promise((r) => setTimeout(r, 5000));
-      }
     }
-  }
+  };
+
+  // Concurrency queue — run CONCURRENCY workers draining a shared index
+  let cursor = 0;
+  const worker = async () => {
+    while (cursor < needsAudio.length) {
+      const idx = cursor++;
+      await processItem(needsAudio[idx], idx);
+    }
+  };
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   console.log(`\nDone!`);
   console.log(`  Processed: ${processed}`);

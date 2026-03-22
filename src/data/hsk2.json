@@ -1,0 +1,702 @@
+[
+  {
+    "id": "hsk2-s-0001",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "我的阿姨很矮。",
+    "pinyin": "Wǒ de āyí hěn ǎi.",
+    "english": "My aunt is very short.",
+    "distractors": [
+      "他爱情很美好。",
+      "安全很重要。",
+      "班级在边上。"
+    ],
+    "audio": "/audio/hsk2-s-0001.mp3"
+  },
+  {
+    "id": "hsk2-s-0002",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "这是真的爱情。",
+    "pinyin": "Zhè shì zhēn de àiqíng.",
+    "english": "This is true love.",
+    "distractors": [
+      "矮的人很多。",
+      "阿姨来了。",
+      "变化很大。"
+    ],
+    "audio": "/audio/hsk2-s-0002.mp3"
+  },
+  {
+    "id": "hsk2-s-0003",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "我们班要搬家。",
+    "pinyin": "Wǒmen bān yào bān jiā.",
+    "english": "Our class is moving.",
+    "distractors": [
+      "冰箱在边上。",
+      "办法不好。",
+      "被安排了。"
+    ],
+    "audio": "/audio/hsk2-s-0003.mp3"
+  },
+  {
+    "id": "hsk2-s-0004",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "请你把书给我。",
+    "pinyin": "Qǐng nǐ bǎ shū gěi wǒ.",
+    "english": "Please give me the book.",
+    "distractors": [
+      "安全很重要。",
+      "表演很好。",
+      "博士来了。"
+    ],
+    "audio": "/audio/hsk2-s-0004.mp3"
+  },
+  {
+    "id": "hsk2-s-0005",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "安全是最重要的。",
+    "pinyin": "Ānquán shì zuì zhòngyào de.",
+    "english": "Safety is the most important.",
+    "distractors": [
+      "矮的树。",
+      "爱情故事。",
+      "班级活动。"
+    ],
+    "audio": "/audio/hsk2-s-0005.mp3"
+  },
+  {
+    "id": "hsk2-s-0006",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "被子在床边。",
+    "pinyin": "Bèizi zài chuáng biān.",
+    "english": "The blanket is on the bed's edge.",
+    "distractors": [
+      "搬家很困难。",
+      "半个苹果。",
+      "包里有钱。"
+    ],
+    "audio": "/audio/hsk2-s-0006.mp3"
+  },
+  {
+    "id": "hsk2-s-0007",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "半个小时后。",
+    "pinyin": "Bàn ge xiǎoshí hòu.",
+    "english": "Half an hour later.",
+    "distractors": [
+      "阿姨来帮忙。",
+      "办法很多。",
+      "保证没问题。"
+    ],
+    "audio": "/audio/hsk2-s-0007.mp3"
+  },
+  {
+    "id": "hsk2-s-0008",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "我没有办法。",
+    "pinyin": "Wǒ méiyǒu bànfǎ.",
+    "english": "I have no way.",
+    "distractors": [
+      "变化真大。",
+      "表演开始了。",
+      "别动。"
+    ],
+    "audio": "/audio/hsk2-s-0008.mp3"
+  },
+  {
+    "id": "hsk2-s-0009",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "包裹里是礼物。",
+    "pinyin": "Bāoguǒ li shì lǐwù.",
+    "english": "The package contains a gift.",
+    "distractors": [
+      "冰箱坏了。",
+      "博士很聪明。",
+      "不过我同意。"
+    ],
+    "audio": "/audio/hsk2-s-0009.mp3"
+  },
+  {
+    "id": "hsk2-s-0010",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "我保证会来。",
+    "pinyin": "Wǒ bǎozhèng huì lái.",
+    "english": "I guarantee I will come.",
+    "distractors": [
+      "不好意思。",
+      "部分学生。",
+      "猜猜看。"
+    ],
+    "audio": "/audio/hsk2-s-0010.mp3"
+  },
+  {
+    "id": "hsk2-s-0011",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "他被选中了。",
+    "pinyin": "Tā bèi xuǎnzhòng le.",
+    "english": "He was selected.",
+    "distractors": [
+      "参观博物馆。",
+      "安排好了。",
+      "变成了。"
+    ],
+    "audio": "/audio/hsk2-s-0011.mp3"
+  },
+  {
+    "id": "hsk2-s-0012",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "不好意思打扰你。",
+    "pinyin": "Búhǎoyìsi dǎrǎo nǐ.",
+    "english": "Sorry to bother you.",
+    "distractors": [
+      "班级很大。",
+      "矮小的孩子。",
+      "爱情故事。"
+    ],
+    "audio": "/audio/hsk2-s-0012.mp3"
+  },
+  {
+    "id": "hsk2-s-0013",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "冰箱里很冷。",
+    "pinyin": "Bīngxiāng li hěn lěng.",
+    "english": "It's very cold in the refrigerator.",
+    "distractors": [
+      "边上放着。",
+      "博士学位。",
+      "搬到新地方。"
+    ],
+    "audio": "/audio/hsk2-s-0013.mp3"
+  },
+  {
+    "id": "hsk2-s-0014",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "他是一名博士。",
+    "pinyin": "Tā shì yī míng báoshì.",
+    "english": "He is a PhD holder.",
+    "distractors": [
+      "不过没关系。",
+      "部分人同意。",
+      "猜对了。"
+    ],
+    "audio": "/audio/hsk2-s-0014.mp3"
+  },
+  {
+    "id": "hsk2-s-0015",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "这个班很好。",
+    "pinyin": "Zhège bān hěn hǎo.",
+    "english": "This class is very good.",
+    "distractors": [
+      "参观校园。",
+      "安排时间。",
+      "变化很快。"
+    ],
+    "audio": "/audio/hsk2-s-0015.mp3"
+  },
+  {
+    "id": "hsk2-s-0016",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "不过我很高兴。",
+    "pinyin": "Búguò wǒ hěn gāoxìng.",
+    "english": "However, I am very happy.",
+    "distractors": [
+      "别这样做。",
+      "表演精彩。",
+      "把握机会。"
+    ],
+    "audio": "/audio/hsk2-s-0016.mp3"
+  },
+  {
+    "id": "hsk2-s-0017",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "别告诉他。",
+    "pinyin": "Bié gàosu tā.",
+    "english": "Don't tell him.",
+    "distractors": [
+      "保证安全。",
+      "被邀请了。",
+      "包括我。"
+    ],
+    "audio": "/audio/hsk2-s-0017.mp3"
+  },
+  {
+    "id": "hsk2-s-0018",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "表演很精彩。",
+    "pinyin": "Biǎoyǎn hěn jīngcǎi.",
+    "english": "The performance was excellent.",
+    "distractors": [
+      "部分内容。",
+      "矮个子。",
+      "搬家费用。"
+    ],
+    "audio": "/audio/hsk2-s-0018.mp3"
+  },
+  {
+    "id": "hsk2-s-0019",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "变化太大了。",
+    "pinyin": "Biànhuà tài dà le.",
+    "english": "The change is too big.",
+    "distractors": [
+      "班级人数。",
+      "冰箱很新。",
+      "博士论文。"
+    ],
+    "audio": "/audio/hsk2-s-0019.mp3"
+  },
+  {
+    "id": "hsk2-s-0020",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "树变绿了。",
+    "pinyin": "Shù biàn lǜ le.",
+    "english": "The tree turned green.",
+    "distractors": [
+      "边界清楚。",
+      "办公室在这。",
+      "包装很好。"
+    ],
+    "audio": "/audio/hsk2-s-0020.mp3"
+  },
+  {
+    "id": "hsk2-s-0021",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "他参观了学校。",
+    "pinyin": "Tā cānguān le xuéxiào.",
+    "english": "He visited the school.",
+    "distractors": [
+      "安全措施。",
+      "爱情电影。",
+      "阿姨在家。"
+    ],
+    "audio": "/audio/hsk2-s-0021.mp3"
+  },
+  {
+    "id": "hsk2-s-0022",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "我猜你在想什么。",
+    "pinyin": "Wǒ cāi nǐ zài xiǎng shénme.",
+    "english": "I guess what you're thinking.",
+    "distractors": [
+      "被子很软。",
+      "半价出售。",
+      "保证质量。"
+    ],
+    "audio": "/audio/hsk2-s-0022.mp3"
+  },
+  {
+    "id": "hsk2-s-0023",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "部分学生缺席。",
+    "pinyin": "Búfen xuésheng quēxí.",
+    "english": "Some students were absent.",
+    "distractors": [
+      "博士生很聪明。",
+      "别让我失望。",
+      "表演结束了。"
+    ],
+    "audio": "/audio/hsk2-s-0023.mp3"
+  },
+  {
+    "id": "hsk2-s-0024",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "安排一下时间。",
+    "pinyin": "Ānpái yīxià shíjiān.",
+    "english": "Arrange the time.",
+    "distractors": [
+      "变得更好。",
+      "矮树下面。",
+      "爱情故事。"
+    ],
+    "audio": "/audio/hsk2-s-0024.mp3"
+  },
+  {
+    "id": "hsk2-s-0025",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "把窗户打开。",
+    "pinyin": "Bǎ chuānghu dǎkāi.",
+    "english": "Open the window.",
+    "distractors": [
+      "班级活动。",
+      "冰箱在厨房。",
+      "搬到城里。"
+    ],
+    "audio": "/audio/hsk2-s-0025.mp3"
+  },
+  {
+    "id": "hsk2-s-0026",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "边走边聊天。",
+    "pinyin": "Biān zǒu biān liáotiān.",
+    "english": "Chat while walking.",
+    "distractors": [
+      "办法很好。",
+      "保证没错。",
+      "博士学位。"
+    ],
+    "audio": "/audio/hsk2-s-0026.mp3"
+  },
+  {
+    "id": "hsk2-s-0027",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "阿姨帮我打扫。",
+    "pinyin": "Āyí bāng wǒ dǎsǎo.",
+    "english": "Auntie helped me clean.",
+    "distractors": [
+      "不好意思。",
+      "参观博物馆。",
+      "被选中。"
+    ],
+    "audio": "/audio/hsk2-s-0027.mp3"
+  },
+  {
+    "id": "hsk2-s-0028",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "不过这样不行。",
+    "pinyin": "Búguò zhèyàng búxíng.",
+    "english": "However, this won't work.",
+    "distractors": [
+      "矮的建筑。",
+      "爱情宝贵。",
+      "搬家了。"
+    ],
+    "audio": "/audio/hsk2-s-0028.mp3"
+  },
+  {
+    "id": "hsk2-s-0029",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "包里装着书。",
+    "pinyin": "Bāo li zhuāngzhe shū.",
+    "english": "The bag contains books.",
+    "distractors": [
+      "班级很安静。",
+      "冰箱里冷。",
+      "博士很忙。"
+    ],
+    "audio": "/audio/hsk2-s-0029.mp3"
+  },
+  {
+    "id": "hsk2-s-0030",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "安全第一位。",
+    "pinyin": "Ānquán dì yī wèi.",
+    "english": "Safety comes first.",
+    "distractors": [
+      "别生气。",
+      "表演开始。",
+      "变化无常。"
+    ],
+    "audio": "/audio/hsk2-s-0030.mp3"
+  },
+  {
+    "id": "hsk2-s-0031",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "这个办法不错。",
+    "pinyin": "Zhège bànfǎ búcuò.",
+    "english": "This solution is not bad.",
+    "distractors": [
+      "被子很厚。",
+      "半天没来。",
+      "保证完成。"
+    ],
+    "audio": "/audio/hsk2-s-0031.mp3"
+  },
+  {
+    "id": "hsk2-s-0032",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "你猜猜看吧。",
+    "pinyin": "Nǐ cāi cai kàn ba.",
+    "english": "You guess and see.",
+    "distractors": [
+      "部分人来。",
+      "边上有树。",
+      "参观美术馆。"
+    ],
+    "audio": "/audio/hsk2-s-0032.mp3"
+  },
+  {
+    "id": "hsk2-s-0033",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "搬家很麻烦。",
+    "pinyin": "Bān jiā hěn máfan.",
+    "english": "Moving is troublesome.",
+    "distractors": [
+      "博士毕业。",
+      "不过我知道。",
+      "矮的人。"
+    ],
+    "audio": "/audio/hsk2-s-0033.mp3"
+  },
+  {
+    "id": "hsk2-s-0034",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "爱情需要珍惜。",
+    "pinyin": "Àiqíng xūyào zhēnxī.",
+    "english": "Love needs to be cherished.",
+    "distractors": [
+      "阿姨和妈妈。",
+      "班级竞赛。",
+      "冰箱坏掉。"
+    ],
+    "audio": "/audio/hsk2-s-0034.mp3"
+  },
+  {
+    "id": "hsk2-s-0035",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "把握住机会。",
+    "pinyin": "Bǎ wòzhù jīhuì.",
+    "english": "Seize the opportunity.",
+    "distractors": [
+      "安全很重要。",
+      "被邀请参加。",
+      "半年时间。"
+    ],
+    "audio": "/audio/hsk2-s-0035.mp3"
+  },
+  {
+    "id": "hsk2-s-0036",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "表演非常成功。",
+    "pinyin": "Biǎoyǎn fēicháng chénggōng.",
+    "english": "The performance was very successful.",
+    "distractors": [
+      "别动东西。",
+      "变黑了。",
+      "办公楼前。"
+    ],
+    "audio": "/audio/hsk2-s-0036.mp3"
+  },
+  {
+    "id": "hsk2-s-0037",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "不好意思我迟到。",
+    "pinyin": "Búhǎoyìsi wǒ chídào.",
+    "english": "Sorry I'm late.",
+    "distractors": [
+      "保证及时。",
+      "参观完毕。",
+      "博士论文。"
+    ],
+    "audio": "/audio/hsk2-s-0037.mp3"
+  },
+  {
+    "id": "hsk2-s-0038",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "部分工作完成。",
+    "pinyin": "Búfen gōngzuò wánchéng.",
+    "english": "Part of the work is done.",
+    "distractors": [
+      "边界模糊。",
+      "冰箱很新。",
+      "搬到楼上。"
+    ],
+    "audio": "/audio/hsk2-s-0038.mp3"
+  },
+  {
+    "id": "hsk2-s-0039",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "被雨淋湿了。",
+    "pinyin": "Bèi yǔ línshī le.",
+    "english": "Got wet by the rain.",
+    "distractors": [
+      "半个月。",
+      "班级出游。",
+      "爱情美好。"
+    ],
+    "audio": "/audio/hsk2-s-0039.mp3"
+  },
+  {
+    "id": "hsk2-s-0040",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "矮个子男孩。",
+    "pinyin": "Ǎi gèzi nánháir.",
+    "english": "A short boy.",
+    "distractors": [
+      "安排好了。",
+      "阿姨来了。",
+      "包装很好。"
+    ],
+    "audio": "/audio/hsk2-s-0040.mp3"
+  },
+  {
+    "id": "hsk2-s-0041",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "博士后研究。",
+    "pinyin": "Báoshìhòu yánjiū.",
+    "english": "Postdoctoral research.",
+    "distractors": [
+      "变成现实。",
+      "表演精彩。",
+      "别这样。"
+    ],
+    "audio": "/audio/hsk2-s-0041.mp3"
+  },
+  {
+    "id": "hsk2-s-0042",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "冰箱里有鸡蛋。",
+    "pinyin": "Bīngxiāng li yǒu jīdàn.",
+    "english": "There are eggs in the refrigerator.",
+    "distractors": [
+      "班级活动多。",
+      "保证安全。",
+      "参观工厂。"
+    ],
+    "audio": "/audio/hsk2-s-0042.mp3"
+  },
+  {
+    "id": "hsk2-s-0043",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "不过你说得对。",
+    "pinyin": "Búguò nǐ shuō de duì.",
+    "english": "However, you're right.",
+    "distractors": [
+      "被选为代表。",
+      "搬家很累。",
+      "半价优惠。"
+    ],
+    "audio": "/audio/hsk2-s-0043.mp3"
+  },
+  {
+    "id": "hsk2-s-0044",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "办法都想过了。",
+    "pinyin": "Bànfǎ dōu xiǎng guo le.",
+    "english": "I've thought of all the solutions.",
+    "distractors": [
+      "矮小身材。",
+      "爱情电影。",
+      "安全出口。"
+    ],
+    "audio": "/audio/hsk2-s-0044.mp3"
+  },
+  {
+    "id": "hsk2-s-0045",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "包里放着手机。",
+    "pinyin": "Bāo li fàngzhe shǒujī.",
+    "english": "The phone is in the bag.",
+    "distractors": [
+      "博士学位。",
+      "别告诉。",
+      "表演节目。"
+    ],
+    "audio": "/audio/hsk2-s-0045.mp3"
+  },
+  {
+    "id": "hsk2-s-0046",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "安排在下午。",
+    "pinyin": "Ānpái zài xiàwǔ.",
+    "english": "Scheduled in the afternoon.",
+    "distractors": [
+      "变红了。",
+      "被邀请。",
+      "班级名单。"
+    ],
+    "audio": "/audio/hsk2-s-0046.mp3"
+  },
+  {
+    "id": "hsk2-s-0047",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "保证不会出错。",
+    "pinyin": "Bǎozhèng búhuì chūcuò.",
+    "english": "I guarantee there will be no mistakes.",
+    "distractors": [
+      "参观学校。",
+      "冰箱关好。",
+      "阿姨很好。"
+    ],
+    "audio": "/audio/hsk2-s-0047.mp3"
+  },
+  {
+    "id": "hsk2-s-0048",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "猜猜我是谁。",
+    "pinyin": "Cāi cai wǒ shì shéi.",
+    "english": "Guess who I am.",
+    "distractors": [
+      "边上坐着。",
+      "搬到乡下。",
+      "不过没事。"
+    ],
+    "audio": "/audio/hsk2-s-0048.mp3"
+  },
+  {
+    "id": "hsk2-s-0049",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "参观美术馆吧。",
+    "pinyin": "Cānguān měishùguǎn ba.",
+    "english": "Let's visit the art museum.",
+    "distractors": [
+      "矮树环绕。",
+      "爱情故事。",
+      "被雨淋。"
+    ],
+    "audio": "/audio/hsk2-s-0049.mp3"
+  },
+  {
+    "id": "hsk2-s-0050",
+    "hsk": 2,
+    "type": "sentence",
+    "characters": "边走边想办法。",
+    "pinyin": "Biān zǒu biān xiǎng bànfǎ.",
+    "english": "Think of solutions while walking.",
+    "distractors": [
+      "班级选举。",
+      "冰箱温度。",
+      "博士毕业。"
+    ],
+    "audio": "/audio/hsk2-s-0050.mp3"
+  }
+]
