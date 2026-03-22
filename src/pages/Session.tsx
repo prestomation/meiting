@@ -123,12 +123,14 @@ export default function Session() {
 
   const currentItem = items[currentIndex]
 
-  // Cleanup audio and prefetch cache on component unmount
+  // Cleanup audio, prefetch cache, and speech recognition on component unmount
   useEffect(() => {
     return () => {
       stopActiveAudio(audioRef)
       prefetchCache.current.forEach((audio) => { audio.src = '' })
       prefetchCache.current.clear()
+      stopRecognitionRef.current?.()
+      stopRecognitionRef.current = null
     }
   }, [])
 
