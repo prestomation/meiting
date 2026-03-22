@@ -62,7 +62,11 @@ function playItem(item: ContentItem, rate: number = 1) {
     const audio = new Audio(item.audio)
     audio.playbackRate = rate
     activeAudio = audio
-    audio.play().catch(() => speak(item.characters, undefined, rate))
+    audio.play().catch(() => {
+      // Clear the failed reference before falling back to TTS
+      if (activeAudio === audio) activeAudio = null
+      speak(item.characters, undefined, rate)
+    })
   } else {
     speak(item.characters, undefined, rate)
   }
@@ -96,6 +100,13 @@ export default function Session() {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const currentItem = items[currentIndex]
+
+  // Cleanup audio on component unmount
+  useEffect(() => {
+    return () => {
+      stopActiveAudio()
+    }
+  }, [])
 
   // Shuffle choices when item changes
   useEffect(() => {

@@ -122,12 +122,18 @@ export function addSessionResult(result: SessionResult): void {
   setStorage(KEYS.SESSION_HISTORY, JSON.stringify(bounded))
 }
 
+const PLAYBACK_RATE_MIN = 0.5
+const PLAYBACK_RATE_MAX = 2.0
+const PLAYBACK_RATE_DEFAULT = 1.0
+
 export function getPlaybackRate(): number {
-  const v = parseFloat(getStorage(KEYS.PLAYBACK_RATE) ?? '1')
-  return isNaN(v) ? 1 : v
+  const v = parseFloat(getStorage(KEYS.PLAYBACK_RATE) ?? String(PLAYBACK_RATE_DEFAULT))
+  if (isNaN(v) || v < PLAYBACK_RATE_MIN || v > PLAYBACK_RATE_MAX) return PLAYBACK_RATE_DEFAULT
+  return v
 }
 export function setPlaybackRate(rate: number): void {
-  setStorage(KEYS.PLAYBACK_RATE, String(rate))
+  const clamped = Math.min(PLAYBACK_RATE_MAX, Math.max(PLAYBACK_RATE_MIN, rate))
+  setStorage(KEYS.PLAYBACK_RATE, String(clamped))
 }
 
 /** Alias for addSessionResult — saves a completed session result */
