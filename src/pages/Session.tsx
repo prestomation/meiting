@@ -113,7 +113,7 @@ export default function Session() {
   const [typedInput, setTypedInput] = useState('')
   const [typeResult, setTypeResult] = useState<'correct' | 'close' | 'incorrect' | null>(null)
   const [retryUsed, setRetryUsed] = useState(false)
-  const [showPinyin, setShowPinyin] = useState(false)
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Speak-it state
@@ -229,7 +229,6 @@ export default function Session() {
     setTypedInput('')
     setTypeResult(null)
     setRetryUsed(false)
-    setShowPinyin(false)
     setSpeechState('idle')
     setTranscript('')
     setPhoneticScore(null)
@@ -288,7 +287,6 @@ export default function Session() {
       setTypedInput('')
       setTypeResult(null)
       setRetryUsed(false)
-      setShowPinyin(false)
       setSpeechState('idle')
       setTranscript('')
       setPhoneticScore(null)
@@ -462,18 +460,6 @@ export default function Session() {
           </div>
         ) : answerMode === 'type' ? (
           <div className="type-area">
-            {/* Pinyin toggle */}
-            <button
-              className="btn-secondary pinyin-toggle"
-              onClick={() => setShowPinyin((v) => !v)}
-              type="button"
-            >
-              {showPinyin ? 'Hide Pinyin' : 'Show Pinyin'}
-            </button>
-            {showPinyin && (
-              <div className="pinyin-display">{currentItem.pinyin}</div>
-            )}
-
             <input
               ref={inputRef}
               className={`type-input${typeResult ? ` ${typeResult}` : ''}`}
