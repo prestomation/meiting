@@ -96,12 +96,12 @@ function isThrottleError(err: any): boolean {
  * After MAX_RETRIES attempts, throws — never silently skips.
  */
 async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
-  let attempt = 0;
-  while (true) {
+  // attempt counts from 0; we allow attempts 0..MAX_RETRIES-1 (MAX_RETRIES total)
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
       return await fn();
     } catch (err: any) {
-      if (attempt + 1 >= MAX_RETRIES) {
+      if (attempt === MAX_RETRIES - 1) {
         throw new Error(`${label} failed after ${MAX_RETRIES} attempts: ${err?.message ?? err}`);
       }
       const throttle = isThrottleError(err);
@@ -110,9 +110,10 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
       const reason = throttle ? 'throttled' : `error (${(err?.message ?? '').slice(0, 40)})`;
       process.stdout.write(`\n  ⏳ ${reason} — attempt ${attempt + 1}/${MAX_RETRIES} in ${Math.round(delay)}ms... `);
       await new Promise((r) => setTimeout(r, delay));
-      attempt++;
     }
   }
+  // TypeScript needs this — the loop above always returns or throws
+  throw new Error(`${label}: unreachable`);
 }
 
 // ---- R2 upload via Cloudflare API ----
@@ -187,6 +188,12 @@ async function synthesizeToBuffer(
 // ---- Main ----
 
 async function main() {
+  // fetch is built-in from Node.js 18+; fail fast if not available
+  if (typeof fetch === 'undefined') {
+    console.error('❌ fetch is not available. Requires Node.js 18 or later.');
+    process.exit(1);
+  }
+
   const { level } = parseArgs();
 
   const dataPath = getDataPath(level);
@@ -260,16 +267,15 @@ async function main() {
     maybeSave();
   };
 
-  // Concurrency queue — run CONCURRENCY workers draining a shared index
+  // Concurrency queue — workers pull from a shared queue of indices
   // Uses a shared AbortController so all workers stop immediately on first failure
   const abort = new AbortController();
-  let cursor = 0;
+  const queue: number[] = needsAudio.map((_, i) => i);
 
   const worker = async () => {
     while (!abort.signal.aborted) {
-      // Atomically grab the next index
-      const idx = cursor++;
-      if (idx >= needsAudio.length) break;
+      const idx = queue.shift(); // pull next index (synchronous, no race in single-threaded Node.js)
+      if (idx === undefined) break;
       await processItem(needsAudio[idx], idx);
     }
   };
