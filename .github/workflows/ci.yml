@@ -18,3 +18,5 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - name: Validate content data (no missing audio)
+        run: npx ts-node scripts/validate-content.ts
