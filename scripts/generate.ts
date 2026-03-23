@@ -435,6 +435,19 @@ async function main() {
     );
   }
 
+  // Validate all new items have exactly REQUIRED_DISTRACTORS distractors
+  const itemsWithInsufficientDistractors = newItemsNoDistractors.filter(
+    (item) => item.distractors.length < REQUIRED_DISTRACTORS
+  );
+  if (itemsWithInsufficientDistractors.length > 0) {
+    console.warn(
+      `Warning: ${itemsWithInsufficientDistractors.length} items have fewer than ${REQUIRED_DISTRACTORS} distractors. This indicates an insufficient pool size.`
+    );
+    for (const item of itemsWithInsufficientDistractors) {
+      console.warn(`  [${item.id}] "${item.characters}" — ${item.distractors.length} distractors`);
+    }
+  }
+
   // Merge and save
   const allItems = [...existing, ...newItemsNoDistractors];
 
