@@ -134,7 +134,7 @@ async function uploadToR2(
 ): Promise<string> {
   const uploadUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
 
-  await withRetry(async () => {
+  await withRetry(async (): Promise<void> => {
     const r = await fetch(uploadUrl, {
       method: 'PUT',
       headers: {
@@ -148,8 +148,7 @@ async function uploadToR2(
       err.name = 'ThrottlingException';
       throw err;
     }
-    if (!r.ok) throw new Error(`R2 upload failed: ${r.status} ${r.statusText}`);
-    return r;
+    if (!r.ok) throw new Error(`R2 upload failed: HTTP ${r.status} (${r.statusText})`);
   }, `R2:${key}`);
 
   return `${publicBase}/${key}`;
@@ -273,9 +272,10 @@ async function main() {
   const queue: number[] = needsAudio.map((_, i) => i);
 
   const worker = async () => {
-    while (!abort.signal.aborted) {
-      const idx = queue.shift(); // pull next index (synchronous, no race in single-threaded Node.js)
-      if (idx === undefined) break;
+    // Check abort before AND after shift — in Node.js the event loop is single-threaded
+    // so shift() is atomic, but we re-check abort after each await to stop promptly
+    let idx: number | undefined;
+    while (!abort.signal.aborted && (idx = queue.shift()) !== undefined) {
       await processItem(needsAudio[idx], idx);
     }
   };
