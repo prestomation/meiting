@@ -5,7 +5,7 @@
  * Checks that every item in every src/data/hsk*.json:
  *   1. Has a non-empty audio URL pointing to R2 (not a local path, not empty)
  *   2. Has non-empty characters, pinyin, english fields
- *   3. Has exactly 3 distractors
+ *   3. Has at least 3 non-empty distractors
  *
  * Exits non-zero on any violation — blocks CI/merge.
  *
@@ -33,10 +33,16 @@ interface ContentItem {
 let totalErrors = 0;
 let totalItems = 0;
 
-const dataFiles = fs
-  .readdirSync(DATA_DIR)
-  .filter((f) => f.match(/^hsk\d+\.json$/))
-  .sort();
+let dataFiles: string[];
+try {
+  dataFiles = fs
+    .readdirSync(DATA_DIR)
+    .filter((f) => f.match(/^hsk\d+\.json$/))
+    .sort();
+} catch (err) {
+  console.error(`❌ Cannot read data directory ${DATA_DIR}: ${(err as Error).message}`);
+  process.exit(1);
+}
 
 if (dataFiles.length === 0) {
   console.error('❌ No hsk*.json files found in src/data/');
@@ -64,14 +70,18 @@ for (const file of dataFiles) {
   for (const item of items) {
     totalItems++;
 
-    // Check required text fields
-    if (!item.characters || !item.pinyin || !item.english) {
+    // Check required text fields (reject empty strings and whitespace-only)
+    if (
+      !item.characters?.trim() ||
+      !item.pinyin?.trim() ||
+      !item.english?.trim()
+    ) {
       missingFields.push(item.id);
       fileErrors++;
     }
 
-    // Check audio
-    if (!item.audio) {
+    // Check audio (reject missing, empty string, whitespace)
+    if (!item.audio?.trim()) {
       audioMissing.push(item.id);
       fileErrors++;
     } else if (item.audio.startsWith('/') || item.audio.startsWith('./')) {
@@ -82,8 +92,11 @@ for (const file of dataFiles) {
       fileErrors++;
     }
 
-    // Check distractors
-    if (!Array.isArray(item.distractors) || item.distractors.length < 3) {
+    // Check distractors — require at least 3 non-empty entries
+    const validDistractors = Array.isArray(item.distractors)
+      ? item.distractors.filter((d) => d?.trim())
+      : [];
+    if (validDistractors.length < 3) {
       badDistractors.push(item.id);
       fileErrors++;
     }
