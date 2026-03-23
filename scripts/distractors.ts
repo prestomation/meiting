@@ -33,21 +33,24 @@ function phoneticSimilarity(a: string, b: string): number {
   return shared / Math.max(setA.size, setB.size, 1);
 }
 
+function chineseLength(text: string): number {
+  return text.replace(/[^\u4e00-\u9fff]/g, '').length;
+}
+
 export function selectDistractors(
   target: SentenceEntry,
   pool: SentenceEntry[],
   count: number = 3
 ): string[] {
-  const targetChineseLen = target.characters.replace(/[^\u4e00-\u9fff]/g, '').length;
+  // Pre-compute target Chinese length once to avoid repeated regex
+  const targetChineseLen = chineseLength(target.characters);
 
   const candidates = pool
     .filter((s) => s.id !== target.id)
     .map((s) => ({
       sentence: s.characters,
       score: phoneticSimilarity(target.characters, s.characters),
-      lengthDiff: Math.abs(
-        s.characters.replace(/[^\u4e00-\u9fff]/g, '').length - targetChineseLen
-      ),
+      lengthDiff: Math.abs(chineseLength(s.characters) - targetChineseLen),
     }))
     // Prefer phonetically similar OR same length
     .filter((s) => s.score > 0 || s.lengthDiff <= 1)
@@ -67,8 +70,8 @@ export function selectDistractors(
 
   const result = top.slice(0, count).map((c) => c.sentence);
 
-  // Fallback: if not enough phonetic matches, grab random items from pool
-  if (result.length < count && pool.length > 1) {
+  // Fallback: if not enough phonetic matches, grab random items from remaining pool
+  if (result.length < count) {
     const remaining = pool
       .filter((s) => s.id !== target.id && !result.includes(s.characters))
       .map((s) => s.characters);
@@ -77,6 +80,7 @@ export function selectDistractors(
       const j = Math.floor(Math.random() * (i + 1));
       [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
     }
+    // Only push as many as are available
     result.push(...remaining.slice(0, count - result.length));
   }
 

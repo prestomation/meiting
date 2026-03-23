@@ -418,7 +418,8 @@ async function main() {
   }));
 
   const REQUIRED_DISTRACTORS = 3;
-  if (poolForDistractors.length <= REQUIRED_DISTRACTORS) {
+  // Need at least count+1 items: the target itself plus enough distractors
+  if (poolForDistractors.length < REQUIRED_DISTRACTORS + 1) {
     console.warn(
       `Warning: pool size (${poolForDistractors.length}) is too small to guarantee ${REQUIRED_DISTRACTORS} distractors per sentence. Some items may have fewer distractors.`
     );
