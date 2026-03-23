@@ -3,18 +3,21 @@
  * generate.ts — HSK sentence content generator
  *
  * Reads a wordlist from scripts/wordlists/hsk[N].json
- * Calls Anthropic API (ONE batched request) to generate sentences
+ * Calls Anthropic API in chunked batches to generate sentences
  * Outputs to src/data/hsk[N].json
  * Idempotent: skips already-generated items
+ * Strict: validates every sentence against HSK vocabulary, retries once on failure
  *
  * Usage:
  *   npx ts-node scripts/generate.ts --level 1
- *   npx ts-node scripts/generate.ts --level 2
+ *   npx ts-node scripts/generate.ts --level 1 --fresh   # clears existing data first
  */
 
 import Anthropic from '@anthropic-ai/sdk';
 import * as fs from 'fs';
 import * as path from 'path';
+import { buildAllowedChars, validateSentence, getSentenceLengthLimit } from './vocab';
+import { selectDistractors } from './distractors';
 
 // ---- Types ----
 
@@ -35,13 +38,21 @@ interface ContentItem {
   distractors: string[];
 }
 
+interface RawSentence {
+  characters: string;
+  pinyin: string;
+  english: string;
+  focus_word?: string;
+  keyword?: string; // legacy field
+}
+
 // ---- Args ----
 
-function parseArgs(): { level: number } {
+function parseArgs(): { level: number; fresh: boolean } {
   const args = process.argv.slice(2);
   const levelIndex = args.indexOf('--level');
   if (levelIndex === -1 || !args[levelIndex + 1]) {
-    console.error('Usage: npx ts-node scripts/generate.ts --level <1-9>');
+    console.error('Usage: npx ts-node scripts/generate.ts --level <1-9> [--fresh]');
     process.exit(1);
   }
   const level = parseInt(args[levelIndex + 1], 10);
@@ -49,7 +60,8 @@ function parseArgs(): { level: number } {
     console.error('Level must be between 1 and 9');
     process.exit(1);
   }
-  return { level };
+  const fresh = args.includes('--fresh');
+  return { level, fresh };
 }
 
 // ---- Paths ----
@@ -77,76 +89,65 @@ function loadExisting(outputPath: string): ContentItem[] {
 
 // ---- Prompt ----
 
-function buildPrompt(level: number, words: WordEntry[]): string {
-  const wordListStr = words
-    .map((w) => `${w.characters} (${w.pinyin}) = ${w.english}`)
-    .join('\n');
+function buildPrompt(level: number, words: WordEntry[], allowedWordList: string): string {
+  const lengthLimit = getSentenceLengthLimit(level);
+  const forbiddenGrammar =
+    level === 1
+      ? '\n- FORBIDDEN grammar: 把, 被, 连...都, 虽然, 但是, 如果, 只要, 除非, 即使'
+      : '';
 
-  return `You are creating Chinese language learning content for HSK level ${level} learners.
+  return `You are creating Chinese language learning content for absolute beginners studying HSK level ${level}.
 
-Given the following HSK ${level} vocabulary list, generate natural example sentences.
+CRITICAL CONSTRAINT: Every Chinese character in every sentence you write MUST appear in this allowed vocabulary list. Do not use ANY character outside this list. This is a hard rule — violating it makes the sentence unusable for learners.
+
+Allowed vocabulary (every character in your sentences must come from words in this list):
+${allowedWordList}
+
+Additional always-allowed single characters (grammatical particles): 的 了 吗 呢 吧 也 都 就 很 不 有 在 是 个
 
 Rules:
-- Each sentence must be a complete, natural Chinese sentence
-- Each sentence must primarily feature one word from the wordlist
-- Sentences should use vocabulary appropriate for HSK level ${level}
-- Be practically useful for everyday communication
-- Generate exactly 3 sentences per word
+- Generate exactly 2 sentences per focus word
+- Each sentence must primarily feature the focus word
+- Maximum ${lengthLimit} Chinese characters per sentence (short and simple)
+- Use ONLY the vocabulary above — no exceptions
+- Sentences must be natural, practical Chinese a beginner would actually say or hear${forbiddenGrammar}
 
-Wordlist (${words.length} words):
-${wordListStr}
+Focus words for this batch (${words.length} words):
+${words.map((w) => `${w.characters} (${w.pinyin}) = ${w.english}`).join('\n')}
 
-Return ONLY a JSON array with NO markdown formatting, NO code blocks, NO explanation.
+Return ONLY a JSON array. No markdown, no code blocks, no explanation.
 Each object must have exactly these fields:
-- "characters": the Chinese sentence (汉字)
-- "pinyin": pinyin with tone marks (ā á ǎ à, not numbers)
-- "english": natural English translation
-- "keyword": the vocabulary word from the list being demonstrated
-
-Example format: [{"characters":"你好，很高兴认识你。","pinyin":"Nǐ hǎo, hěn gāoxìng rènshi nǐ.","english":"Hello, nice to meet you.","keyword":"你好"}]
-
-Output the JSON array only:`;
+{
+  "focus_word": "<the focus word characters>",
+  "characters": "<the complete sentence in Chinese>",
+  "pinyin": "<full pinyin with tone marks>",
+  "english": "<natural English translation>"
+}`;
 }
 
 // ---- Parse & validate LLM response ----
 
-interface RawSentence {
-  characters: string;
-  pinyin: string;
-  english: string;
-  keyword?: string;
-}
-
 function extractJSON(text: string): string {
-  // Strip markdown code blocks if present (including partial/truncated code blocks)
   let cleaned = text;
 
-  // Try to match complete code block first
   const completeBlock = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/);
   if (completeBlock) {
     cleaned = completeBlock[1].trim();
   } else {
-    // Handle truncated/partial code block - strip opening fence
     const partialBlock = cleaned.match(/```(?:json)?\s*([\s\S]*)/);
     if (partialBlock) {
       cleaned = partialBlock[1].trim();
     }
   }
 
-  // Try to find JSON array in the response
   const startIdx = cleaned.indexOf('[');
-  if (startIdx === -1) {
-    throw new Error('No JSON array found in response');
-  }
+  if (startIdx === -1) throw new Error('No JSON array found in response');
 
-  // Find the last valid closing bracket
   const endIdx = cleaned.lastIndexOf(']');
   if (endIdx === -1 || endIdx < startIdx) {
-    // Try to repair truncated JSON by finding the last complete object
     const truncated = cleaned.slice(startIdx);
     const lastCompleteObj = truncated.lastIndexOf('},');
     if (lastCompleteObj === -1) throw new Error('No JSON array found in response');
-    // Reconstruct array with last complete object
     return truncated.slice(0, lastCompleteObj + 1) + ']';
   }
 
@@ -169,7 +170,12 @@ function parseAndValidate(raw: string): RawSentence[] {
         characters: item.characters.trim(),
         pinyin: item.pinyin.trim(),
         english: item.english.trim(),
-        keyword: typeof item.keyword === 'string' ? item.keyword.trim() : undefined,
+        focus_word:
+          typeof item.focus_word === 'string'
+            ? item.focus_word.trim()
+            : typeof item.keyword === 'string'
+              ? item.keyword.trim()
+              : undefined,
       });
     }
   }
@@ -178,68 +184,47 @@ function parseAndValidate(raw: string): RawSentence[] {
   return valid;
 }
 
-// ---- Assign IDs and distractors ----
+// ---- Validate chunk against vocabulary ----
 
-function buildContentItems(
-  level: number,
+function validateChunk(
   sentences: RawSentence[],
-  existingCount: number
-): ContentItem[] {
-  const items: ContentItem[] = [];
+  words: WordEntry[],
+  allowedChars: Set<string>,
+  lengthLimit: number
+): { valid: RawSentence[]; failedWords: WordEntry[] } {
+  const valid: RawSentence[] = [];
+  const failedWordChars = new Set<string>();
 
-  for (let i = 0; i < sentences.length; i++) {
-    const s = sentences[i];
-    const globalIndex = existingCount + i + 1;
-    const id = `hsk${level}-s-${String(globalIndex).padStart(4, '0')}`;
+  for (const sentence of sentences) {
+    const validation = validateSentence(sentence.characters, allowedChars);
+    const chineseChars = sentence.characters.replace(/[^\u4e00-\u9fff]/g, '');
 
-    // Pick 3 distractors: other sentences from the batch that are NOT this sentence
-    // Pick ones that are structurally similar but have different meaning
-    const candidates = sentences.filter((_, idx) => idx !== i);
-    const distractors: string[] = [];
-
-    // Try to pick distractors that are similar length
-    const targetLen = s.characters.length;
-    const sorted = candidates
-      .map((c, idx) => ({ c, idx, diff: Math.abs(c.characters.length - targetLen) }))
-      .sort((a, b) => a.diff - b.diff);
-
-    for (const { c } of sorted) {
-      if (distractors.length >= 3) break;
-      if (!distractors.includes(c.characters)) {
-        distractors.push(c.characters);
-      }
+    if (!validation.valid) {
+      console.log(
+        `  ✗ REJECTED "${sentence.characters}" — out-of-level chars: ${validation.violations.join(', ')}`
+      );
+      const focusWord = sentence.focus_word;
+      if (focusWord) failedWordChars.add(focusWord);
+    } else if (chineseChars.length > lengthLimit) {
+      console.log(
+        `  ✗ REJECTED "${sentence.characters}" — too long (${chineseChars.length} > ${lengthLimit})`
+      );
+      const focusWord = sentence.focus_word;
+      if (focusWord) failedWordChars.add(focusWord);
+    } else {
+      valid.push(sentence);
     }
-
-    // Fallback: just pick first 3 different sentences
-    if (distractors.length < 3) {
-      for (const c of candidates) {
-        if (distractors.length >= 3) break;
-        if (!distractors.includes(c.characters)) {
-          distractors.push(c.characters);
-        }
-      }
-    }
-
-    items.push({
-      id,
-      hsk: level as ContentItem['hsk'],
-      type: 'sentence',
-      characters: s.characters,
-      pinyin: s.pinyin,
-      english: s.english,
-      distractors,
-    });
   }
 
-  return items;
+  const failedWords = words.filter((w) => failedWordChars.has(w.characters));
+  return { valid, failedWords };
 }
 
 // ---- Main ----
 
 async function main() {
-  const { level } = parseArgs();
+  const { level, fresh } = parseArgs();
 
-  // Check API key
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     console.error('Error: ANTHROPIC_API_KEY environment variable is not set');
@@ -249,23 +234,33 @@ async function main() {
   const wordlistPath = getWordlistPath(level);
   const outputPath = getOutputPath(level);
 
-  // Load wordlist
   if (!fs.existsSync(wordlistPath)) {
     console.error(`Wordlist not found: ${wordlistPath}`);
     process.exit(1);
   }
-  const words: WordEntry[] = JSON.parse(fs.readFileSync(wordlistPath, 'utf-8'));
+
+  let words: WordEntry[];
+  try {
+    words = JSON.parse(fs.readFileSync(wordlistPath, 'utf-8')) as WordEntry[];
+  } catch (err) {
+    console.error(`Error: could not parse wordlist ${wordlistPath}: ${err}`);
+    process.exit(1);
+  }
   console.log(`Loaded ${words.length} words from HSK ${level} wordlist`);
 
-  // Load existing items
+  // Fresh mode: clear existing data
+  if (fresh) {
+    console.log('--fresh flag: clearing existing data');
+    const outputDir = path.dirname(outputPath);
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+    fs.writeFileSync(outputPath, '[]', 'utf-8');
+  }
+
   const existing = loadExisting(outputPath);
   console.log(`Found ${existing.length} existing items in output`);
 
-  // Check which words already have sentences
   const existingCharacters = new Set(existing.map((item) => item.characters));
 
-  // Build the Anthropic client
-  // oat01 tokens are OAuth tokens - use authToken (Bearer) instead of apiKey (x-api-key)
   const isOAuthToken = apiKey.startsWith('sk-ant-oat');
   const client = new Anthropic(
     isOAuthToken
@@ -273,10 +268,19 @@ async function main() {
       : { apiKey }
   );
 
-  // We'll generate ALL sentences in batches to avoid token limits
-  // Split wordlist into chunks of 50 words
+  const allowedChars = buildAllowedChars(level);
+  const lengthLimit = getSentenceLengthLimit(level);
+
+  // Build allowed word list string for prompt — reuse already-parsed words array
+  const allowedWordList = words.map((w) => `${w.characters} (${w.pinyin})`).join(', ');
+
+  console.log(`Allowed chars set size: ${allowedChars.size}`);
+  console.log(`Sentence length limit: ${lengthLimit} chars`);
+
   const CHUNK_SIZE = 50;
   const allNewSentences: RawSentence[] = [];
+  let totalRejected = 0;
+  let totalGenerated = 0;
 
   console.log(`\nGenerating sentences for HSK ${level}...`);
   console.log(`Processing ${words.length} words in chunks of ${CHUNK_SIZE}`);
@@ -284,20 +288,18 @@ async function main() {
   for (let chunkStart = 0; chunkStart < words.length; chunkStart += CHUNK_SIZE) {
     const chunk = words.slice(chunkStart, chunkStart + CHUNK_SIZE);
     const chunkEnd = Math.min(chunkStart + CHUNK_SIZE, words.length);
-    console.log(`\nChunk ${Math.floor(chunkStart / CHUNK_SIZE) + 1}: words ${chunkStart + 1}–${chunkEnd}`);
+    const chunkNum = Math.floor(chunkStart / CHUNK_SIZE) + 1;
+    console.log(`\nChunk ${chunkNum}: words ${chunkStart + 1}–${chunkEnd}`);
 
-    const prompt = buildPrompt(level, chunk);
+    const prompt = buildPrompt(level, chunk, allowedWordList);
+
+    let chunkSentences: RawSentence[] = [];
 
     try {
       const response = await client.messages.create({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 8192,
-        messages: [
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
+        messages: [{ role: 'user', content: prompt }],
       });
 
       const content = response.content[0];
@@ -306,28 +308,67 @@ async function main() {
         continue;
       }
 
-      let sentences: RawSentence[];
       try {
-        sentences = parseAndValidate(content.text);
+        chunkSentences = parseAndValidate(content.text);
       } catch (parseErr) {
-        // Log a snippet of the raw text for debugging
         const preview = content.text.slice(0, 200).replace(/\n/g, '\\n');
         console.error(`  Parse error. Raw response preview: ${preview}`);
-        throw parseErr;
+        continue;
       }
 
-      // Filter out sentences we already have
-      const newSentences = sentences.filter(
-        (s) => !existingCharacters.has(s.characters)
+      totalGenerated += chunkSentences.length;
+      console.log(`  Generated ${chunkSentences.length} sentences`);
+
+      // Validate chunk
+      const { valid: validSentences, failedWords } = validateChunk(
+        chunkSentences,
+        chunk,
+        allowedChars,
+        lengthLimit
       );
+      totalRejected += chunkSentences.length - validSentences.length;
 
       console.log(
-        `  Generated ${sentences.length} sentences, ${newSentences.length} are new`
+        `  Valid: ${validSentences.length}, Rejected: ${chunkSentences.length - validSentences.length}`
       );
 
-      allNewSentences.push(...newSentences);
+      // One retry for failed words
+      let retrySentences: RawSentence[] = [];
+      if (failedWords.length > 0) {
+        console.log(`  Retrying ${failedWords.length} failed words...`);
+        const retryPrompt = buildPrompt(level, failedWords, allowedWordList);
 
-      // Add to set so we don't double-add in later chunks
+        try {
+          const retryResponse = await client.messages.create({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 4096,
+            messages: [{ role: 'user', content: retryPrompt }],
+          });
+
+          const retryContent = retryResponse.content[0];
+          if (retryContent.type === 'text') {
+            const retryCandidates = parseAndValidate(retryContent.text);
+            totalGenerated += retryCandidates.length;
+            const { valid: retryValid } = validateChunk(
+              retryCandidates,
+              failedWords,
+              allowedChars,
+              lengthLimit
+            );
+            totalRejected += retryCandidates.length - retryValid.length;
+            retrySentences = retryValid;
+            console.log(`  Retry recovered: ${retryValid.length}/${retryCandidates.length}`);
+          }
+        } catch (retryErr) {
+          console.error(`  Retry failed:`, retryErr);
+        }
+      }
+
+      const allValid = [...validSentences, ...retrySentences];
+
+      // Filter out duplicates
+      const newSentences = allValid.filter((s) => !existingCharacters.has(s.characters));
+      allNewSentences.push(...newSentences);
       newSentences.forEach((s) => existingCharacters.add(s.characters));
 
       // Small delay to avoid rate limits
@@ -335,38 +376,92 @@ async function main() {
         await new Promise((r) => setTimeout(r, 500));
       }
     } catch (err) {
-      console.error(`Error processing chunk ${Math.floor(chunkStart / CHUNK_SIZE) + 1}:`, err);
-      // Continue with next chunk
+      console.error(`Error processing chunk ${chunkNum}:`, err);
     }
   }
 
-  console.log(`\nTotal new sentences generated: ${allNewSentences.length}`);
+  const passRate =
+    totalGenerated > 0
+      ? (((totalGenerated - totalRejected) / totalGenerated) * 100).toFixed(1)
+      : (0).toFixed(1);
+  console.log(`\n=== Generation complete ===`);
+  console.log(`Total generated: ${totalGenerated}`);
+  console.log(`Total rejected: ${totalRejected}`);
+  console.log(`Pass rate: ${passRate}%`);
+  console.log(`New valid sentences: ${allNewSentences.length}`);
 
   if (allNewSentences.length === 0) {
     console.log('No new sentences to add. Output is up to date.');
     return;
   }
 
-  // Build content items with IDs and distractors
-  const newItems = buildContentItems(level, allNewSentences, existing.length);
+  // Build ContentItems WITHOUT distractors first
+  const newItemsNoDistractors: ContentItem[] = allNewSentences.map((s, i) => {
+    const globalIndex = existing.length + i + 1;
+    const id = `hsk${level}-s-${String(globalIndex).padStart(4, '0')}`;
+    return {
+      id,
+      hsk: level as ContentItem['hsk'],
+      type: 'sentence',
+      characters: s.characters,
+      pinyin: s.pinyin,
+      english: s.english,
+      distractors: [],
+    };
+  });
+
+  // Build full pool for distractor selection (existing + new)
+  const allItemsPool = [...existing, ...newItemsNoDistractors];
+  const poolForDistractors = allItemsPool.map((item) => ({
+    id: item.id,
+    characters: item.characters,
+  }));
+
+  const REQUIRED_DISTRACTORS = 3;
+  // Need at least count+1 items: the target itself plus enough distractors
+  if (poolForDistractors.length < REQUIRED_DISTRACTORS + 1) {
+    console.warn(
+      `Warning: pool size (${poolForDistractors.length}) is too small to guarantee ${REQUIRED_DISTRACTORS} distractors per sentence. Some items may have fewer distractors.`
+    );
+  }
+
+  console.log(`\nAssigning phonetic distractors from pool of ${allItemsPool.length} sentences...`);
+
+  // Assign distractors to new items
+  for (const item of newItemsNoDistractors) {
+    item.distractors = selectDistractors(
+      { id: item.id, characters: item.characters },
+      poolForDistractors
+    );
+  }
+
+  // Validate all new items have exactly REQUIRED_DISTRACTORS distractors
+  const itemsWithInsufficientDistractors = newItemsNoDistractors.filter(
+    (item) => item.distractors.length < REQUIRED_DISTRACTORS
+  );
+  if (itemsWithInsufficientDistractors.length > 0) {
+    console.warn(
+      `Warning: ${itemsWithInsufficientDistractors.length} items have fewer than ${REQUIRED_DISTRACTORS} distractors. This indicates an insufficient pool size.`
+    );
+    for (const item of itemsWithInsufficientDistractors) {
+      console.warn(`  [${item.id}] "${item.characters}" — ${item.distractors.length} distractors`);
+    }
+  }
 
   // Merge and save
-  const allItems = [...existing, ...newItems];
+  const allItems = [...existing, ...newItemsNoDistractors];
 
-  // Ensure output directory exists
   const outputDir = path.dirname(outputPath);
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
+  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
   fs.writeFileSync(outputPath, JSON.stringify(allItems, null, 2), 'utf-8');
   console.log(`\nSaved ${allItems.length} total items to ${outputPath}`);
-  console.log(`  (${existing.length} existing + ${newItems.length} new)`);
+  console.log(`  (${existing.length} existing + ${newItemsNoDistractors.length} new)`);
 
-  // Print a sample
-  if (newItems.length > 0) {
+  // Print sample
+  if (newItemsNoDistractors.length > 0) {
     console.log('\nSample generated items:');
-    const sample = newItems.slice(0, 3);
+    const sample = newItemsNoDistractors.slice(0, 3);
     for (const item of sample) {
       console.log(`  [${item.id}] ${item.characters}`);
       console.log(`    ${item.pinyin}`);
