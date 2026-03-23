@@ -1,628 +1,2502 @@
 [
-  {"characters": "啊", "pinyin": "ā", "english": "ah; oh (exclamation)"},
-  {"characters": "爱", "pinyin": "ài", "english": "to love; love"},
-  {"characters": "爱好", "pinyin": "àihào", "english": "hobby; interest"},
-  {"characters": "安静", "pinyin": "ānjìng", "english": "quiet; peaceful"},
-  {"characters": "把", "pinyin": "bǎ", "english": "(prep.) used before direct object; handle"},
-  {"characters": "爸爸", "pinyin": "bàba", "english": "dad; father"},
-  {"characters": "吧", "pinyin": "ba", "english": "(particle) expressing suggestion or supposition"},
-  {"characters": "白", "pinyin": "bái", "english": "white"},
-  {"characters": "百", "pinyin": "bǎi", "english": "hundred"},
-  {"characters": "帮助", "pinyin": "bāngzhù", "english": "to help; help"},
-  {"characters": "报纸", "pinyin": "bàozhǐ", "english": "newspaper"},
-  {"characters": "杯子", "pinyin": "bēizi", "english": "cup; glass"},
-  {"characters": "北京", "pinyin": "Běijīng", "english": "Beijing"},
-  {"characters": "本", "pinyin": "běn", "english": "(measure word for books); volume"},
-  {"characters": "比", "pinyin": "bǐ", "english": "to compare; than"},
-  {"characters": "别", "pinyin": "bié", "english": "don't; other"},
-  {"characters": "不", "pinyin": "bù", "english": "no; not"},
-  {"characters": "不客气", "pinyin": "bù kèqi", "english": "you're welcome; don't be polite"},
-  {"characters": "不用", "pinyin": "bùyòng", "english": "no need; don't have to"},
-  {"characters": "菜", "pinyin": "cài", "english": "dish; vegetable; food"},
-  {"characters": "茶", "pinyin": "chá", "english": "tea"},
-  {"characters": "长", "pinyin": "cháng", "english": "long"},
-  {"characters": "唱歌", "pinyin": "chànggē", "english": "to sing (a song)"},
-  {"characters": "出", "pinyin": "chū", "english": "to go out; to come out"},
-  {"characters": "出租车", "pinyin": "chūzūchē", "english": "taxi"},
-  {"characters": "次", "pinyin": "cì", "english": "(measure word) time; occurrence"},
-  {"characters": "从", "pinyin": "cóng", "english": "from; since"},
-  {"characters": "错", "pinyin": "cuò", "english": "wrong; mistake"},
-  {"characters": "打电话", "pinyin": "dǎ diànhuà", "english": "to make a phone call"},
-  {"characters": "打篮球", "pinyin": "dǎ lánqiú", "english": "to play basketball"},
-  {"characters": "大", "pinyin": "dà", "english": "big; large; old"},
-  {"characters": "大家", "pinyin": "dàjiā", "english": "everyone; everybody"},
-  {"characters": "的", "pinyin": "de", "english": "(structural particle)"},
-  {"characters": "等", "pinyin": "děng", "english": "to wait; etc."},
-  {"characters": "弟弟", "pinyin": "dìdi", "english": "younger brother"},
-  {"characters": "地方", "pinyin": "dìfang", "english": "place; area"},
-  {"characters": "地铁", "pinyin": "dìtiě", "english": "subway; metro"},
-  {"characters": "点", "pinyin": "diǎn", "english": "o'clock; a little; point"},
-  {"characters": "电脑", "pinyin": "diànnǎo", "english": "computer"},
-  {"characters": "电视", "pinyin": "diànshì", "english": "television; TV"},
-  {"characters": "电影", "pinyin": "diànyǐng", "english": "movie; film"},
-  {"characters": "东西", "pinyin": "dōngxi", "english": "thing; stuff"},
-  {"characters": "都", "pinyin": "dōu", "english": "all; both"},
-  {"characters": "读", "pinyin": "dú", "english": "to read; to study"},
-  {"characters": "对", "pinyin": "duì", "english": "correct; right; toward"},
-  {"characters": "多", "pinyin": "duō", "english": "many; much; more"},
-  {"characters": "多少", "pinyin": "duōshao", "english": "how many; how much"},
-  {"characters": "饿", "pinyin": "è", "english": "hungry"},
-  {"characters": "儿子", "pinyin": "érzi", "english": "son"},
-  {"characters": "二", "pinyin": "èr", "english": "two"},
-  {"characters": "饭馆", "pinyin": "fànguǎn", "english": "restaurant"},
-  {"characters": "方便", "pinyin": "fāngbiàn", "english": "convenient"},
-  {"characters": "非常", "pinyin": "fēicháng", "english": "very; extremely"},
-  {"characters": "分钟", "pinyin": "fēnzhōng", "english": "minute"},
-  {"characters": "服务员", "pinyin": "fúwùyuán", "english": "waiter; attendant"},
-  {"characters": "附近", "pinyin": "fùjìn", "english": "nearby; vicinity"},
-  {"characters": "高", "pinyin": "gāo", "english": "tall; high"},
-  {"characters": "高兴", "pinyin": "gāoxìng", "english": "happy; pleased"},
-  {"characters": "告诉", "pinyin": "gàosu", "english": "to tell; to inform"},
-  {"characters": "哥哥", "pinyin": "gēge", "english": "older brother"},
-  {"characters": "个", "pinyin": "gè", "english": "(general measure word)"},
-  {"characters": "给", "pinyin": "gěi", "english": "to give; for"},
-  {"characters": "跟", "pinyin": "gēn", "english": "with; and; to follow"},
-  {"characters": "更", "pinyin": "gèng", "english": "even more; more"},
-  {"characters": "工作", "pinyin": "gōngzuò", "english": "work; job; to work"},
-  {"characters": "公共汽车", "pinyin": "gōnggòng qìchē", "english": "bus"},
-  {"characters": "公司", "pinyin": "gōngsī", "english": "company; corporation"},
-  {"characters": "贵", "pinyin": "guì", "english": "expensive; honorable"},
-  {"characters": "国", "pinyin": "guó", "english": "country; nation"},
-  {"characters": "过", "pinyin": "guò", "english": "to pass; through (experience marker)"},
-  {"characters": "还", "pinyin": "hái", "english": "still; also; yet"},
-  {"characters": "还是", "pinyin": "háishi", "english": "or; still; had better"},
-  {"characters": "孩子", "pinyin": "háizi", "english": "child; children"},
-  {"characters": "好", "pinyin": "hǎo", "english": "good; well"},
-  {"characters": "好吃", "pinyin": "hǎochī", "english": "delicious; tasty"},
-  {"characters": "喝", "pinyin": "hē", "english": "to drink"},
-  {"characters": "和", "pinyin": "hé", "english": "and; with"},
-  {"characters": "很", "pinyin": "hěn", "english": "very"},
-  {"characters": "红", "pinyin": "hóng", "english": "red"},
-  {"characters": "后面", "pinyin": "hòumiàn", "english": "behind; back"},
-  {"characters": "回", "pinyin": "huí", "english": "to return; to go back"},
-  {"characters": "会", "pinyin": "huì", "english": "can; will; to be able to"},
-  {"characters": "火车站", "pinyin": "huǒchē zhàn", "english": "train station"},
-  {"characters": "或者", "pinyin": "huòzhě", "english": "or (in statements)"},
-  {"characters": "机场", "pinyin": "jīchǎng", "english": "airport"},
-  {"characters": "鸡蛋", "pinyin": "jīdàn", "english": "egg"},
-  {"characters": "几", "pinyin": "jǐ", "english": "how many; a few"},
-  {"characters": "家", "pinyin": "jiā", "english": "home; family; house"},
-  {"characters": "叫", "pinyin": "jiào", "english": "to call; to be called"},
-  {"characters": "教", "pinyin": "jiāo", "english": "to teach"},
-  {"characters": "今天", "pinyin": "jīntiān", "english": "today"},
-  {"characters": "进", "pinyin": "jìn", "english": "to enter; to come in"},
-  {"characters": "近", "pinyin": "jìn", "english": "near; close"},
-  {"characters": "九", "pinyin": "jiǔ", "english": "nine"},
-  {"characters": "就", "pinyin": "jiù", "english": "then; just; only"},
-  {"characters": "觉得", "pinyin": "juéde", "english": "to feel; to think"},
-  {"characters": "开始", "pinyin": "kāishǐ", "english": "to begin; to start; beginning"},
-  {"characters": "看", "pinyin": "kàn", "english": "to look; to watch; to read"},
-  {"characters": "看见", "pinyin": "kànjiàn", "english": "to see; to catch sight of"},
-  {"characters": "考试", "pinyin": "kǎoshì", "english": "exam; test; to take an exam"},
-  {"characters": "可以", "pinyin": "kěyǐ", "english": "can; may; it is ok"},
-  {"characters": "渴", "pinyin": "kě", "english": "thirsty"},
-  {"characters": "客气", "pinyin": "kèqi", "english": "polite; courteous"},
-  {"characters": "块", "pinyin": "kuài", "english": "piece; (measure for money) yuan"},
-  {"characters": "快", "pinyin": "kuài", "english": "fast; quick"},
-  {"characters": "快乐", "pinyin": "kuàilè", "english": "happy; joyful"},
-  {"characters": "来", "pinyin": "lái", "english": "to come"},
-  {"characters": "累", "pinyin": "lèi", "english": "tired"},
-  {"characters": "冷", "pinyin": "lěng", "english": "cold"},
-  {"characters": "里", "pinyin": "lǐ", "english": "inside; in"},
-  {"characters": "两", "pinyin": "liǎng", "english": "two (before measure words)"},
-  {"characters": "零", "pinyin": "líng", "english": "zero"},
-  {"characters": "六", "pinyin": "liù", "english": "six"},
-  {"characters": "路", "pinyin": "lù", "english": "road; route; way"},
-  {"characters": "旅游", "pinyin": "lǚyóu", "english": "to travel; tourism"},
-  {"characters": "妈妈", "pinyin": "māma", "english": "mom; mother"},
-  {"characters": "马上", "pinyin": "mǎshàng", "english": "immediately; right away"},
-  {"characters": "吗", "pinyin": "ma", "english": "(question particle)"},
-  {"characters": "买", "pinyin": "mǎi", "english": "to buy; to purchase"},
-  {"characters": "慢", "pinyin": "màn", "english": "slow"},
-  {"characters": "忙", "pinyin": "máng", "english": "busy"},
-  {"characters": "猫", "pinyin": "māo", "english": "cat"},
-  {"characters": "没", "pinyin": "méi", "english": "not have; no"},
-  {"characters": "没关系", "pinyin": "méi guānxi", "english": "it doesn't matter; never mind"},
-  {"characters": "没有", "pinyin": "méiyǒu", "english": "don't have; there is not"},
-  {"characters": "每", "pinyin": "měi", "english": "every; each"},
-  {"characters": "妹妹", "pinyin": "mèimei", "english": "younger sister"},
-  {"characters": "门", "pinyin": "mén", "english": "door; gate"},
-  {"characters": "米饭", "pinyin": "mǐfàn", "english": "cooked rice"},
-  {"characters": "面条", "pinyin": "miàntiáo", "english": "noodles"},
-  {"characters": "明天", "pinyin": "míngtiān", "english": "tomorrow"},
-  {"characters": "名字", "pinyin": "míngzi", "english": "name"},
-  {"characters": "哪", "pinyin": "nǎ", "english": "which"},
-  {"characters": "哪儿", "pinyin": "nǎr", "english": "where"},
-  {"characters": "那", "pinyin": "nà", "english": "that"},
-  {"characters": "那儿", "pinyin": "nàr", "english": "there; that place"},
-  {"characters": "呢", "pinyin": "ne", "english": "(question particle for follow-up questions)"},
-  {"characters": "能", "pinyin": "néng", "english": "can; to be able to"},
-  {"characters": "你", "pinyin": "nǐ", "english": "you"},
-  {"characters": "你好", "pinyin": "nǐ hǎo", "english": "hello"},
-  {"characters": "你们", "pinyin": "nǐmen", "english": "you (plural)"},
-  {"characters": "年", "pinyin": "nián", "english": "year"},
-  {"characters": "女儿", "pinyin": "nǚ'ér", "english": "daughter"},
-  {"characters": "朋友", "pinyin": "péngyou", "english": "friend"},
-  {"characters": "漂亮", "pinyin": "piàoliang", "english": "pretty; beautiful"},
-  {"characters": "苹果", "pinyin": "píngguǒ", "english": "apple"},
-  {"characters": "七", "pinyin": "qī", "english": "seven"},
-  {"characters": "前面", "pinyin": "qiánmiàn", "english": "front; ahead"},
-  {"characters": "钱", "pinyin": "qián", "english": "money"},
-  {"characters": "请", "pinyin": "qǐng", "english": "please; to invite"},
-  {"characters": "去", "pinyin": "qù", "english": "to go"},
-  {"characters": "热", "pinyin": "rè", "english": "hot"},
-  {"characters": "人", "pinyin": "rén", "english": "person; people"},
-  {"characters": "认识", "pinyin": "rènshi", "english": "to know (a person); to recognize"},
-  {"characters": "日", "pinyin": "rì", "english": "day; sun"},
-  {"characters": "如果", "pinyin": "rúguǒ", "english": "if; suppose"},
-  {"characters": "三", "pinyin": "sān", "english": "three"},
-  {"characters": "商店", "pinyin": "shāngdiàn", "english": "shop; store"},
-  {"characters": "上", "pinyin": "shàng", "english": "up; above; on; last"},
-  {"characters": "上班", "pinyin": "shàngbān", "english": "to go to work"},
-  {"characters": "上午", "pinyin": "shàngwǔ", "english": "morning; a.m."},
-  {"characters": "谁", "pinyin": "shéi", "english": "who"},
-  {"characters": "身体", "pinyin": "shēntǐ", "english": "body; health"},
-  {"characters": "什么", "pinyin": "shénme", "english": "what"},
-  {"characters": "生病", "pinyin": "shēngbìng", "english": "to get sick; to fall ill"},
-  {"characters": "生日", "pinyin": "shēngrì", "english": "birthday"},
-  {"characters": "时候", "pinyin": "shíhou", "english": "time; moment; when"},
-  {"characters": "是", "pinyin": "shì", "english": "to be; yes"},
-  {"characters": "手机", "pinyin": "shǒujī", "english": "mobile phone; cell phone"},
-  {"characters": "书", "pinyin": "shū", "english": "book"},
-  {"characters": "水", "pinyin": "shuǐ", "english": "water"},
-  {"characters": "水果", "pinyin": "shuǐguǒ", "english": "fruit"},
-  {"characters": "睡觉", "pinyin": "shuìjiào", "english": "to sleep"},
-  {"characters": "说", "pinyin": "shuō", "english": "to say; to speak"},
-  {"characters": "四", "pinyin": "sì", "english": "four"},
-  {"characters": "送", "pinyin": "sòng", "english": "to send; to give (as gift); to see off"},
-  {"characters": "岁", "pinyin": "suì", "english": "year (of age)"},
-  {"characters": "所以", "pinyin": "suǒyǐ", "english": "so; therefore"},
-  {"characters": "他", "pinyin": "tā", "english": "he; him"},
-  {"characters": "她", "pinyin": "tā", "english": "she; her"},
-  {"characters": "太", "pinyin": "tài", "english": "too; very"},
-  {"characters": "天气", "pinyin": "tiānqì", "english": "weather"},
-  {"characters": "听", "pinyin": "tīng", "english": "to listen; to hear"},
-  {"characters": "同学", "pinyin": "tóngxué", "english": "classmate"},
-  {"characters": "外", "pinyin": "wài", "english": "outside; foreign"},
-  {"characters": "完", "pinyin": "wán", "english": "to finish; complete"},
-  {"characters": "玩", "pinyin": "wán", "english": "to play; to have fun"},
-  {"characters": "晚上", "pinyin": "wǎnshang", "english": "evening; night"},
-  {"characters": "位", "pinyin": "wèi", "english": "(polite measure word for people)"},
-  {"characters": "喂", "pinyin": "wèi", "english": "hello (on phone); hey"},
-  {"characters": "我", "pinyin": "wǒ", "english": "I; me"},
-  {"characters": "我们", "pinyin": "wǒmen", "english": "we; us"},
-  {"characters": "五", "pinyin": "wǔ", "english": "five"},
-  {"characters": "午饭", "pinyin": "wǔfàn", "english": "lunch"},
-  {"characters": "西瓜", "pinyin": "xīguā", "english": "watermelon"},
-  {"characters": "希望", "pinyin": "xīwàng", "english": "to hope; wish; hope"},
-  {"characters": "下", "pinyin": "xià", "english": "down; below; under; next"},
-  {"characters": "下午", "pinyin": "xiàwǔ", "english": "afternoon; p.m."},
-  {"characters": "下雨", "pinyin": "xià yǔ", "english": "to rain"},
-  {"characters": "先生", "pinyin": "xiānsheng", "english": "Mr.; husband; teacher"},
-  {"characters": "现在", "pinyin": "xiànzài", "english": "now; currently"},
-  {"characters": "想", "pinyin": "xiǎng", "english": "to want; to think; to miss"},
-  {"characters": "小", "pinyin": "xiǎo", "english": "small; little; young"},
-  {"characters": "小时", "pinyin": "xiǎoshí", "english": "hour"},
-  {"characters": "笑", "pinyin": "xiào", "english": "to laugh; to smile"},
-  {"characters": "写", "pinyin": "xiě", "english": "to write"},
-  {"characters": "谢谢", "pinyin": "xièxie", "english": "thank you; thanks"},
-  {"characters": "新", "pinyin": "xīn", "english": "new"},
-  {"characters": "星期", "pinyin": "xīngqī", "english": "week"},
-  {"characters": "行", "pinyin": "xíng", "english": "OK; alright; capable"},
-  {"characters": "姓", "pinyin": "xìng", "english": "surname; to be surnamed"},
-  {"characters": "学生", "pinyin": "xuésheng", "english": "student"},
-  {"characters": "学习", "pinyin": "xuéxí", "english": "to study; to learn"},
-  {"characters": "学校", "pinyin": "xuéxiào", "english": "school"},
-  {"characters": "颜色", "pinyin": "yánsè", "english": "color"},
-  {"characters": "要", "pinyin": "yào", "english": "to want; will; need"},
-  {"characters": "也", "pinyin": "yě", "english": "also; too"},
-  {"characters": "一", "pinyin": "yī", "english": "one"},
-  {"characters": "一点儿", "pinyin": "yīdiǎnr", "english": "a little; a bit"},
-  {"characters": "一共", "pinyin": "yīgòng", "english": "altogether; in total"},
-  {"characters": "一起", "pinyin": "yīqǐ", "english": "together"},
-  {"characters": "一下", "pinyin": "yīxià", "english": "once; a little (softens verb)"},
-  {"characters": "医生", "pinyin": "yīshēng", "english": "doctor; physician"},
-  {"characters": "医院", "pinyin": "yīyuàn", "english": "hospital"},
-  {"characters": "因为", "pinyin": "yīnwèi", "english": "because"},
-  {"characters": "影响", "pinyin": "yǐngxiǎng", "english": "influence; to affect"},
-  {"characters": "用", "pinyin": "yòng", "english": "to use"},
-  {"characters": "有", "pinyin": "yǒu", "english": "to have; there is"},
-  {"characters": "有名", "pinyin": "yǒumíng", "english": "famous; well-known"},
-  {"characters": "月", "pinyin": "yuè", "english": "month; moon"},
-  {"characters": "运动", "pinyin": "yùndòng", "english": "exercise; sport; to exercise"},
-  {"characters": "再", "pinyin": "zài", "english": "again; then (later)"},
-  {"characters": "再见", "pinyin": "zàijiàn", "english": "goodbye"},
-  {"characters": "在", "pinyin": "zài", "english": "at; in; on; to be at"},
-  {"characters": "早上", "pinyin": "zǎoshang", "english": "morning; early morning"},
-  {"characters": "怎么", "pinyin": "zěnme", "english": "how; why"},
-  {"characters": "怎么样", "pinyin": "zěnmeyàng", "english": "how is it; what about"},
-  {"characters": "这", "pinyin": "zhè", "english": "this"},
-  {"characters": "这儿", "pinyin": "zhèr", "english": "here; this place"},
-  {"characters": "中国", "pinyin": "Zhōngguó", "english": "China"},
-  {"characters": "中午", "pinyin": "zhōngwǔ", "english": "noon; midday"},
-  {"characters": "住", "pinyin": "zhù", "english": "to live; to reside; to stay"},
-  {"characters": "桌子", "pinyin": "zhuōzi", "english": "table; desk"},
-  {"characters": "字", "pinyin": "zì", "english": "character; word"},
-  {"characters": "走", "pinyin": "zǒu", "english": "to walk; to go"},
-  {"characters": "坐", "pinyin": "zuò", "english": "to sit; to travel by"},
-  {"characters": "做", "pinyin": "zuò", "english": "to do; to make"},
-  {"characters": "左边", "pinyin": "zuǒbiān", "english": "left side"},
-  {"characters": "昨天", "pinyin": "zuótiān", "english": "yesterday"},
-  {"characters": "右边", "pinyin": "yòubiān", "english": "right side"},
-  {"characters": "男", "pinyin": "nán", "english": "male; man"},
-  {"characters": "女", "pinyin": "nǚ", "english": "female; woman"},
-  {"characters": "老师", "pinyin": "lǎoshī", "english": "teacher"},
-  {"characters": "先", "pinyin": "xiān", "english": "first; before"},
-  {"characters": "后", "pinyin": "hòu", "english": "after; behind"},
-  {"characters": "中", "pinyin": "zhōng", "english": "middle; center; China"},
-  {"characters": "小姐", "pinyin": "xiǎojiě", "english": "Miss; young lady"},
-  {"characters": "知道", "pinyin": "zhīdào", "english": "to know; to be aware of"},
-  {"characters": "开", "pinyin": "kāi", "english": "to open; to drive; to turn on"},
-  {"characters": "问", "pinyin": "wèn", "english": "to ask"},
-  {"characters": "找", "pinyin": "zhǎo", "english": "to look for; to find"},
-  {"characters": "喜欢", "pinyin": "xǐhuan", "english": "to like; to be fond of"},
-  {"characters": "上面", "pinyin": "shàngmiàn", "english": "above; on top"},
-  {"characters": "下面", "pinyin": "xiàmiàn", "english": "below; underneath"},
-  {"characters": "旁边", "pinyin": "pángbiān", "english": "beside; next to"},
-  {"characters": "中间", "pinyin": "zhōngjiān", "english": "middle; between"},
-  {"characters": "汉语", "pinyin": "Hànyǔ", "english": "Chinese language"},
-  {"characters": "对不起", "pinyin": "duìbuqǐ", "english": "sorry; excuse me"},
-  {"characters": "没问题", "pinyin": "méi wèntí", "english": "no problem"},
-  {"characters": "天", "pinyin": "tiān", "english": "day; sky; heaven"},
-  {"characters": "晚", "pinyin": "wǎn", "english": "evening; late"},
-  {"characters": "早", "pinyin": "zǎo", "english": "morning; early"},
-  {"characters": "好看", "pinyin": "hǎokàn", "english": "good-looking; attractive"},
-  {"characters": "好玩", "pinyin": "hǎowán", "english": "fun; amusing"},
-  {"characters": "有意思", "pinyin": "yǒu yìsi", "english": "interesting"},
-  {"characters": "没意思", "pinyin": "méi yìsi", "english": "boring; uninteresting"},
-  {"characters": "生气", "pinyin": "shēngqì", "english": "angry; to get angry"},
-  {"characters": "高兴", "pinyin": "gāoxìng", "english": "happy; glad"},
-  {"characters": "难", "pinyin": "nán", "english": "difficult; hard"},
-  {"characters": "容易", "pinyin": "róngyì", "english": "easy"},
-  {"characters": "重要", "pinyin": "zhòngyào", "english": "important"},
-  {"characters": "特别", "pinyin": "tèbié", "english": "especially; special; very"},
-  {"characters": "一样", "pinyin": "yīyàng", "english": "same; alike"},
-  {"characters": "不同", "pinyin": "bùtóng", "english": "different"},
-  {"characters": "只", "pinyin": "zhǐ", "english": "only; just"},
-  {"characters": "已经", "pinyin": "yǐjīng", "english": "already"},
-  {"characters": "还没", "pinyin": "hái méi", "english": "not yet"},
-  {"characters": "快点儿", "pinyin": "kuài diǎnr", "english": "hurry up; faster"},
-  {"characters": "慢点儿", "pinyin": "màn diǎnr", "english": "slow down; more slowly"},
-  {"characters": "好久", "pinyin": "hǎo jiǔ", "english": "a long time"},
-  {"characters": "最近", "pinyin": "zuìjìn", "english": "recently; lately"},
-  {"characters": "以前", "pinyin": "yǐqián", "english": "before; previously; in the past"},
-  {"characters": "以后", "pinyin": "yǐhòu", "english": "after; later; in the future"},
-  {"characters": "去年", "pinyin": "qùnián", "english": "last year"},
-  {"characters": "今年", "pinyin": "jīnnián", "english": "this year"},
-  {"characters": "明年", "pinyin": "míngnián", "english": "next year"},
-  {"characters": "每天", "pinyin": "měitiān", "english": "every day"},
-  {"characters": "每年", "pinyin": "měinián", "english": "every year"},
-  {"characters": "平时", "pinyin": "píngshí", "english": "usually; ordinarily"},
-  {"characters": "周末", "pinyin": "zhōumò", "english": "weekend"},
-  {"characters": "国家", "pinyin": "guójiā", "english": "country; nation"},
-  {"characters": "城市", "pinyin": "chéngshì", "english": "city"},
-  {"characters": "语言", "pinyin": "yǔyán", "english": "language"},
-  {"characters": "文化", "pinyin": "wénhuà", "english": "culture"},
-  {"characters": "历史", "pinyin": "lìshǐ", "english": "history"},
-  {"characters": "自行车", "pinyin": "zìxíngchē", "english": "bicycle"},
-  {"characters": "飞机", "pinyin": "fēijī", "english": "airplane"},
-  {"characters": "火车", "pinyin": "huǒchē", "english": "train"},
-  {"characters": "汽车", "pinyin": "qìchē", "english": "car; automobile"},
-  {"characters": "船", "pinyin": "chuán", "english": "boat; ship"},
-  {"characters": "公里", "pinyin": "gōnglǐ", "english": "kilometer"},
-  {"characters": "小时候", "pinyin": "xiǎoshíhou", "english": "childhood; when one was young"},
-  {"characters": "那么", "pinyin": "nàme", "english": "so; like that; then"},
-  {"characters": "这么", "pinyin": "zhème", "english": "so; like this; this way"},
-  {"characters": "怎样", "pinyin": "zěnyàng", "english": "how; in what way"},
-  {"characters": "为什么", "pinyin": "wèishénme", "english": "why"},
-  {"characters": "为了", "pinyin": "wèile", "english": "for the sake of; in order to"},
-  {"characters": "虽然", "pinyin": "suīrán", "english": "although; even though"},
-  {"characters": "但是", "pinyin": "dànshì", "english": "but; however"},
-  {"characters": "而且", "pinyin": "érqiě", "english": "moreover; and also"},
-  {"characters": "当然", "pinyin": "dāngrán", "english": "of course; certainly"},
-  {"characters": "可能", "pinyin": "kěnéng", "english": "maybe; possible; perhaps"},
-  {"characters": "应该", "pinyin": "yīnggāi", "english": "should; ought to"},
-  {"characters": "必须", "pinyin": "bìxū", "english": "must; have to"},
-  {"characters": "一定", "pinyin": "yīdìng", "english": "certainly; must; definitely"},
-  {"characters": "经常", "pinyin": "jīngcháng", "english": "often; frequently"},
-  {"characters": "有时候", "pinyin": "yǒu shíhou", "english": "sometimes"},
-  {"characters": "终于", "pinyin": "zhōngyú", "english": "finally; at last"},
-  {"characters": "又", "pinyin": "yòu", "english": "again; both...and"},
-  {"characters": "也", "pinyin": "yě", "english": "also; too"},
-  {"characters": "还", "pinyin": "hái", "english": "also; in addition; still"},
-  {"characters": "才", "pinyin": "cái", "english": "just now; only then; talent"},
-  {"characters": "就是", "pinyin": "jiùshì", "english": "exactly; that's right"},
-  {"characters": "其实", "pinyin": "qíshí", "english": "actually; in fact"},
-  {"characters": "一般", "pinyin": "yībān", "english": "generally; ordinary; common"},
-  {"characters": "真", "pinyin": "zhēn", "english": "real; true; really"},
-  {"characters": "很多", "pinyin": "hěn duō", "english": "many; a lot of"},
-  {"characters": "一些", "pinyin": "yīxiē", "english": "some; a few"},
-  {"characters": "各种", "pinyin": "gèzhǒng", "english": "various kinds of"},
-  {"characters": "所有", "pinyin": "suǒyǒu", "english": "all; every"},
-  {"characters": "别人", "pinyin": "biérén", "english": "other people; others"},
-  {"characters": "自己", "pinyin": "zìjǐ", "english": "oneself; self"},
-  {"characters": "大家", "pinyin": "dàjiā", "english": "everyone; all"},
-  {"characters": "我的", "pinyin": "wǒ de", "english": "my; mine"},
-  {"characters": "他的", "pinyin": "tā de", "english": "his"},
-  {"characters": "她的", "pinyin": "tā de", "english": "her"},
-  {"characters": "我们的", "pinyin": "wǒmen de", "english": "our"},
-  {"characters": "这个", "pinyin": "zhège", "english": "this one; this"},
-  {"characters": "那个", "pinyin": "nàge", "english": "that one; that"},
-  {"characters": "哪个", "pinyin": "nǎge", "english": "which one; which"},
-  {"characters": "第一", "pinyin": "dì yī", "english": "first; number one"},
-  {"characters": "第二", "pinyin": "dì èr", "english": "second; number two"},
-  {"characters": "十", "pinyin": "shí", "english": "ten"},
-  {"characters": "百分之", "pinyin": "bǎifēnzhī", "english": "percent"},
-  {"characters": "半", "pinyin": "bàn", "english": "half"},
-  {"characters": "多少钱", "pinyin": "duōshao qián", "english": "how much money"},
-  {"characters": "便宜", "pinyin": "piányí", "english": "cheap; inexpensive"},
-  {"characters": "开心", "pinyin": "kāixīn", "english": "happy; joyful"},
-  {"characters": "难过", "pinyin": "nánguò", "english": "sad; upset"},
-  {"characters": "难受", "pinyin": "nánshòu", "english": "feel bad; uncomfortable"},
-  {"characters": "舒服", "pinyin": "shūfu", "english": "comfortable"},
-  {"characters": "健康", "pinyin": "jiànkāng", "english": "healthy; health"},
-  {"characters": "聪明", "pinyin": "cōngming", "english": "clever; intelligent"},
-  {"characters": "认真", "pinyin": "rènzhēn", "english": "serious; earnest; conscientious"},
-  {"characters": "努力", "pinyin": "nǔlì", "english": "to work hard; diligent"},
-  {"characters": "有趣", "pinyin": "yǒuqù", "english": "interesting; fascinating"},
-  {"characters": "简单", "pinyin": "jiǎndān", "english": "simple; easy"},
-  {"characters": "复杂", "pinyin": "fùzá", "english": "complex; complicated"},
-  {"characters": "一边", "pinyin": "yībiān", "english": "one side; while (doing something)"},
-  {"characters": "同时", "pinyin": "tóngshí", "english": "at the same time; simultaneously"},
-  {"characters": "除了", "pinyin": "chúle", "english": "except; besides; apart from"},
-  {"characters": "对于", "pinyin": "duìyú", "english": "regarding; with respect to"},
-  {"characters": "关于", "pinyin": "guānyú", "english": "about; regarding; concerning"},
-  {"characters": "按照", "pinyin": "ànzhào", "english": "according to; in accordance with"},
-  {"characters": "通过", "pinyin": "tōngguò", "english": "through; to pass; by means of"},
-  {"characters": "经过", "pinyin": "jīngguò", "english": "to pass; to go through; after"},
-  {"characters": "包括", "pinyin": "bāokuò", "english": "to include; including"},
-  {"characters": "比较", "pinyin": "bǐjiào", "english": "comparatively; relatively; quite"},
-  {"characters": "一般来说", "pinyin": "yībān lái shuō", "english": "generally speaking"},
-  {"characters": "当然了", "pinyin": "dāngrán le", "english": "of course; naturally"},
-  {"characters": "没什么", "pinyin": "méi shénme", "english": "it's nothing; never mind"},
-  {"characters": "怎么办", "pinyin": "zěnme bàn", "english": "what to do; what should be done"},
-  {"characters": "没办法", "pinyin": "méi bànfǎ", "english": "there's no way; can't help it"},
-  {"characters": "有意见", "pinyin": "yǒu yìjiàn", "english": "to have an opinion; to object"},
-  {"characters": "不对", "pinyin": "bù duì", "english": "wrong; incorrect"},
-  {"characters": "没问题", "pinyin": "méi wèntí", "english": "no problem"},
-  {"characters": "差不多", "pinyin": "chàbuduō", "english": "almost; about the same; roughly"},
-  {"characters": "一会儿", "pinyin": "yīhuìr", "english": "a while; in a moment"},
-  {"characters": "刚才", "pinyin": "gāngcái", "english": "just now; a moment ago"},
-  {"characters": "以后再说", "pinyin": "yǐhòu zài shuō", "english": "let's talk about it later"},
-  {"characters": "总是", "pinyin": "zǒngshì", "english": "always"},
-  {"characters": "从来", "pinyin": "cónglái", "english": "always; at all times; never (with neg.)"},
-  {"characters": "有空", "pinyin": "yǒu kòng", "english": "to have free time; to be free"},
-  {"characters": "没空", "pinyin": "méi kòng", "english": "to have no free time; to be busy"},
-  {"characters": "出发", "pinyin": "chūfā", "english": "to set out; to depart"},
-  {"characters": "到达", "pinyin": "dàodá", "english": "to arrive; to reach"},
-  {"characters": "离开", "pinyin": "líkāi", "english": "to leave; to depart from"},
-  {"characters": "经济", "pinyin": "jīngjì", "english": "economy; economic"},
-  {"characters": "发展", "pinyin": "fāzhǎn", "english": "to develop; development"},
-  {"characters": "社会", "pinyin": "shèhuì", "english": "society"},
-  {"characters": "政府", "pinyin": "zhèngfǔ", "english": "government"},
-  {"characters": "问题", "pinyin": "wèntí", "english": "problem; question; issue"},
-  {"characters": "方法", "pinyin": "fāngfǎ", "english": "method; way"},
-  {"characters": "机会", "pinyin": "jīhuì", "english": "opportunity; chance"},
-  {"characters": "目的", "pinyin": "mùdì", "english": "purpose; goal; aim"},
-  {"characters": "结果", "pinyin": "jiéguǒ", "english": "result; outcome"},
-  {"characters": "原因", "pinyin": "yuányīn", "english": "reason; cause"},
-  {"characters": "关系", "pinyin": "guānxi", "english": "relationship; connection"},
-  {"characters": "情况", "pinyin": "qíngkuàng", "english": "situation; circumstances"},
-  {"characters": "选择", "pinyin": "xuǎnzé", "english": "to choose; choice"},
-  {"characters": "决定", "pinyin": "juédìng", "english": "to decide; decision"},
-  {"characters": "继续", "pinyin": "jìxù", "english": "to continue"},
-  {"characters": "完成", "pinyin": "wánchéng", "english": "to complete; to finish"},
-  {"characters": "准备", "pinyin": "zhǔnbèi", "english": "to prepare; preparation"},
-  {"characters": "解决", "pinyin": "jiějué", "english": "to solve; to resolve"},
-  {"characters": "注意", "pinyin": "zhùyì", "english": "to pay attention; attention"},
-  {"characters": "改变", "pinyin": "gǎibiàn", "english": "to change; change"},
-  {"characters": "提高", "pinyin": "tígāo", "english": "to improve; to raise; to enhance"},
-  {"characters": "增加", "pinyin": "zēngjiā", "english": "to increase; to add"},
-  {"characters": "减少", "pinyin": "jiǎnshǎo", "english": "to reduce; to decrease"},
-  {"characters": "保护", "pinyin": "bǎohù", "english": "to protect; protection"},
-  {"characters": "支持", "pinyin": "zhīchí", "english": "to support; support"},
-  {"characters": "帮忙", "pinyin": "bāngmáng", "english": "to help; to do a favor"},
-  {"characters": "加油", "pinyin": "jiāyóu", "english": "come on!; keep it up!; to refuel"},
-  {"characters": "好好", "pinyin": "hǎohǎo", "english": "properly; carefully; diligently"},
-  {"characters": "对了", "pinyin": "duì le", "english": "that's right; by the way"},
-  {"characters": "明白", "pinyin": "míngbai", "english": "to understand; clear; obvious"},
-  {"characters": "表示", "pinyin": "biǎoshì", "english": "to express; to indicate; to show"},
-  {"characters": "表达", "pinyin": "biǎodá", "english": "to express; expression"},
-  {"characters": "感谢", "pinyin": "gǎnxiè", "english": "to thank; gratitude"},
-  {"characters": "祝", "pinyin": "zhù", "english": "to wish"},
-  {"characters": "欢迎", "pinyin": "huānyíng", "english": "welcome; to welcome"},
-  {"characters": "介绍", "pinyin": "jièshào", "english": "to introduce; introduction"},
-  {"characters": "参加", "pinyin": "cānjiā", "english": "to participate; to attend"},
-  {"characters": "举行", "pinyin": "jǔxíng", "english": "to hold (an event)"},
-  {"characters": "打算", "pinyin": "dǎsuàn", "english": "to plan; plan"},
-  {"characters": "相信", "pinyin": "xiāngxìn", "english": "to believe; to trust"},
-  {"characters": "记得", "pinyin": "jìde", "english": "to remember"},
-  {"characters": "忘记", "pinyin": "wàngjì", "english": "to forget"},
-  {"characters": "担心", "pinyin": "dānxīn", "english": "to worry; worried"},
-  {"characters": "害怕", "pinyin": "hàipà", "english": "to be afraid; scared"},
-  {"characters": "着急", "pinyin": "zháojí", "english": "anxious; worried; in a hurry"},
-  {"characters": "放心", "pinyin": "fàngxīn", "english": "to set one's mind at rest; don't worry"},
-  {"characters": "满意", "pinyin": "mǎnyì", "english": "satisfied; content"},
-  {"characters": "同意", "pinyin": "tóngyì", "english": "to agree; to consent"},
-  {"characters": "反对", "pinyin": "fǎnduì", "english": "to oppose; opposition"},
-  {"characters": "回答", "pinyin": "huídá", "english": "to answer; answer"},
-  {"characters": "问题", "pinyin": "wèntí", "english": "question; problem"},
-  {"characters": "练习", "pinyin": "liànxí", "english": "to practice; exercise"},
-  {"characters": "复习", "pinyin": "fùxí", "english": "to review; to revise"},
-  {"characters": "预习", "pinyin": "yùxí", "english": "to preview; to study in advance"},
-  {"characters": "毕业", "pinyin": "bìyè", "english": "to graduate; graduation"},
-  {"characters": "上课", "pinyin": "shàngkè", "english": "to attend class; to go to class"},
-  {"characters": "下课", "pinyin": "xiàkè", "english": "class is over; after class"},
-  {"characters": "作业", "pinyin": "zuòyè", "english": "homework; assignment"},
-  {"characters": "成绩", "pinyin": "chéngjì", "english": "grades; results; achievements"},
-  {"characters": "数学", "pinyin": "shùxué", "english": "mathematics; math"},
-  {"characters": "英语", "pinyin": "Yīngyǔ", "english": "English language"},
-  {"characters": "物理", "pinyin": "wùlǐ", "english": "physics"},
-  {"characters": "化学", "pinyin": "huàxué", "english": "chemistry"},
-  {"characters": "音乐", "pinyin": "yīnyuè", "english": "music"},
-  {"characters": "电影", "pinyin": "diànyǐng", "english": "movie; film"},
-  {"characters": "体育", "pinyin": "tǐyù", "english": "physical education; sports"},
-  {"characters": "足球", "pinyin": "zúqiú", "english": "soccer; football"},
-  {"characters": "游泳", "pinyin": "yóuyǒng", "english": "to swim; swimming"},
-  {"characters": "跑步", "pinyin": "pǎobù", "english": "to run; jogging"},
-  {"characters": "画画", "pinyin": "huà huà", "english": "to draw; to paint"},
-  {"characters": "跳舞", "pinyin": "tiàowǔ", "english": "to dance"},
-  {"characters": "做饭", "pinyin": "zuòfàn", "english": "to cook; to prepare food"},
-  {"characters": "买东西", "pinyin": "mǎi dōngxi", "english": "to go shopping"},
-  {"characters": "超市", "pinyin": "chāoshì", "english": "supermarket"},
-  {"characters": "市场", "pinyin": "shìchǎng", "english": "market"},
-  {"characters": "百货公司", "pinyin": "bǎihuò gōngsī", "english": "department store"},
-  {"characters": "银行", "pinyin": "yínháng", "english": "bank"},
-  {"characters": "邮局", "pinyin": "yóujú", "english": "post office"},
-  {"characters": "图书馆", "pinyin": "túshūguǎn", "english": "library"},
-  {"characters": "公园", "pinyin": "gōngyuán", "english": "park"},
-  {"characters": "饭店", "pinyin": "fàndiàn", "english": "hotel; restaurant"},
-  {"characters": "宾馆", "pinyin": "bīnguǎn", "english": "hotel; guesthouse"},
-  {"characters": "教室", "pinyin": "jiàoshì", "english": "classroom"},
-  {"characters": "办公室", "pinyin": "bàngōngshì", "english": "office"},
-  {"characters": "卧室", "pinyin": "wòshì", "english": "bedroom"},
-  {"characters": "客厅", "pinyin": "kètīng", "english": "living room"},
-  {"characters": "厨房", "pinyin": "chúfáng", "english": "kitchen"},
-  {"characters": "卫生间", "pinyin": "wèishēngjiān", "english": "bathroom; restroom"},
-  {"characters": "阳台", "pinyin": "yángtái", "english": "balcony"},
-  {"characters": "花园", "pinyin": "huāyuán", "english": "garden"},
-  {"characters": "花", "pinyin": "huā", "english": "flower"},
-  {"characters": "树", "pinyin": "shù", "english": "tree"},
-  {"characters": "草", "pinyin": "cǎo", "english": "grass"},
-  {"characters": "山", "pinyin": "shān", "english": "mountain; hill"},
-  {"characters": "河", "pinyin": "hé", "english": "river"},
-  {"characters": "湖", "pinyin": "hú", "english": "lake"},
-  {"characters": "海", "pinyin": "hǎi", "english": "sea; ocean"},
-  {"characters": "春天", "pinyin": "chūntiān", "english": "spring"},
-  {"characters": "夏天", "pinyin": "xiàtiān", "english": "summer"},
-  {"characters": "秋天", "pinyin": "qiūtiān", "english": "autumn; fall"},
-  {"characters": "冬天", "pinyin": "dōngtiān", "english": "winter"},
-  {"characters": "风", "pinyin": "fēng", "english": "wind"},
-  {"characters": "雪", "pinyin": "xuě", "english": "snow"},
-  {"characters": "雨", "pinyin": "yǔ", "english": "rain"},
-  {"characters": "太阳", "pinyin": "tàiyáng", "english": "sun"},
-  {"characters": "月亮", "pinyin": "yuèliang", "english": "moon"},
-  {"characters": "星星", "pinyin": "xīngxing", "english": "star"},
-  {"characters": "东", "pinyin": "dōng", "english": "east"},
-  {"characters": "南", "pinyin": "nán", "english": "south"},
-  {"characters": "西", "pinyin": "xī", "english": "west"},
-  {"characters": "北", "pinyin": "běi", "english": "north"},
-  {"characters": "黑", "pinyin": "hēi", "english": "black"},
-  {"characters": "黄", "pinyin": "huáng", "english": "yellow"},
-  {"characters": "绿", "pinyin": "lǜ", "english": "green"},
-  {"characters": "蓝", "pinyin": "lán", "english": "blue"},
-  {"characters": "狗", "pinyin": "gǒu", "english": "dog"},
-  {"characters": "鱼", "pinyin": "yú", "english": "fish"},
-  {"characters": "牛", "pinyin": "niú", "english": "cow; ox"},
-  {"characters": "羊", "pinyin": "yáng", "english": "sheep; goat"},
-  {"characters": "鸟", "pinyin": "niǎo", "english": "bird"},
-  {"characters": "头发", "pinyin": "tóufa", "english": "hair"},
-  {"characters": "眼睛", "pinyin": "yǎnjing", "english": "eye"},
-  {"characters": "鼻子", "pinyin": "bízi", "english": "nose"},
-  {"characters": "嘴", "pinyin": "zuǐ", "english": "mouth"},
-  {"characters": "耳朵", "pinyin": "ěrduo", "english": "ear"},
-  {"characters": "手", "pinyin": "shǒu", "english": "hand"},
-  {"characters": "脚", "pinyin": "jiǎo", "english": "foot; leg"},
-  {"characters": "脸", "pinyin": "liǎn", "english": "face"},
-  {"characters": "衣服", "pinyin": "yīfu", "english": "clothes"},
-  {"characters": "裤子", "pinyin": "kùzi", "english": "pants; trousers"},
-  {"characters": "鞋", "pinyin": "xié", "english": "shoes"},
-  {"characters": "帽子", "pinyin": "màozi", "english": "hat; cap"},
-  {"characters": "手表", "pinyin": "shǒubiǎo", "english": "wristwatch"},
-  {"characters": "眼镜", "pinyin": "yǎnjìng", "english": "glasses; spectacles"},
-  {"characters": "包", "pinyin": "bāo", "english": "bag; package"},
-  {"characters": "钥匙", "pinyin": "yàoshi", "english": "key"},
-  {"characters": "毛巾", "pinyin": "máojīn", "english": "towel"},
-  {"characters": "镜子", "pinyin": "jìngzi", "english": "mirror"},
-  {"characters": "床", "pinyin": "chuáng", "english": "bed"},
-  {"characters": "椅子", "pinyin": "yǐzi", "english": "chair"},
-  {"characters": "窗户", "pinyin": "chuānghu", "english": "window"},
-  {"characters": "灯", "pinyin": "dēng", "english": "lamp; light"},
-  {"characters": "空调", "pinyin": "kōngtiáo", "english": "air conditioner"},
-  {"characters": "电话", "pinyin": "diànhuà", "english": "telephone; phone"},
-  {"characters": "网", "pinyin": "wǎng", "english": "internet; net; network"},
-  {"characters": "照片", "pinyin": "zhàopiàn", "english": "photograph; photo"},
-  {"characters": "地图", "pinyin": "dìtú", "english": "map"},
-  {"characters": "护照", "pinyin": "hùzhào", "english": "passport"},
-  {"characters": "行李", "pinyin": "xíngli", "english": "luggage; baggage"},
-  {"characters": "礼物", "pinyin": "lǐwù", "english": "gift; present"},
-  {"characters": "蛋糕", "pinyin": "dàngāo", "english": "cake"},
-  {"characters": "面包", "pinyin": "miànbāo", "english": "bread"},
-  {"characters": "牛奶", "pinyin": "niúnǎi", "english": "milk"},
-  {"characters": "果汁", "pinyin": "guǒzhī", "english": "juice"},
-  {"characters": "啤酒", "pinyin": "píjiǔ", "english": "beer"},
-  {"characters": "咖啡", "pinyin": "kāfēi", "english": "coffee"},
-  {"characters": "盐", "pinyin": "yán", "english": "salt"},
-  {"characters": "糖", "pinyin": "táng", "english": "sugar; candy"},
-  {"characters": "油", "pinyin": "yóu", "english": "oil"},
-  {"characters": "肉", "pinyin": "ròu", "english": "meat"},
-  {"characters": "猪肉", "pinyin": "zhūròu", "english": "pork"},
-  {"characters": "牛肉", "pinyin": "niúròu", "english": "beef"},
-  {"characters": "鸡肉", "pinyin": "jīròu", "english": "chicken (meat)"},
-  {"characters": "豆腐", "pinyin": "dòufu", "english": "tofu"},
-  {"characters": "白菜", "pinyin": "báicài", "english": "Chinese cabbage; bok choy"},
-  {"characters": "西红柿", "pinyin": "xīhóngshì", "english": "tomato"},
-  {"characters": "黄瓜", "pinyin": "huángguā", "english": "cucumber"},
-  {"characters": "土豆", "pinyin": "tǔdòu", "english": "potato"},
-  {"characters": "香蕉", "pinyin": "xiāngjiāo", "english": "banana"},
-  {"characters": "橙子", "pinyin": "chéngzi", "english": "orange (fruit)"},
-  {"characters": "葡萄", "pinyin": "pútao", "english": "grape"},
-  {"characters": "草莓", "pinyin": "cǎoméi", "english": "strawberry"},
-  {"characters": "月", "pinyin": "yuè", "english": "month"},
-  {"characters": "号", "pinyin": "hào", "english": "number; date"},
-  {"characters": "星期一", "pinyin": "xīngqī yī", "english": "Monday"},
-  {"characters": "星期二", "pinyin": "xīngqī èr", "english": "Tuesday"},
-  {"characters": "星期三", "pinyin": "xīngqī sān", "english": "Wednesday"},
-  {"characters": "星期四", "pinyin": "xīngqī sì", "english": "Thursday"},
-  {"characters": "星期五", "pinyin": "xīngqī wǔ", "english": "Friday"},
-  {"characters": "星期六", "pinyin": "xīngqī liù", "english": "Saturday"},
-  {"characters": "星期天", "pinyin": "xīngqī tiān", "english": "Sunday"},
-  {"characters": "刚", "pinyin": "gāng", "english": "just; just now; just recently"},
-  {"characters": "已经", "pinyin": "yǐjīng", "english": "already"},
-  {"characters": "着", "pinyin": "zhe", "english": "(aspect particle indicating ongoing action)"},
-  {"characters": "了", "pinyin": "le", "english": "(particle indicating completion or change)"},
-  {"characters": "过", "pinyin": "guo", "english": "(aspect particle for experience)"},
-  {"characters": "着", "pinyin": "zháo", "english": "to succeed; to touch"},
-  {"characters": "起来", "pinyin": "qǐlái", "english": "to get up; to rise"},
-  {"characters": "下去", "pinyin": "xiàqù", "english": "to go down; to continue"},
-  {"characters": "出来", "pinyin": "chūlái", "english": "to come out"},
-  {"characters": "进来", "pinyin": "jìnlái", "english": "to come in"},
-  {"characters": "上来", "pinyin": "shànglái", "english": "to come up"},
-  {"characters": "回来", "pinyin": "huílái", "english": "to come back; to return"},
-  {"characters": "过来", "pinyin": "guòlái", "english": "to come over"},
-  {"characters": "哪里", "pinyin": "nǎlǐ", "english": "where; wherever"},
-  {"characters": "这里", "pinyin": "zhèlǐ", "english": "here"},
-  {"characters": "那里", "pinyin": "nàlǐ", "english": "there"},
-  {"characters": "什么时候", "pinyin": "shénme shíhou", "english": "when; what time"},
-  {"characters": "多久", "pinyin": "duō jiǔ", "english": "how long (time)"},
-  {"characters": "多大", "pinyin": "duō dà", "english": "how old; how big"},
-  {"characters": "多高", "pinyin": "duō gāo", "english": "how tall"},
-  {"characters": "多远", "pinyin": "duō yuǎn", "english": "how far"},
-  {"characters": "有没有", "pinyin": "yǒu méiyǒu", "english": "do you have...; is there..."},
-  {"characters": "好不好", "pinyin": "hǎo bù hǎo", "english": "OK?; is it good?"},
-  {"characters": "是不是", "pinyin": "shì bu shì", "english": "is it or isn't it; right?"},
-  {"characters": "先...然后", "pinyin": "xiān...rán hòu", "english": "first...then"},
-  {"characters": "一...就", "pinyin": "yī...jiù", "english": "as soon as...; once...then"},
-  {"characters": "越来越", "pinyin": "yuè lái yuè", "english": "more and more"},
-  {"characters": "越...越", "pinyin": "yuè...yuè", "english": "the more...the more"},
-  {"characters": "虽然...但是", "pinyin": "suīrán...dànshì", "english": "although...but"},
-  {"characters": "不但...而且", "pinyin": "bùdàn...érqiě", "english": "not only...but also"},
-  {"characters": "如果...就", "pinyin": "rúguǒ...jiù", "english": "if...then"},
-  {"characters": "因为...所以", "pinyin": "yīnwèi...suǒyǐ", "english": "because...therefore"},
-  {"characters": "祝你生日快乐", "pinyin": "zhù nǐ shēngrì kuàilè", "english": "Happy birthday to you"},
-  {"characters": "新年快乐", "pinyin": "xīnnián kuàilè", "english": "Happy New Year"},
-  {"characters": "节日快乐", "pinyin": "jiérì kuàilè", "english": "Happy holiday"},
-  {"characters": "身体健康", "pinyin": "shēntǐ jiànkāng", "english": "good health"},
-  {"characters": "万事如意", "pinyin": "wànshì rúyì", "english": "may all go well"},
-  {"characters": "请坐", "pinyin": "qǐng zuò", "english": "please sit down"},
-  {"characters": "请进", "pinyin": "qǐng jìn", "english": "please come in"},
-  {"characters": "请稍等", "pinyin": "qǐng shāo děng", "english": "please wait a moment"},
-  {"characters": "慢走", "pinyin": "màn zǒu", "english": "take care (when someone is leaving)"},
-  {"characters": "一路平安", "pinyin": "yīlù píng'ān", "english": "have a safe journey"},
-  {"characters": "加油", "pinyin": "jiāyóu", "english": "go! come on! keep it up!"},
-  {"characters": "没事儿", "pinyin": "méi shìr", "english": "it's fine; no problem; nothing's wrong"},
-  {"characters": "随便", "pinyin": "suíbiàn", "english": "as you like; casual; whatever"},
-  {"characters": "好的", "pinyin": "hǎo de", "english": "OK; alright"},
-  {"characters": "嗯", "pinyin": "ń/ňg", "english": "(affirmative sound) yes; mm-hmm"},
-  {"characters": "哦", "pinyin": "ó/ò", "english": "oh (expressing understanding or surprise)"}
+  {
+    "characters": "爱",
+    "pinyin": "ài",
+    "english": "to love; to be fond of; to like; affection; to be inclined (to do sth); to tend to (happen)"
+  },
+  {
+    "characters": "爱好",
+    "pinyin": "àihào",
+    "english": "to like; to be fond of; to take pleasure in; to be keen on; interest; hobby"
+  },
+  {
+    "characters": "八",
+    "pinyin": "bā",
+    "english": "eight; 8"
+  },
+  {
+    "characters": "爸爸",
+    "pinyin": "bàba",
+    "english": "(coll.) father; dad"
+  },
+  {
+    "characters": "吧",
+    "pinyin": "ba",
+    "english": "bar (loanword) (serving drinks, or providing Internet access etc); to puff (on a pipe etc); (onom.) bang"
+  },
+  {
+    "characters": "白",
+    "pinyin": "bái",
+    "english": "surname Bai"
+  },
+  {
+    "characters": "白天",
+    "pinyin": "báitiān",
+    "english": "daytime; during the day; day"
+  },
+  {
+    "characters": "百",
+    "pinyin": "bǎi",
+    "english": "surname Bai"
+  },
+  {
+    "characters": "班",
+    "pinyin": "bān",
+    "english": "surname Ban"
+  },
+  {
+    "characters": "半",
+    "pinyin": "bàn",
+    "english": "half; semi-; incomplete"
+  },
+  {
+    "characters": "半年",
+    "pinyin": "bàn nián",
+    "english": "half a year"
+  },
+  {
+    "characters": "半天",
+    "pinyin": "bàntiān",
+    "english": "half of the day; a long time; quite a while"
+  },
+  {
+    "characters": "帮",
+    "pinyin": "bāng",
+    "english": "old variant of 帮"
+  },
+  {
+    "characters": "帮忙",
+    "pinyin": "bāngmáng",
+    "english": "to help; to lend a hand; to do a favor"
+  },
+  {
+    "characters": "包",
+    "pinyin": "bāo",
+    "english": "surname Bao"
+  },
+  {
+    "characters": "包子",
+    "pinyin": "bāozi",
+    "english": "bao (steamed stuffed bun)"
+  },
+  {
+    "characters": "杯",
+    "pinyin": "bēi",
+    "english": "cup; trophy cup; classifier for certain containers of liquids: glass, cup"
+  },
+  {
+    "characters": "杯子",
+    "pinyin": "bēizi",
+    "english": "cup; glass"
+  },
+  {
+    "characters": "北",
+    "pinyin": "běi",
+    "english": "north; (classical) to be defeated"
+  },
+  {
+    "characters": "北边",
+    "pinyin": "běibian",
+    "english": "north; north side; northern part"
+  },
+  {
+    "characters": "北京",
+    "pinyin": "Běijīng",
+    "english": "Beijing, capital of the People's Republic of China"
+  },
+  {
+    "characters": "本",
+    "pinyin": "běn",
+    "english": "root; stem; origin"
+  },
+  {
+    "characters": "本子",
+    "pinyin": "běnzi",
+    "english": "book; notebook; Japanese-style self-published comic (esp. an erotic one), aka \"dōjinshi\""
+  },
+  {
+    "characters": "比",
+    "pinyin": "bǐ",
+    "english": "Belgium; Belgian; abbr. for 比利时"
+  },
+  {
+    "characters": "别",
+    "pinyin": "bié",
+    "english": "surname Bie"
+  },
+  {
+    "characters": "别的",
+    "pinyin": "biéde",
+    "english": "else; other"
+  },
+  {
+    "characters": "别人",
+    "pinyin": "biérén",
+    "english": "other people; others; other person"
+  },
+  {
+    "characters": "病",
+    "pinyin": "bìng",
+    "english": "illness; disease; to fall ill"
+  },
+  {
+    "characters": "病人",
+    "pinyin": "bìngrén",
+    "english": "sick person; patient; invalid"
+  },
+  {
+    "characters": "不大",
+    "pinyin": "bù dà",
+    "english": "not very; not too; not often"
+  },
+  {
+    "characters": "不对",
+    "pinyin": "bùduì",
+    "english": "incorrect; wrong; amiss"
+  },
+  {
+    "characters": "不客气",
+    "pinyin": "bù kèqì",
+    "english": "you're welcome; don't mention it; impolite"
+  },
+  {
+    "characters": "不用",
+    "pinyin": "bùyòng",
+    "english": "need not"
+  },
+  {
+    "characters": "不",
+    "pinyin": "bù",
+    "english": "no; not so; (bound form) not; un-"
+  },
+  {
+    "characters": "菜",
+    "pinyin": "cài",
+    "english": "dish (type of food); vegetable; cuisine"
+  },
+  {
+    "characters": "茶",
+    "pinyin": "chá",
+    "english": "tea; tea plant"
+  },
+  {
+    "characters": "差",
+    "pinyin": "chà",
+    "english": "difference; discrepancy; (math.) difference (amount remaining after a subtraction); (literary) a little; somewhat; slightly"
+  },
+  {
+    "characters": "常",
+    "pinyin": "cháng",
+    "english": "surname Chang"
+  },
+  {
+    "characters": "常常",
+    "pinyin": "chángcháng",
+    "english": "frequently; often"
+  },
+  {
+    "characters": "唱",
+    "pinyin": "chàng",
+    "english": "to sing; to call loudly; to chant"
+  },
+  {
+    "characters": "唱歌",
+    "pinyin": "chànggē",
+    "english": "to sing a song"
+  },
+  {
+    "characters": "车",
+    "pinyin": "chē",
+    "english": "surname Che"
+  },
+  {
+    "characters": "车票",
+    "pinyin": "chēpiào",
+    "english": "ticket (for a bus or train)"
+  },
+  {
+    "characters": "车上",
+    "pinyin": "chē shang",
+    "english": "Car"
+  },
+  {
+    "characters": "车站",
+    "pinyin": "chēzhàn",
+    "english": "rail station; bus stop"
+  },
+  {
+    "characters": "吃",
+    "pinyin": "chī",
+    "english": "to eat; to consume; to eat at (a cafeteria etc); to eradicate; to destroy"
+  },
+  {
+    "characters": "吃饭",
+    "pinyin": "chīfàn",
+    "english": "to have a meal; to eat; to make a living"
+  },
+  {
+    "characters": "出",
+    "pinyin": "chū",
+    "english": "to go out; to come out; to occur"
+  },
+  {
+    "characters": "出来",
+    "pinyin": "chūlái",
+    "english": "to come out; to appear; to arise"
+  },
+  {
+    "characters": "出去",
+    "pinyin": "chūqù",
+    "english": "to go out"
+  },
+  {
+    "characters": "穿",
+    "pinyin": "chuān",
+    "english": "to wear; to put on; to dress"
+  },
+  {
+    "characters": "床",
+    "pinyin": "chuáng",
+    "english": "bed; couch; classifier for beds"
+  },
+  {
+    "characters": "次",
+    "pinyin": "cì",
+    "english": "next in sequence; second; the second (day, time etc)"
+  },
+  {
+    "characters": "从",
+    "pinyin": "cóng",
+    "english": "variant of 从"
+  },
+  {
+    "characters": "错",
+    "pinyin": "cuò",
+    "english": "surname Cuo"
+  },
+  {
+    "characters": "打",
+    "pinyin": "dǎ",
+    "english": "dozen (loanword)"
+  },
+  {
+    "characters": "打车",
+    "pinyin": "dǎchē",
+    "english": "to take a taxi (in town); to hitch a lift"
+  },
+  {
+    "characters": "打电话",
+    "pinyin": "dǎ diànhuà",
+    "english": "to make a telephone call"
+  },
+  {
+    "characters": "打开",
+    "pinyin": "dǎkāi",
+    "english": "to open; to show (a ticket); to turn on"
+  },
+  {
+    "characters": "打球",
+    "pinyin": "dǎ qiú",
+    "english": "to play ball; to play with a ball"
+  },
+  {
+    "characters": "大",
+    "pinyin": "dà",
+    "english": "big; large; great; older (than another person); eldest (as in 姐)"
+  },
+  {
+    "characters": "大学",
+    "pinyin": "dàxué",
+    "english": "the Great Learning, one of the Four Books 四书 in Confucianism"
+  },
+  {
+    "characters": "大学生",
+    "pinyin": "dàxuéshēng",
+    "english": "university student; college student"
+  },
+  {
+    "characters": "到",
+    "pinyin": "dào",
+    "english": "to reach; to arrive; to leave for; to go to; to (a place); until (a time); up to (a point)"
+  },
+  {
+    "characters": "得到",
+    "pinyin": "dédào",
+    "english": "to get; to obtain; to receive"
+  },
+  {
+    "characters": "地",
+    "pinyin": "de",
+    "english": "-ly; structural particle: used before a verb or adjective, linking it to preceding modifying adverbial adjunct"
+  },
+  {
+    "characters": "的",
+    "pinyin": "de",
+    "english": "of; ~'s (possessive particle); (used after an attribute); (used to form a nominal expression)"
+  },
+  {
+    "characters": "等",
+    "pinyin": "děng",
+    "english": "class; rank; grade"
+  },
+  {
+    "characters": "地",
+    "pinyin": "dì",
+    "english": "-ly; structural particle: used before a verb or adjective, linking it to preceding modifying adverbial adjunct"
+  },
+  {
+    "characters": "地点",
+    "pinyin": "dìdiǎn",
+    "english": "place; site; location"
+  },
+  {
+    "characters": "地方",
+    "pinyin": "dìfang",
+    "english": "region; regional (away from the central administration); local"
+  },
+  {
+    "characters": "地上",
+    "pinyin": "dìshang",
+    "english": "on the ground; on the floor"
+  },
+  {
+    "characters": "地图",
+    "pinyin": "dìtú",
+    "english": "map"
+  },
+  {
+    "characters": "弟弟",
+    "pinyin": "dìdi",
+    "english": "younger brother"
+  },
+  {
+    "characters": "第（第二）",
+    "pinyin": "dì (dì-èr)",
+    "english": ""
+  },
+  {
+    "characters": "点",
+    "pinyin": "diǎn",
+    "english": "point; dot; drop"
+  },
+  {
+    "characters": "电",
+    "pinyin": "diàn",
+    "english": "lightning; electricity; electric (bound form)"
+  },
+  {
+    "characters": "电话",
+    "pinyin": "diànhuà",
+    "english": "telephone; phone call; phone number"
+  },
+  {
+    "characters": "电脑",
+    "pinyin": "diànnǎo",
+    "english": "computer"
+  },
+  {
+    "characters": "电视",
+    "pinyin": "diànshì",
+    "english": "television; TV"
+  },
+  {
+    "characters": "电视机",
+    "pinyin": "diànshìjī",
+    "english": "television set"
+  },
+  {
+    "characters": "电影",
+    "pinyin": "diànyǐng",
+    "english": "movie; film"
+  },
+  {
+    "characters": "电影院",
+    "pinyin": "diànyǐngyuàn",
+    "english": "cinema; movie theater"
+  },
+  {
+    "characters": "东",
+    "pinyin": "dōng",
+    "english": "surname Dong"
+  },
+  {
+    "characters": "东边",
+    "pinyin": "dōngbian",
+    "english": "east; east side; eastern part"
+  },
+  {
+    "characters": "东西",
+    "pinyin": "dōngxi",
+    "english": "east and west"
+  },
+  {
+    "characters": "动",
+    "pinyin": "dòng",
+    "english": "(of sth) to move; to set in movement; to displace"
+  },
+  {
+    "characters": "动作",
+    "pinyin": "dòngzuò",
+    "english": "movement; motion; action; to act; to move"
+  },
+  {
+    "characters": "都",
+    "pinyin": "dōu",
+    "english": "surname Du"
+  },
+  {
+    "characters": "读",
+    "pinyin": "dú",
+    "english": "comma; phrase marked by pause"
+  },
+  {
+    "characters": "读书",
+    "pinyin": "dúshū",
+    "english": "to read a book; to study; to attend school"
+  },
+  {
+    "characters": "对",
+    "pinyin": "duì",
+    "english": "right; correct; towards; at; for; concerning; regarding"
+  },
+  {
+    "characters": "对不起",
+    "pinyin": "duìbuqǐ",
+    "english": "I'm sorry; excuse me; I beg your pardon; to let (sb) down; to disappoint"
+  },
+  {
+    "characters": "多",
+    "pinyin": "duō",
+    "english": "many; much; too many; in excess; (after a numeral) ... odd"
+  },
+  {
+    "characters": "多少",
+    "pinyin": "duōshao",
+    "english": "number; amount; somewhat"
+  },
+  {
+    "characters": "饿",
+    "pinyin": "è",
+    "english": "to be hungry; hungry; to starve (sb)"
+  },
+  {
+    "characters": "儿子",
+    "pinyin": "érzi",
+    "english": "son"
+  },
+  {
+    "characters": "二",
+    "pinyin": "èr",
+    "english": "two; 2; (Beijing dialect) stupid"
+  },
+  {
+    "characters": "饭",
+    "pinyin": "fàn",
+    "english": "cooked rice; meal; (loanword) fan"
+  },
+  {
+    "characters": "饭店",
+    "pinyin": "fàndiàn",
+    "english": "restaurant; hotel"
+  },
+  {
+    "characters": "房间",
+    "pinyin": "fángjiān",
+    "english": "room"
+  },
+  {
+    "characters": "房子",
+    "pinyin": "fángzi",
+    "english": "house; building (single- or two-story); apartment"
+  },
+  {
+    "characters": "放",
+    "pinyin": "fàng",
+    "english": "to put; to place; to release"
+  },
+  {
+    "characters": "放假",
+    "pinyin": "fàngjià",
+    "english": "to have a holiday or vacation"
+  },
+  {
+    "characters": "放学",
+    "pinyin": "fàngxué",
+    "english": "to dismiss students at the end of the school day"
+  },
+  {
+    "characters": "飞",
+    "pinyin": "fēi",
+    "english": "to fly"
+  },
+  {
+    "characters": "飞机",
+    "pinyin": "fēijī",
+    "english": "airplane"
+  },
+  {
+    "characters": "非常",
+    "pinyin": "fēicháng",
+    "english": "very; really; unusual; extraordinary"
+  },
+  {
+    "characters": "分",
+    "pinyin": "fēn",
+    "english": "to divide; to separate; to distribute; to allocate; to distinguish (good and bad)"
+  },
+  {
+    "characters": "风",
+    "pinyin": "fēng",
+    "english": "wind; news; style"
+  },
+  {
+    "characters": "干",
+    "pinyin": "gān",
+    "english": "old variant of 干"
+  },
+  {
+    "characters": "干净",
+    "pinyin": "gānjìng",
+    "english": "clean; neat"
+  },
+  {
+    "characters": "干",
+    "pinyin": "gàn",
+    "english": "old variant of 干"
+  },
+  {
+    "characters": "干什么",
+    "pinyin": "gàn shénme",
+    "english": "what are you doing?; what's he up to?"
+  },
+  {
+    "characters": "高",
+    "pinyin": "gāo",
+    "english": "surname Gao"
+  },
+  {
+    "characters": "高兴",
+    "pinyin": "gāoxìng",
+    "english": "happy; glad; willing (to do sth)"
+  },
+  {
+    "characters": "告诉",
+    "pinyin": "gàosu",
+    "english": "to press charges; to file a complaint"
+  },
+  {
+    "characters": "哥哥",
+    "pinyin": "gēge",
+    "english": "older brother"
+  },
+  {
+    "characters": "歌",
+    "pinyin": "gē",
+    "english": "song; to sing"
+  },
+  {
+    "characters": "个",
+    "pinyin": "gè",
+    "english": "used in 自个儿"
+  },
+  {
+    "characters": "给",
+    "pinyin": "gěi",
+    "english": "to; for; for the benefit of"
+  },
+  {
+    "characters": "跟",
+    "pinyin": "gēn",
+    "english": "heel; to follow closely; to go with"
+  },
+  {
+    "characters": "工人",
+    "pinyin": "gōngrén",
+    "english": "worker"
+  },
+  {
+    "characters": "工作",
+    "pinyin": "gōngzuò",
+    "english": "to work; (of a machine) to operate; job"
+  },
+  {
+    "characters": "关",
+    "pinyin": "guān",
+    "english": "surname Guan"
+  },
+  {
+    "characters": "关上",
+    "pinyin": "guānshang",
+    "english": "to close (a door); to turn off (light, electrical equipment etc)"
+  },
+  {
+    "characters": "贵",
+    "pinyin": "guì",
+    "english": "expensive; noble; precious"
+  },
+  {
+    "characters": "国",
+    "pinyin": "guó",
+    "english": "surname Guo"
+  },
+  {
+    "characters": "国家",
+    "pinyin": "guójiā",
+    "english": "country; nation; state"
+  },
+  {
+    "characters": "国外",
+    "pinyin": "guó wài",
+    "english": "abroad; external (affairs); overseas"
+  },
+  {
+    "characters": "过",
+    "pinyin": "guò",
+    "english": "surname Guo"
+  },
+  {
+    "characters": "还",
+    "pinyin": "hái",
+    "english": "surname Huan"
+  },
+  {
+    "characters": "还是",
+    "pinyin": "háishi",
+    "english": "still (as before); had better; unexpectedly"
+  },
+  {
+    "characters": "还有",
+    "pinyin": "hái yǒu",
+    "english": "furthermore; in addition; still"
+  },
+  {
+    "characters": "孩子",
+    "pinyin": "háizi",
+    "english": "child"
+  },
+  {
+    "characters": "汉语",
+    "pinyin": "Hànyǔ",
+    "english": "Chinese language"
+  },
+  {
+    "characters": "汉字",
+    "pinyin": "Hànzì",
+    "english": "Chinese character; Japanese: kanji; Korean: hanja"
+  },
+  {
+    "characters": "好",
+    "pinyin": "hǎo",
+    "english": "good; appropriate; proper; all right!"
+  },
+  {
+    "characters": "好吃",
+    "pinyin": "hǎochī",
+    "english": "tasty; delicious"
+  },
+  {
+    "characters": "好看",
+    "pinyin": "hǎokàn",
+    "english": "good-looking; nice-looking; good (of a movie, book, TV show etc)"
+  },
+  {
+    "characters": "好听",
+    "pinyin": "hǎotīng",
+    "english": "pleasant to hear"
+  },
+  {
+    "characters": "好玩儿",
+    "pinyin": "hǎowánr",
+    "english": "erhua variant of 好玩; amusing; fun"
+  },
+  {
+    "characters": "号",
+    "pinyin": "hào",
+    "english": "roar; cry"
+  },
+  {
+    "characters": "喝",
+    "pinyin": "hē",
+    "english": "to drink; variant of 嗬"
+  },
+  {
+    "characters": "和",
+    "pinyin": "hé",
+    "english": "old variant of 和"
+  },
+  {
+    "characters": "很",
+    "pinyin": "hěn",
+    "english": "(adverb of degree); quite; very"
+  },
+  {
+    "characters": "后",
+    "pinyin": "hòu",
+    "english": "surname Hou"
+  },
+  {
+    "characters": "后边",
+    "pinyin": "hòubian",
+    "english": "the back; the rear; the last bit; behind; near the end; at the back; later; afterwards"
+  },
+  {
+    "characters": "后天",
+    "pinyin": "hòutiān",
+    "english": "the day after tomorrow; life after birth (the period in which one develops through experiences, contrasted with 天); acquired (not innate or congenital)"
+  },
+  {
+    "characters": "花",
+    "pinyin": "huā",
+    "english": "surname Hua"
+  },
+  {
+    "characters": "话",
+    "pinyin": "huà",
+    "english": "dialect; language; spoken words"
+  },
+  {
+    "characters": "坏",
+    "pinyin": "huài",
+    "english": "bad; spoiled; broken"
+  },
+  {
+    "characters": "还",
+    "pinyin": "huán",
+    "english": "surname Huan"
+  },
+  {
+    "characters": "回",
+    "pinyin": "huí",
+    "english": "to circle; to go back; to turn around"
+  },
+  {
+    "characters": "回答",
+    "pinyin": "huídá",
+    "english": "to reply; to answer; reply; answer"
+  },
+  {
+    "characters": "回到",
+    "pinyin": "huídào",
+    "english": "to return to"
+  },
+  {
+    "characters": "回家",
+    "pinyin": "huí jiā",
+    "english": "to return home"
+  },
+  {
+    "characters": "回来",
+    "pinyin": "huílái",
+    "english": "to return; to come back"
+  },
+  {
+    "characters": "回去",
+    "pinyin": "huíqù",
+    "english": "to return; to go back"
+  },
+  {
+    "characters": "会",
+    "pinyin": "huì",
+    "english": "can; to have the skill; to know how to; to be likely to; to be sure to; to meet; to get together"
+  },
+  {
+    "characters": "火车",
+    "pinyin": "huǒchē",
+    "english": "train"
+  },
+  {
+    "characters": "机场",
+    "pinyin": "jīchǎng",
+    "english": "airport; airfield; (slang) service provider for Shadowsocks or similar software for circumventing Internet censorship"
+  },
+  {
+    "characters": "机票",
+    "pinyin": "jīpiào",
+    "english": "air ticket; passenger ticket"
+  },
+  {
+    "characters": "鸡蛋",
+    "pinyin": "jīdàn",
+    "english": "(chicken) egg; hen's egg"
+  },
+  {
+    "characters": "几",
+    "pinyin": "jǐ",
+    "english": "small table"
+  },
+  {
+    "characters": "记",
+    "pinyin": "jì",
+    "english": "to record; to note; to memorize"
+  },
+  {
+    "characters": "记得",
+    "pinyin": "jìde",
+    "english": "to remember"
+  },
+  {
+    "characters": "记住",
+    "pinyin": "jìzhù",
+    "english": "to remember; to bear in mind; to learn by heart"
+  },
+  {
+    "characters": "家",
+    "pinyin": "jiā",
+    "english": "used in 家伙 and 家俱"
+  },
+  {
+    "characters": "家里",
+    "pinyin": "jiā li",
+    "english": "home"
+  },
+  {
+    "characters": "家人",
+    "pinyin": "jiārén",
+    "english": "family member; (old) servant"
+  },
+  {
+    "characters": "间",
+    "pinyin": "jiān",
+    "english": "between; among; within a definite time or space"
+  },
+  {
+    "characters": "见",
+    "pinyin": "jiàn",
+    "english": "to see; to meet; to appear (to be sth)"
+  },
+  {
+    "characters": "见面",
+    "pinyin": "jiànmiàn",
+    "english": "to meet; to see each other"
+  },
+  {
+    "characters": "教",
+    "pinyin": "jiāo",
+    "english": "surname Jiao"
+  },
+  {
+    "characters": "叫",
+    "pinyin": "jiào",
+    "english": "to shout; to call; to order"
+  },
+  {
+    "characters": "教学楼",
+    "pinyin": "jiàoxuélóu",
+    "english": "teaching block; school building"
+  },
+  {
+    "characters": "姐姐",
+    "pinyin": "jiějie",
+    "english": "older sister"
+  },
+  {
+    "characters": "介绍",
+    "pinyin": "jièshào",
+    "english": "to introduce (sb to sb); to give a presentation; to present (sb for a job etc)"
+  },
+  {
+    "characters": "今年",
+    "pinyin": "jīnnián",
+    "english": "this year"
+  },
+  {
+    "characters": "今天",
+    "pinyin": "jīntiān",
+    "english": "today; at the present; now"
+  },
+  {
+    "characters": "进",
+    "pinyin": "jìn",
+    "english": "to go forward; to advance; to go in"
+  },
+  {
+    "characters": "进来",
+    "pinyin": "jìnlái",
+    "english": "to come in"
+  },
+  {
+    "characters": "进去",
+    "pinyin": "jìnqù",
+    "english": "to go in"
+  },
+  {
+    "characters": "九",
+    "pinyin": "jiǔ",
+    "english": "nine; 9"
+  },
+  {
+    "characters": "就",
+    "pinyin": "jiù",
+    "english": "(after a suppositional clause) in that case; then; (after a clause of action) as soon as; immediately after; (same as 是) merely; nothing else but; simply; just; precisely; exactly"
+  },
+  {
+    "characters": "觉得",
+    "pinyin": "juéde",
+    "english": "to think that ...; to feel that ...; to feel (uncomfortable etc)"
+  },
+  {
+    "characters": "开",
+    "pinyin": "kāi",
+    "english": "to open (transitive or intransitive); (of ships, vehicles, troops etc) to start; to turn on; to put in operation; to operate; to run"
+  },
+  {
+    "characters": "开车",
+    "pinyin": "kāichē",
+    "english": "to drive a car"
+  },
+  {
+    "characters": "开会",
+    "pinyin": "kāihuì",
+    "english": "to hold a meeting; to attend a meeting"
+  },
+  {
+    "characters": "开玩笑",
+    "pinyin": "kāi wánxiào",
+    "english": "to play a joke; to make fun of; to joke"
+  },
+  {
+    "characters": "看",
+    "pinyin": "kàn",
+    "english": "to look after; to take care of; to watch"
+  },
+  {
+    "characters": "看病",
+    "pinyin": "kànbìng",
+    "english": "to visit a doctor; to see a patient"
+  },
+  {
+    "characters": "看到",
+    "pinyin": "kàndào",
+    "english": "to see"
+  },
+  {
+    "characters": "看见",
+    "pinyin": "kànjiàn",
+    "english": "to see; to catch sight of"
+  },
+  {
+    "characters": "考",
+    "pinyin": "kǎo",
+    "english": "to beat; to hit; variant of 考"
+  },
+  {
+    "characters": "考试",
+    "pinyin": "kǎoshì",
+    "english": "to take an exam; exam"
+  },
+  {
+    "characters": "渴",
+    "pinyin": "kě",
+    "english": "thirsty"
+  },
+  {
+    "characters": "课",
+    "pinyin": "kè",
+    "english": "subject; course; class"
+  },
+  {
+    "characters": "课本",
+    "pinyin": "kèběn",
+    "english": "textbook"
+  },
+  {
+    "characters": "课文",
+    "pinyin": "kèwén",
+    "english": "text"
+  },
+  {
+    "characters": "口",
+    "pinyin": "kǒu",
+    "english": "mouth; classifier for things with mouths (people, domestic animals, cannons, wells etc); classifier for bites or mouthfuls"
+  },
+  {
+    "characters": "块",
+    "pinyin": "kuài",
+    "english": "lump; chunk; piece; classifier for pieces of cloth, cake, soap etc; (coll.) classifier for money and currency units"
+  },
+  {
+    "characters": "快",
+    "pinyin": "kuài",
+    "english": "rapid; quick; speed"
+  },
+  {
+    "characters": "来",
+    "pinyin": "lái",
+    "english": "to come; (used as a substitute for a more specific verb); hither (directional complement for motion toward the speaker, as in 回来)"
+  },
+  {
+    "characters": "来到",
+    "pinyin": "láidào",
+    "english": "to arrive; to come"
+  },
+  {
+    "characters": "老",
+    "pinyin": "lǎo",
+    "english": "prefix used before the surname of a person or a numeral indicating the order of birth of the children in a family or to indicate affection or familiarity; old (of people); venerable (person)"
+  },
+  {
+    "characters": "老人",
+    "pinyin": "lǎorén",
+    "english": "old man or woman; the elderly; one's aged parents or grandparents"
+  },
+  {
+    "characters": "老师",
+    "pinyin": "lǎoshī",
+    "english": "teacher"
+  },
+  {
+    "characters": "了",
+    "pinyin": "le",
+    "english": "(completed action marker); (modal particle indicating change of state, situation now); (modal particle intensifying preceding clause)"
+  },
+  {
+    "characters": "累",
+    "pinyin": "lèi",
+    "english": "to accumulate; to involve or implicate (Taiwan pr. [lèi]); continuous"
+  },
+  {
+    "characters": "冷",
+    "pinyin": "lěng",
+    "english": "surname Leng"
+  },
+  {
+    "characters": "里",
+    "pinyin": "lǐ",
+    "english": "variant of 里"
+  },
+  {
+    "characters": "里边",
+    "pinyin": "lǐbian",
+    "english": "inside"
+  },
+  {
+    "characters": "两",
+    "pinyin": "liǎng",
+    "english": "two; both; some"
+  },
+  {
+    "characters": "零",
+    "pinyin": "líng",
+    "english": "zero; nought; zero sign"
+  },
+  {
+    "characters": "六",
+    "pinyin": "liù",
+    "english": "six; 6"
+  },
+  {
+    "characters": "楼",
+    "pinyin": "lóu",
+    "english": "surname Lou"
+  },
+  {
+    "characters": "楼上",
+    "pinyin": "lóu shàng",
+    "english": "upstairs; (Internet slang) previous poster in a forum thread"
+  },
+  {
+    "characters": "楼下",
+    "pinyin": "lóu xià",
+    "english": "downstairs"
+  },
+  {
+    "characters": "路",
+    "pinyin": "lù",
+    "english": "surname Lu"
+  },
+  {
+    "characters": "路口",
+    "pinyin": "lùkǒu",
+    "english": "crossing; intersection (of roads)"
+  },
+  {
+    "characters": "路上",
+    "pinyin": "lùshang",
+    "english": "on the road; on a journey; road surface"
+  },
+  {
+    "characters": "妈妈",
+    "pinyin": "māma",
+    "english": "mama; mommy; mother"
+  },
+  {
+    "characters": "马路",
+    "pinyin": "mǎlù",
+    "english": "street; road"
+  },
+  {
+    "characters": "马上",
+    "pinyin": "mǎshàng",
+    "english": "at once; right away; immediately"
+  },
+  {
+    "characters": "吗",
+    "pinyin": "ma",
+    "english": "(coll.) what?"
+  },
+  {
+    "characters": "买",
+    "pinyin": "mǎi",
+    "english": "to buy; to purchase"
+  },
+  {
+    "characters": "慢",
+    "pinyin": "màn",
+    "english": "slow"
+  },
+  {
+    "characters": "忙",
+    "pinyin": "máng",
+    "english": "busy; hurriedly; to hurry"
+  },
+  {
+    "characters": "毛",
+    "pinyin": "máo",
+    "english": "surname Mao"
+  },
+  {
+    "characters": "没",
+    "pinyin": "méi",
+    "english": "(negative prefix for verbs) have not; not"
+  },
+  {
+    "characters": "没关系",
+    "pinyin": "méi guānxi",
+    "english": "it doesn't matter"
+  },
+  {
+    "characters": "没什么",
+    "pinyin": "méi shénme",
+    "english": "nothing; it doesn't matter; it's nothing"
+  },
+  {
+    "characters": "没事儿",
+    "pinyin": "méishìr",
+    "english": "to have spare time; free from work; it's not important"
+  },
+  {
+    "characters": "没有",
+    "pinyin": "méiyǒu",
+    "english": "haven't; hasn't; doesn't exist"
+  },
+  {
+    "characters": "妹妹",
+    "pinyin": "mèimei",
+    "english": "younger sister; young woman"
+  },
+  {
+    "characters": "门",
+    "pinyin": "mén",
+    "english": "surname Men"
+  },
+  {
+    "characters": "门口",
+    "pinyin": "ménkǒu",
+    "english": "doorway; gate"
+  },
+  {
+    "characters": "门票",
+    "pinyin": "ménpiào",
+    "english": "ticket (for theater, cinema etc)"
+  },
+  {
+    "characters": "们（朋友们）",
+    "pinyin": "men (péngyoumen)",
+    "english": ""
+  },
+  {
+    "characters": "米饭",
+    "pinyin": "mǐfàn",
+    "english": "(cooked) rice"
+  },
+  {
+    "characters": "面包",
+    "pinyin": "miànbāo",
+    "english": "bread"
+  },
+  {
+    "characters": "面条儿",
+    "pinyin": "miàntiáor",
+    "english": "erhua variant of 面条; noodles"
+  },
+  {
+    "characters": "名字",
+    "pinyin": "míngzi",
+    "english": "name (of a person or thing)"
+  },
+  {
+    "characters": "明白",
+    "pinyin": "míngbai",
+    "english": "clear; obvious; unequivocal"
+  },
+  {
+    "characters": "明年",
+    "pinyin": "míngnián",
+    "english": "next year"
+  },
+  {
+    "characters": "明天",
+    "pinyin": "míngtiān",
+    "english": "tomorrow"
+  },
+  {
+    "characters": "拿",
+    "pinyin": "ná",
+    "english": "old variant of 拿"
+  },
+  {
+    "characters": "哪",
+    "pinyin": "nǎ",
+    "english": "how; which"
+  },
+  {
+    "characters": "哪里",
+    "pinyin": "nǎlǐ",
+    "english": "where?; somewhere; anywhere"
+  },
+  {
+    "characters": "哪儿",
+    "pinyin": "nǎr",
+    "english": "where?; wherever; anywhere; somewhere; (used in rhetorical questions) how can ...?; how could ...?"
+  },
+  {
+    "characters": "哪些",
+    "pinyin": "nǎxiē",
+    "english": "which ones?; who?; what?"
+  },
+  {
+    "characters": "那",
+    "pinyin": "nà",
+    "english": "surname Na"
+  },
+  {
+    "characters": "那边",
+    "pinyin": "nàbiān",
+    "english": "over there; yonder"
+  },
+  {
+    "characters": "那里",
+    "pinyin": "nàlǐ",
+    "english": "there; that place"
+  },
+  {
+    "characters": "那儿",
+    "pinyin": "nàr",
+    "english": "there"
+  },
+  {
+    "characters": "那些",
+    "pinyin": "nàxiē",
+    "english": "those"
+  },
+  {
+    "characters": "奶",
+    "pinyin": "nǎi",
+    "english": "breast; milk; to breastfeed"
+  },
+  {
+    "characters": "奶奶",
+    "pinyin": "nǎinai",
+    "english": "(informal) grandma (paternal grandmother); (respectful) mistress of the house; (coll.) boobies"
+  },
+  {
+    "characters": "男",
+    "pinyin": "nán",
+    "english": "male; Baron, lowest of five orders of nobility 位"
+  },
+  {
+    "characters": "男孩儿",
+    "pinyin": "nánháir",
+    "english": "erhua variant of 男孩; boy"
+  },
+  {
+    "characters": "男朋友",
+    "pinyin": "nánpéngyou",
+    "english": "boyfriend"
+  },
+  {
+    "characters": "男人",
+    "pinyin": "nánrén",
+    "english": "a man; a male; men"
+  },
+  {
+    "characters": "男生",
+    "pinyin": "nánshēng",
+    "english": "schoolboy; male student; boy"
+  },
+  {
+    "characters": "南",
+    "pinyin": "nán",
+    "english": "surname Nan"
+  },
+  {
+    "characters": "南边",
+    "pinyin": "nánbian",
+    "english": "south; south side; southern part"
+  },
+  {
+    "characters": "难",
+    "pinyin": "nán",
+    "english": "difficult (to...); problem; difficulty"
+  },
+  {
+    "characters": "呢",
+    "pinyin": "ne",
+    "english": "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\", \"And ...?\"); particle for inquiring about location (\"Where is ...?\"); particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\")"
+  },
+  {
+    "characters": "能",
+    "pinyin": "néng",
+    "english": "surname Neng"
+  },
+  {
+    "characters": "你",
+    "pinyin": "nǐ",
+    "english": "you (informal, as opposed to courteous 您)"
+  },
+  {
+    "characters": "你们",
+    "pinyin": "nǐmen",
+    "english": "you (plural)"
+  },
+  {
+    "characters": "年",
+    "pinyin": "nián",
+    "english": "surname Nian"
+  },
+  {
+    "characters": "您",
+    "pinyin": "nín",
+    "english": "you (courteous, as opposed to informal 你)"
+  },
+  {
+    "characters": "牛奶",
+    "pinyin": "niúnǎi",
+    "english": "cow's milk"
+  },
+  {
+    "characters": "女",
+    "pinyin": "nǚ",
+    "english": "female; woman; daughter"
+  },
+  {
+    "characters": "女儿",
+    "pinyin": "nǚ'ér",
+    "english": "daughter"
+  },
+  {
+    "characters": "女孩儿",
+    "pinyin": "nǚháir",
+    "english": "erhua variant of 女孩; girl"
+  },
+  {
+    "characters": "女朋友",
+    "pinyin": "nǚpéngyou",
+    "english": "girlfriend"
+  },
+  {
+    "characters": "女人",
+    "pinyin": "nǚrén",
+    "english": "woman"
+  },
+  {
+    "characters": "女生",
+    "pinyin": "nǚshēng",
+    "english": "schoolgirl; female student; girl"
+  },
+  {
+    "characters": "旁边",
+    "pinyin": "pángbiān",
+    "english": "side; adjacent place"
+  },
+  {
+    "characters": "跑",
+    "pinyin": "pǎo",
+    "english": "(of an animal) to paw (the ground)"
+  },
+  {
+    "characters": "朋友",
+    "pinyin": "péngyou",
+    "english": "friend"
+  },
+  {
+    "characters": "票",
+    "pinyin": "piào",
+    "english": "ticket; ballot; banknote"
+  },
+  {
+    "characters": "七",
+    "pinyin": "qī",
+    "english": "seven; 7"
+  },
+  {
+    "characters": "起",
+    "pinyin": "qǐ",
+    "english": "to rise; to raise; to get up"
+  },
+  {
+    "characters": "起床",
+    "pinyin": "qǐchuáng",
+    "english": "to get out of bed; to get up"
+  },
+  {
+    "characters": "起来",
+    "pinyin": "qǐlái",
+    "english": "to stand up; to get up; also pr. [qǐ lái]"
+  },
+  {
+    "characters": "汽车",
+    "pinyin": "qìchē",
+    "english": "car; automobile; bus"
+  },
+  {
+    "characters": "前",
+    "pinyin": "qián",
+    "english": "front; forward; ahead"
+  },
+  {
+    "characters": "前边",
+    "pinyin": "qiánbian",
+    "english": "front; the front side; in front of"
+  },
+  {
+    "characters": "前天",
+    "pinyin": "qiántiān",
+    "english": "the day before yesterday"
+  },
+  {
+    "characters": "钱",
+    "pinyin": "qián",
+    "english": "surname Qian"
+  },
+  {
+    "characters": "钱包",
+    "pinyin": "qiánbāo",
+    "english": "purse; wallet"
+  },
+  {
+    "characters": "请",
+    "pinyin": "qǐng",
+    "english": "to ask; to invite; please (do sth)"
+  },
+  {
+    "characters": "请假",
+    "pinyin": "qǐngjià",
+    "english": "to request leave of absence"
+  },
+  {
+    "characters": "请进",
+    "pinyin": "qǐng jìn",
+    "english": "\"please come in\""
+  },
+  {
+    "characters": "请问",
+    "pinyin": "qǐngwèn",
+    "english": "Excuse me, may I ask...?"
+  },
+  {
+    "characters": "请坐",
+    "pinyin": "qǐng zuò",
+    "english": "please, have a seat"
+  },
+  {
+    "characters": "球",
+    "pinyin": "qiú",
+    "english": "ball; sphere; globe"
+  },
+  {
+    "characters": "去",
+    "pinyin": "qù",
+    "english": "to go; to go to (a place); (of a time etc) last"
+  },
+  {
+    "characters": "去年",
+    "pinyin": "qùnián",
+    "english": "last year"
+  },
+  {
+    "characters": "热",
+    "pinyin": "rè",
+    "english": "to warm up; to heat up; hot (of weather)"
+  },
+  {
+    "characters": "人",
+    "pinyin": "rén",
+    "english": "person; people"
+  },
+  {
+    "characters": "认识",
+    "pinyin": "rènshi",
+    "english": "to know; to recognize; to be familiar with"
+  },
+  {
+    "characters": "认真",
+    "pinyin": "rènzhēn",
+    "english": "conscientious; earnest; serious"
+  },
+  {
+    "characters": "日",
+    "pinyin": "rì",
+    "english": "abbr. for 本, Japan"
+  },
+  {
+    "characters": "日期",
+    "pinyin": "rìqī",
+    "english": "date"
+  },
+  {
+    "characters": "肉",
+    "pinyin": "ròu",
+    "english": "meat; flesh; pulp (of a fruit)"
+  },
+  {
+    "characters": "三",
+    "pinyin": "sān",
+    "english": "surname San"
+  },
+  {
+    "characters": "山",
+    "pinyin": "shān",
+    "english": "surname Shan"
+  },
+  {
+    "characters": "商场",
+    "pinyin": "shāngchǎng",
+    "english": "shopping mall; shopping center; department store"
+  },
+  {
+    "characters": "商店",
+    "pinyin": "shāngdiàn",
+    "english": "store; shop"
+  },
+  {
+    "characters": "上",
+    "pinyin": "shàng",
+    "english": "used in 上声"
+  },
+  {
+    "characters": "上班",
+    "pinyin": "shàngbān",
+    "english": "to go to work; to be on duty; to start work"
+  },
+  {
+    "characters": "上边",
+    "pinyin": "shàngbian",
+    "english": "the top; above; overhead"
+  },
+  {
+    "characters": "上车",
+    "pinyin": "shàng chē",
+    "english": "to get on or into (a bus, train, car etc)"
+  },
+  {
+    "characters": "上次",
+    "pinyin": "shàng cì",
+    "english": "last time"
+  },
+  {
+    "characters": "上课",
+    "pinyin": "shàngkè",
+    "english": "to go to class; to attend class; to go to teach a class"
+  },
+  {
+    "characters": "上网",
+    "pinyin": "shàngwǎng",
+    "english": "to go online; to connect to the Internet; (of a document etc) to be uploaded to the Internet"
+  },
+  {
+    "characters": "上午",
+    "pinyin": "shàngwǔ",
+    "english": "morning"
+  },
+  {
+    "characters": "上学",
+    "pinyin": "shàngxué",
+    "english": "to go to school; to attend school"
+  },
+  {
+    "characters": "少",
+    "pinyin": "shǎo",
+    "english": "few; less; to lack"
+  },
+  {
+    "characters": "谁",
+    "pinyin": "shéi/shuí",
+    "english": "who; also pr. [shuí]"
+  },
+  {
+    "characters": "身上",
+    "pinyin": "shēnshang",
+    "english": "on the body; at hand; among"
+  },
+  {
+    "characters": "身体",
+    "pinyin": "shēntǐ",
+    "english": "the body; one's health; in person"
+  },
+  {
+    "characters": "什么",
+    "pinyin": "shénme",
+    "english": "what?; something; anything"
+  },
+  {
+    "characters": "生病",
+    "pinyin": "shēngbìng",
+    "english": "to fall ill"
+  },
+  {
+    "characters": "生气",
+    "pinyin": "shēngqì",
+    "english": "to get angry; to take offense; angry"
+  },
+  {
+    "characters": "生日",
+    "pinyin": "shēngrì",
+    "english": "birthday"
+  },
+  {
+    "characters": "十",
+    "pinyin": "shí",
+    "english": "ten; 10"
+  },
+  {
+    "characters": "时候",
+    "pinyin": "shíhou",
+    "english": "time; length of time; moment"
+  },
+  {
+    "characters": "时间",
+    "pinyin": "shíjiān",
+    "english": "time; period"
+  },
+  {
+    "characters": "事",
+    "pinyin": "shì",
+    "english": "matter; thing; item"
+  },
+  {
+    "characters": "试",
+    "pinyin": "shì",
+    "english": "to test; to try; experiment"
+  },
+  {
+    "characters": "是",
+    "pinyin": "shì",
+    "english": "to be (followed by substantives only); correct; right; true; (respectful acknowledgement of a command) very well"
+  },
+  {
+    "characters": "是不是",
+    "pinyin": "shì bu shì",
+    "english": "is or isn't; yes or no; whether or not"
+  },
+  {
+    "characters": "手",
+    "pinyin": "shǒu",
+    "english": "hand; (formal) to hold; person engaged in certain types of work"
+  },
+  {
+    "characters": "手机",
+    "pinyin": "shǒujī",
+    "english": "cell phone; mobile phone"
+  },
+  {
+    "characters": "书",
+    "pinyin": "shū",
+    "english": "abbr. for 书经"
+  },
+  {
+    "characters": "书包",
+    "pinyin": "shūbāo",
+    "english": "schoolbag; satchel; bookbag"
+  },
+  {
+    "characters": "书店",
+    "pinyin": "shūdiàn",
+    "english": "bookstore"
+  },
+  {
+    "characters": "树",
+    "pinyin": "shù",
+    "english": "tree; to cultivate; to set up"
+  },
+  {
+    "characters": "水",
+    "pinyin": "shuǐ",
+    "english": "surname Shui"
+  },
+  {
+    "characters": "水果",
+    "pinyin": "shuǐguǒ",
+    "english": "fruit"
+  },
+  {
+    "characters": "睡",
+    "pinyin": "shuì",
+    "english": "to sleep; to lie down"
+  },
+  {
+    "characters": "睡觉",
+    "pinyin": "shuìjiào",
+    "english": "to go to bed; to sleep"
+  },
+  {
+    "characters": "说",
+    "pinyin": "shuō",
+    "english": "to persuade"
+  },
+  {
+    "characters": "说话",
+    "pinyin": "shuōhuà",
+    "english": "to speak; to say; to talk"
+  },
+  {
+    "characters": "四",
+    "pinyin": "sì",
+    "english": "four; 4"
+  },
+  {
+    "characters": "送",
+    "pinyin": "sòng",
+    "english": "to send; to deliver; to transmit; to give (as a present); to see (sb) off"
+  },
+  {
+    "characters": "岁",
+    "pinyin": "suì",
+    "english": "variant of 岁, year; years old"
+  },
+  {
+    "characters": "他",
+    "pinyin": "tā",
+    "english": "he; him (used for either sex when the sex is unknown or unimportant); (used before sb's name for emphasis); (used as a meaningless mock object)"
+  },
+  {
+    "characters": "他们",
+    "pinyin": "tāmen",
+    "english": "they"
+  },
+  {
+    "characters": "她",
+    "pinyin": "tā",
+    "english": "she"
+  },
+  {
+    "characters": "她们",
+    "pinyin": "tāmen",
+    "english": "they; them (for females)"
+  },
+  {
+    "characters": "太",
+    "pinyin": "tài",
+    "english": "highest; greatest; too (much)"
+  },
+  {
+    "characters": "天",
+    "pinyin": "tiān",
+    "english": "day; sky; heaven"
+  },
+  {
+    "characters": "天气",
+    "pinyin": "tiānqì",
+    "english": "weather"
+  },
+  {
+    "characters": "听",
+    "pinyin": "tīng",
+    "english": "smile (archaic)"
+  },
+  {
+    "characters": "听到",
+    "pinyin": "tīngdào",
+    "english": "to hear"
+  },
+  {
+    "characters": "听见",
+    "pinyin": "tīngjiàn",
+    "english": "to hear"
+  },
+  {
+    "characters": "听写",
+    "pinyin": "tīngxiě",
+    "english": "(of a pupil) to write down (in a dictation exercise); dictation; (music) to transcribe by ear"
+  },
+  {
+    "characters": "同学",
+    "pinyin": "tóngxué",
+    "english": "to study at the same school; fellow student; classmate"
+  },
+  {
+    "characters": "图书馆",
+    "pinyin": "túshūguǎn",
+    "english": "library"
+  },
+  {
+    "characters": "外",
+    "pinyin": "wài",
+    "english": "outside; in addition; foreign"
+  },
+  {
+    "characters": "外边",
+    "pinyin": "wàibian",
+    "english": "outside; outer surface; abroad"
+  },
+  {
+    "characters": "外国",
+    "pinyin": "wàiguó",
+    "english": "foreign (country)"
+  },
+  {
+    "characters": "外语",
+    "pinyin": "wàiyǔ",
+    "english": "foreign language"
+  },
+  {
+    "characters": "玩儿",
+    "pinyin": "wánr",
+    "english": "to play; to have fun; to hang out"
+  },
+  {
+    "characters": "晚",
+    "pinyin": "wǎn",
+    "english": "evening; night; late"
+  },
+  {
+    "characters": "晚饭",
+    "pinyin": "wǎnfàn",
+    "english": "evening meal; dinner; supper"
+  },
+  {
+    "characters": "晚上",
+    "pinyin": "wǎnshang",
+    "english": "evening; night; in the evening"
+  },
+  {
+    "characters": "网上",
+    "pinyin": "wǎng shang",
+    "english": "online"
+  },
+  {
+    "characters": "网友",
+    "pinyin": "wǎngyǒu",
+    "english": "online friend; Internet user"
+  },
+  {
+    "characters": "忘",
+    "pinyin": "wàng",
+    "english": "to forget; to overlook; to neglect"
+  },
+  {
+    "characters": "忘记",
+    "pinyin": "wàngjì",
+    "english": "to forget"
+  },
+  {
+    "characters": "问",
+    "pinyin": "wèn",
+    "english": "to ask; to inquire"
+  },
+  {
+    "characters": "我",
+    "pinyin": "wǒ",
+    "english": "I; me; my"
+  },
+  {
+    "characters": "我们",
+    "pinyin": "wǒmen",
+    "english": "we; us; ourselves"
+  },
+  {
+    "characters": "五",
+    "pinyin": "wǔ",
+    "english": "five; 5"
+  },
+  {
+    "characters": "午饭",
+    "pinyin": "wǔfàn",
+    "english": "lunch"
+  },
+  {
+    "characters": "西",
+    "pinyin": "xī",
+    "english": "the West; abbr. for Spain 牙; Spanish"
+  },
+  {
+    "characters": "西边",
+    "pinyin": "xībian",
+    "english": "west; west side; western part"
+  },
+  {
+    "characters": "洗",
+    "pinyin": "xǐ",
+    "english": "to wash; to bathe; to develop (photographs); to shuffle (cards etc)"
+  },
+  {
+    "characters": "洗手间",
+    "pinyin": "xǐshǒujiān",
+    "english": "toilet; lavatory; washroom"
+  },
+  {
+    "characters": "喜欢",
+    "pinyin": "xǐhuan",
+    "english": "to like; to be fond of"
+  },
+  {
+    "characters": "下",
+    "pinyin": "xià",
+    "english": "down; downwards; below"
+  },
+  {
+    "characters": "下班",
+    "pinyin": "xiàbān",
+    "english": "to finish work; to get off work"
+  },
+  {
+    "characters": "下边",
+    "pinyin": "xiàbian",
+    "english": "under; the underside; below"
+  },
+  {
+    "characters": "下车",
+    "pinyin": "xià chē",
+    "english": "to get off or out of (a bus, train, car etc)"
+  },
+  {
+    "characters": "下次",
+    "pinyin": "xià cì",
+    "english": "next time"
+  },
+  {
+    "characters": "下课",
+    "pinyin": "xiàkè",
+    "english": "to finish class; to get out of class; (fig.) (esp. of a sports coach) to be dismissed"
+  },
+  {
+    "characters": "下午",
+    "pinyin": "xiàwǔ",
+    "english": "afternoon; p.m."
+  },
+  {
+    "characters": "下雨",
+    "pinyin": "xià yǔ",
+    "english": "to rain"
+  },
+  {
+    "characters": "先",
+    "pinyin": "xiān",
+    "english": "early; prior; former"
+  },
+  {
+    "characters": "先生",
+    "pinyin": "xiānsheng",
+    "english": "teacher; gentleman; sir; mister (Mr.); husband"
+  },
+  {
+    "characters": "现在",
+    "pinyin": "xiànzài",
+    "english": "now; at present; at the moment"
+  },
+  {
+    "characters": "想",
+    "pinyin": "xiǎng",
+    "english": "to think (about); to think of; to devise; to think (that); to believe (that)"
+  },
+  {
+    "characters": "小",
+    "pinyin": "xiǎo",
+    "english": "small; tiny; few"
+  },
+  {
+    "characters": "小孩儿",
+    "pinyin": "xiǎoháir",
+    "english": "erhua variant of 小孩; child"
+  },
+  {
+    "characters": "小姐",
+    "pinyin": "xiǎojiě",
+    "english": "young lady; miss; (slang) prostitute"
+  },
+  {
+    "characters": "小朋友",
+    "pinyin": "xiǎopéngyǒu",
+    "english": "child"
+  },
+  {
+    "characters": "小时",
+    "pinyin": "xiǎoshí",
+    "english": "hour"
+  },
+  {
+    "characters": "小学",
+    "pinyin": "xiǎoxué",
+    "english": "elementary school; primary school"
+  },
+  {
+    "characters": "小学生",
+    "pinyin": "xiǎoxuéshēng",
+    "english": "primary school student; schoolchild; (fig.) beginner"
+  },
+  {
+    "characters": "笑",
+    "pinyin": "xiào",
+    "english": "old variant of 笑"
+  },
+  {
+    "characters": "写",
+    "pinyin": "xiě",
+    "english": "to write"
+  },
+  {
+    "characters": "谢谢",
+    "pinyin": "xièxie",
+    "english": "to thank; thanks; thank you"
+  },
+  {
+    "characters": "新",
+    "pinyin": "xīn",
+    "english": "abbr. for Xinjiang 疆 or Singapore 坡; surname Xin"
+  },
+  {
+    "characters": "新年",
+    "pinyin": "xīnnián",
+    "english": "New Year"
+  },
+  {
+    "characters": "星期",
+    "pinyin": "xīngqī",
+    "english": "week; day of the week; Sunday"
+  },
+  {
+    "characters": "星期日",
+    "pinyin": "xīngqīrì",
+    "english": "Sunday"
+  },
+  {
+    "characters": "星期天",
+    "pinyin": "xīngqītiān",
+    "english": "Sunday"
+  },
+  {
+    "characters": "行",
+    "pinyin": "xíng",
+    "english": "row; line; commercial firm"
+  },
+  {
+    "characters": "休息",
+    "pinyin": "xiūxi",
+    "english": "rest; to rest"
+  },
+  {
+    "characters": "学",
+    "pinyin": "xué",
+    "english": "to learn; to study; to imitate"
+  },
+  {
+    "characters": "学生",
+    "pinyin": "xuéshēng",
+    "english": "student; schoolchild"
+  },
+  {
+    "characters": "学习",
+    "pinyin": "xuéxí",
+    "english": "to learn; to study"
+  },
+  {
+    "characters": "学校",
+    "pinyin": "xuéxiào",
+    "english": "school"
+  },
+  {
+    "characters": "学院",
+    "pinyin": "xuéyuàn",
+    "english": "college; educational institute; school"
+  },
+  {
+    "characters": "要",
+    "pinyin": "yào",
+    "english": "(bound form) to demand; to coerce"
+  },
+  {
+    "characters": "爷爷",
+    "pinyin": "yéye",
+    "english": "(coll.) father's father; paternal grandfather"
+  },
+  {
+    "characters": "也",
+    "pinyin": "yě",
+    "english": "surname Ye"
+  },
+  {
+    "characters": "页",
+    "pinyin": "yè",
+    "english": "head"
+  },
+  {
+    "characters": "一",
+    "pinyin": "yī",
+    "english": "one; single; a (article)"
+  },
+  {
+    "characters": "衣服",
+    "pinyin": "yīfu",
+    "english": "clothes"
+  },
+  {
+    "characters": "医生",
+    "pinyin": "yīshēng",
+    "english": "doctor"
+  },
+  {
+    "characters": "医院",
+    "pinyin": "yīyuàn",
+    "english": "hospital"
+  },
+  {
+    "characters": "一半",
+    "pinyin": "yībàn",
+    "english": "half"
+  },
+  {
+    "characters": "一会儿",
+    "pinyin": "yīhuìr",
+    "english": "a moment; a while; in a moment"
+  },
+  {
+    "characters": "一块儿",
+    "pinyin": "yīkuàir",
+    "english": "erhua variant of 一块; a piece; a chunk; (coll.) one yuan; one dollar"
+  },
+  {
+    "characters": "一下儿",
+    "pinyin": "yīxiàr",
+    "english": "erhua variant of 一下; one time; once; all of sudden"
+  },
+  {
+    "characters": "一样",
+    "pinyin": "yīyàng",
+    "english": "same; like; equal to"
+  },
+  {
+    "characters": "一边",
+    "pinyin": "yībiān",
+    "english": "one side; either side; on the one hand"
+  },
+  {
+    "characters": "一点儿",
+    "pinyin": "yīdiǎnr",
+    "english": "erhua variant of 一点; a bit; a little bit; (used in negative expressions) (not) the least bit"
+  },
+  {
+    "characters": "一起",
+    "pinyin": "yīqǐ",
+    "english": "in the same place; together; with"
+  },
+  {
+    "characters": "一些",
+    "pinyin": "yīxiē",
+    "english": "some; a few; a little"
+  },
+  {
+    "characters": "用",
+    "pinyin": "yòng",
+    "english": "to use; to employ; to have to"
+  },
+  {
+    "characters": "有",
+    "pinyin": "yǒu",
+    "english": "to have; there is; (bound form) having; with; -ful; -ed; -al (as in 意 intentional)"
+  },
+  {
+    "characters": "有的",
+    "pinyin": "yǒude",
+    "english": "(there are) some (who are...); some (exist)"
+  },
+  {
+    "characters": "有名",
+    "pinyin": "yǒumíng",
+    "english": "famous; well-known"
+  },
+  {
+    "characters": "有时候",
+    "pinyin": "yǒushíhou",
+    "english": "sometimes"
+  },
+  {
+    "characters": "有（一）些",
+    "pinyin": "yǒu(yī)xiē",
+    "english": ""
+  },
+  {
+    "characters": "有用",
+    "pinyin": "yǒuyòng",
+    "english": "useful"
+  },
+  {
+    "characters": "右",
+    "pinyin": "yòu",
+    "english": "(bound form) right; right-hand side; (bound form) (politics) right of center; (bound form) (old) west"
+  },
+  {
+    "characters": "右边",
+    "pinyin": "yòubian",
+    "english": "right side; right, to the right"
+  },
+  {
+    "characters": "雨",
+    "pinyin": "yǔ",
+    "english": "rain"
+  },
+  {
+    "characters": "元",
+    "pinyin": "yuán",
+    "english": "surname Yuan; the Yuan or Mongol dynasty (1279-1368)"
+  },
+  {
+    "characters": "远",
+    "pinyin": "yuǎn",
+    "english": "far; distant; remote"
+  },
+  {
+    "characters": "月",
+    "pinyin": "yuè",
+    "english": "moon; month; monthly"
+  },
+  {
+    "characters": "再",
+    "pinyin": "zài",
+    "english": "again; once more; re-; second; another; then (after sth, and not until then)"
+  },
+  {
+    "characters": "再见",
+    "pinyin": "zàijiàn",
+    "english": "goodbye; see you again later"
+  },
+  {
+    "characters": "在",
+    "pinyin": "zài",
+    "english": "to exist; to be alive; (of sb or sth) to be (located) at; (used before a verb to indicate an action in progress)"
+  },
+  {
+    "characters": "在家",
+    "pinyin": "zàijiā",
+    "english": "to be at home; (at a workplace) to be in (as opposed to being away on official business 差); (Buddhism etc) to remain a layman (as opposed to becoming a monk or a nun 家)"
+  },
+  {
+    "characters": "早",
+    "pinyin": "zǎo",
+    "english": "early; morning; Good morning!"
+  },
+  {
+    "characters": "早饭",
+    "pinyin": "zǎofàn",
+    "english": "breakfast"
+  },
+  {
+    "characters": "早上",
+    "pinyin": "zǎoshang",
+    "english": "early morning"
+  },
+  {
+    "characters": "怎么",
+    "pinyin": "zěnme",
+    "english": "how?; what?; why?"
+  },
+  {
+    "characters": "站",
+    "pinyin": "zhàn",
+    "english": "station; to stand; to halt"
+  },
+  {
+    "characters": "找",
+    "pinyin": "zhǎo",
+    "english": "to try to find; to look for; to call on sb"
+  },
+  {
+    "characters": "找到",
+    "pinyin": "zhǎodào",
+    "english": "to find"
+  },
+  {
+    "characters": "这",
+    "pinyin": "zhè",
+    "english": "(pronoun) this; these; (bound form) this; the (followed by a noun); (bound form) this; these (followed by a classifier) (in this sense, commonly pr. [zhèi], esp. in Beijing)"
+  },
+  {
+    "characters": "这边",
+    "pinyin": "zhèbiān",
+    "english": "this side; here"
+  },
+  {
+    "characters": "这里",
+    "pinyin": "zhèlǐ",
+    "english": "variant of 这里"
+  },
+  {
+    "characters": "这儿",
+    "pinyin": "zhèr",
+    "english": "here"
+  },
+  {
+    "characters": "这些",
+    "pinyin": "zhèxiē",
+    "english": "these"
+  },
+  {
+    "characters": "着",
+    "pinyin": "zhe",
+    "english": "(chess) move; trick; all right!"
+  },
+  {
+    "characters": "真",
+    "pinyin": "zhēn",
+    "english": "really; truly; indeed"
+  },
+  {
+    "characters": "真的",
+    "pinyin": "zhēn de",
+    "english": "really, truly, indeed"
+  },
+  {
+    "characters": "正",
+    "pinyin": "zhèng",
+    "english": "first month of the lunar year"
+  },
+  {
+    "characters": "正在",
+    "pinyin": "zhèngzài",
+    "english": "just at (that time); right in (that place); right in the middle of (doing sth)"
+  },
+  {
+    "characters": "知道",
+    "pinyin": "zhīdào",
+    "english": "to know; to become aware of; also pr. [zhī dao]"
+  },
+  {
+    "characters": "知识",
+    "pinyin": "zhīshi",
+    "english": "knowledge; intellectual"
+  },
+  {
+    "characters": "中",
+    "pinyin": "zhōng",
+    "english": "China; Chinese; surname Zhong"
+  },
+  {
+    "characters": "中国",
+    "pinyin": "Zhōngguó",
+    "english": "China"
+  },
+  {
+    "characters": "中间",
+    "pinyin": "zhōngjiān",
+    "english": "the middle; the inside; in the middle; within; between; among; during; in the meantime"
+  },
+  {
+    "characters": "中文",
+    "pinyin": "Zhōngwén",
+    "english": "Chinese language"
+  },
+  {
+    "characters": "中午",
+    "pinyin": "zhōngwǔ",
+    "english": "noon; midday"
+  },
+  {
+    "characters": "中学",
+    "pinyin": "zhōngxué",
+    "english": "middle school"
+  },
+  {
+    "characters": "中学生",
+    "pinyin": "zhōngxuéshēng",
+    "english": "middle-school student; high school student"
+  },
+  {
+    "characters": "重",
+    "pinyin": "zhòng",
+    "english": "to repeat; repetition; again"
+  },
+  {
+    "characters": "重要",
+    "pinyin": "zhòngyào",
+    "english": "important; significant; major"
+  },
+  {
+    "characters": "住",
+    "pinyin": "zhù",
+    "english": "to live; to dwell; to stay"
+  },
+  {
+    "characters": "准备",
+    "pinyin": "zhǔnbèi",
+    "english": "preparation; to prepare; to intend"
+  },
+  {
+    "characters": "桌子",
+    "pinyin": "zhuōzi",
+    "english": "table; desk"
+  },
+  {
+    "characters": "字",
+    "pinyin": "zì",
+    "english": "letter; symbol; character"
+  },
+  {
+    "characters": "子（桌子）",
+    "pinyin": "zi (zhuōzi)",
+    "english": ""
+  },
+  {
+    "characters": "走",
+    "pinyin": "zǒu",
+    "english": "to walk; to go; to run"
+  },
+  {
+    "characters": "走路",
+    "pinyin": "zǒulù",
+    "english": "to walk; to go on foot"
+  },
+  {
+    "characters": "最",
+    "pinyin": "zuì",
+    "english": "variant of 最"
+  },
+  {
+    "characters": "最好",
+    "pinyin": "zuìhǎo",
+    "english": "best; (you) had better (do what we suggest)"
+  },
+  {
+    "characters": "最后",
+    "pinyin": "zuìhòu",
+    "english": "final; last; finally"
+  },
+  {
+    "characters": "昨天",
+    "pinyin": "zuótiān",
+    "english": "yesterday"
+  },
+  {
+    "characters": "左",
+    "pinyin": "zuǒ",
+    "english": "surname Zuo"
+  },
+  {
+    "characters": "左边",
+    "pinyin": "zuǒbian",
+    "english": "left; the left side; to the left of"
+  },
+  {
+    "characters": "坐",
+    "pinyin": "zuò",
+    "english": "surname Zuo"
+  },
+  {
+    "characters": "坐下",
+    "pinyin": "zuò xia",
+    "english": "to sit down"
+  },
+  {
+    "characters": "做",
+    "pinyin": "zuò",
+    "english": "to make; to produce; to write; to compose; to do; to engage in; to hold (a party etc)"
+  }
 ]
