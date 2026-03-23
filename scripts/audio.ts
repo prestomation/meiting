@@ -77,28 +77,40 @@ function getAudioR2Key(id: string): string {
 
 const MAX_RETRIES = 6;
 const BASE_DELAY_MS = 500;
+const THROTTLE_BASE_DELAY_MS = 2000; // longer backoff for rate limit errors
 
+function isThrottleError(err: any): boolean {
+  return (
+    err?.name === 'ThrottlingException' ||
+    err?.Code === 'ThrottlingException' ||
+    err?.$metadata?.httpStatusCode === 429 ||
+    (err?.message ?? '').toLowerCase().includes('throttl') ||
+    (err?.message ?? '').toLowerCase().includes('rate exceeded')
+  );
+}
+
+/**
+ * Retry fn up to MAX_RETRIES times total.
+ * Throttle errors use longer exponential backoff.
+ * All other errors use shorter backoff.
+ * After MAX_RETRIES attempts, throws — never silently skips.
+ */
 async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
   let attempt = 0;
   while (true) {
     try {
       return await fn();
     } catch (err: any) {
-      const isThrottle =
-        err?.name === 'ThrottlingException' ||
-        err?.Code === 'ThrottlingException' ||
-        err?.$metadata?.httpStatusCode === 429 ||
-        (err?.message ?? '').toLowerCase().includes('throttl') ||
-        (err?.message ?? '').toLowerCase().includes('rate exceeded');
-
-      if (isThrottle && attempt + 1 < MAX_RETRIES) {
-        const delay = BASE_DELAY_MS * Math.pow(2, attempt) + Math.random() * 200;
-        process.stdout.write(`⏳ throttled (attempt ${attempt + 1}/${MAX_RETRIES}, retry in ${Math.round(delay)}ms)... `);
-        await new Promise((r) => setTimeout(r, delay));
-        attempt++;
-        continue;
+      if (attempt + 1 >= MAX_RETRIES) {
+        throw new Error(`${label} failed after ${MAX_RETRIES} attempts: ${err?.message ?? err}`);
       }
-      throw err;
+      const throttle = isThrottleError(err);
+      const base = throttle ? THROTTLE_BASE_DELAY_MS : BASE_DELAY_MS;
+      const delay = base * Math.pow(2, attempt) + Math.random() * 200;
+      const reason = throttle ? 'throttled' : `error (${(err?.message ?? '').slice(0, 40)})`;
+      process.stdout.write(`\n  ⏳ ${reason} — retry ${attempt + 1}/${MAX_RETRIES - 1} in ${Math.round(delay)}ms... `);
+      await new Promise((r) => setTimeout(r, delay));
+      attempt++;
     }
   }
 }
@@ -213,8 +225,6 @@ async function main() {
   const SAVE_INTERVAL = 20; // write JSON every N completions
 
   let processed = 0;
-  let failed = 0;
-  const failedIds: string[] = [];
   let pendingSave = 0;
 
   // Save helper — debounced by SAVE_INTERVAL
@@ -227,42 +237,42 @@ async function main() {
   };
 
   // Worker: synthesize via Polly, upload to R2, update item
+  // Throws on failure — no silent skips allowed
   const processItem = async (item: ContentItem, index: number): Promise<void> => {
     const key = getAudioR2Key(item.id);
-    try {
-      process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
-      const buffer = await synthesizeToBuffer(polly, item.characters);
-      const url = await uploadToR2(key, buffer);
-      item.audio = url;
-      process.stdout.write('✓\n');
-      processed++;
-      maybeSave();
-    } catch (err) {
-      process.stdout.write(`✗ (${(err as Error).message})\n`);
-      failed++;
-      failedIds.push(item.id);
-      // Do NOT mark item.audio — leave it empty so a rerun will retry
-    }
+    process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
+    const buffer = await synthesizeToBuffer(polly, item.characters);
+    const url = await uploadToR2(key, buffer);
+    item.audio = url;
+    process.stdout.write('✓\n');
+    processed++;
+    maybeSave();
   };
 
   // Concurrency queue — run CONCURRENCY workers draining a shared index
+  // Any failure stops all workers and propagates immediately
   let cursor = 0;
+  let aborted = false;
   const worker = async () => {
-    while (cursor < needsAudio.length) {
+    while (cursor < needsAudio.length && !aborted) {
       const idx = cursor++;
       await processItem(needsAudio[idx], idx);
     }
   };
-  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-  console.log(`\nDone!`);
-  console.log(`  Processed: ${processed}`);
-  console.log(`  Failed: ${failed}`);
-
-  if (failedIds.length > 0) {
-    console.log(`  Failed IDs: ${failedIds.join(', ')}`);
-    console.log('  Run again to retry failed items.');
+  try {
+    await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+  } catch (err) {
+    aborted = true;
+    // Save progress for items that succeeded before the failure
+    fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
+    console.error(`\n\n❌ Audio generation failed: ${(err as Error).message}`);
+    console.error(`   ${processed} items succeeded before failure.`);
+    console.error(`   Saved progress. Fix the issue and rerun to continue from where it left off.`);
+    process.exit(1);
   }
+
+  console.log(`\n✅ Done! All ${processed} items processed successfully.`);
 
   // Final save
   fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
