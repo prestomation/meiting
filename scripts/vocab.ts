@@ -19,9 +19,13 @@ export function buildAllowedChars(level: number): Set<string> {
     const wordlistPath = path.resolve(__dirname, 'wordlists', `hsk${l}.json`);
     if (!fs.existsSync(wordlistPath)) continue;
 
-    const words: Array<{ characters: string }> = JSON.parse(
-      fs.readFileSync(wordlistPath, 'utf-8')
-    );
+    let words: Array<{ characters: string }>;
+    try {
+      words = JSON.parse(fs.readFileSync(wordlistPath, 'utf-8'));
+    } catch (err) {
+      console.warn(`Warning: could not parse wordlist ${wordlistPath}: ${err}`);
+      continue;
+    }
 
     for (const word of words) {
       // Add every individual character from every word

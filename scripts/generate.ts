@@ -239,7 +239,13 @@ async function main() {
     process.exit(1);
   }
 
-  const words: WordEntry[] = JSON.parse(fs.readFileSync(wordlistPath, 'utf-8'));
+  let words: WordEntry[];
+  try {
+    words = JSON.parse(fs.readFileSync(wordlistPath, 'utf-8')) as WordEntry[];
+  } catch (err) {
+    console.error(`Error: could not parse wordlist ${wordlistPath}: ${err}`);
+    process.exit(1);
+  }
   console.log(`Loaded ${words.length} words from HSK ${level} wordlist`);
 
   // Fresh mode: clear existing data
@@ -265,9 +271,8 @@ async function main() {
   const allowedChars = buildAllowedChars(level);
   const lengthLimit = getSentenceLengthLimit(level);
 
-  // Build allowed word list string for prompt
-  const allHskWords: WordEntry[] = JSON.parse(fs.readFileSync(wordlistPath, 'utf-8'));
-  const allowedWordList = allHskWords.map((w) => `${w.characters} (${w.pinyin})`).join(', ');
+  // Build allowed word list string for prompt — reuse already-parsed words array
+  const allowedWordList = words.map((w) => `${w.characters} (${w.pinyin})`).join(', ');
 
   console.log(`Allowed chars set size: ${allowedChars.size}`);
   console.log(`Sentence length limit: ${lengthLimit} chars`);
