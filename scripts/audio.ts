@@ -108,7 +108,7 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
       const base = throttle ? THROTTLE_BASE_DELAY_MS : BASE_DELAY_MS;
       const delay = base * Math.pow(2, attempt) + Math.random() * 200;
       const reason = throttle ? 'throttled' : `error (${(err?.message ?? '').slice(0, 40)})`;
-      process.stdout.write(`\n  ⏳ ${reason} — retry ${attempt + 1}/${MAX_RETRIES - 1} in ${Math.round(delay)}ms... `);
+      process.stdout.write(`\n  ⏳ ${reason} — attempt ${attempt + 1}/${MAX_RETRIES} in ${Math.round(delay)}ms... `);
       await new Promise((r) => setTimeout(r, delay));
       attempt++;
     }
@@ -123,12 +123,14 @@ function getRequiredEnv(name: string): string {
   return val;
 }
 
-async function uploadToR2(key: string, buffer: Buffer): Promise<string> {
-  const token = getRequiredEnv('CLOUDFLARE_API_TOKEN');
-  const accountId = getRequiredEnv('CLOUDFLARE_ACCOUNT_ID');
-  const bucket = process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio';
-  const publicBase = getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE');
-
+async function uploadToR2(
+  key: string,
+  buffer: Buffer,
+  token: string,
+  accountId: string,
+  bucket: string,
+  publicBase: string,
+): Promise<string> {
   const uploadUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
 
   await withRetry(async () => {
@@ -216,6 +218,15 @@ async function main() {
     return;
   }
 
+  // Validate all required credentials upfront — fail fast before any API calls
+  const cfToken = getRequiredEnv('CLOUDFLARE_API_TOKEN');
+  const cfAccountId = getRequiredEnv('CLOUDFLARE_ACCOUNT_ID');
+  const cfPublicBase = getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE');
+  const cfBucket = process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio';
+  getRequiredEnv('AWS_ACCESS_KEY_ID');
+  getRequiredEnv('AWS_SECRET_ACCESS_KEY');
+  console.log('Credentials validated ✓');
+
   // Initialize Polly client
   const polly = new PollyClient({
     region: process.env.AWS_REGION || 'us-east-1',
@@ -242,7 +253,7 @@ async function main() {
     const key = getAudioR2Key(item.id);
     process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
     const buffer = await synthesizeToBuffer(polly, item.characters);
-    const url = await uploadToR2(key, buffer);
+    const url = await uploadToR2(key, buffer, cfToken, cfAccountId, cfBucket, cfPublicBase);
     item.audio = url;
     process.stdout.write('✓\n');
     processed++;
@@ -250,20 +261,29 @@ async function main() {
   };
 
   // Concurrency queue — run CONCURRENCY workers draining a shared index
-  // Any failure stops all workers and propagates immediately
+  // Uses a shared AbortController so all workers stop immediately on first failure
+  const abort = new AbortController();
   let cursor = 0;
-  let aborted = false;
+
   const worker = async () => {
-    while (cursor < needsAudio.length && !aborted) {
+    while (!abort.signal.aborted) {
+      // Atomically grab the next index
       const idx = cursor++;
+      if (idx >= needsAudio.length) break;
       await processItem(needsAudio[idx], idx);
     }
   };
 
   try {
-    await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+    await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
+      try {
+        await worker();
+      } catch (err) {
+        abort.abort(); // Signal all other workers to stop
+        throw err;     // Re-throw so Promise.all rejects
+      }
+    }));
   } catch (err) {
-    aborted = true;
     // Save progress for items that succeeded before the failure
     fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
     console.error(`\n\n❌ Audio generation failed: ${(err as Error).message}`);
@@ -281,7 +301,7 @@ async function main() {
   const withAudio = items.filter((item) => item.audio).length;
   console.log(`\nFinal state: ${withAudio}/${items.length} items have audio`);
 
-  console.log(`Audio hosted at: ${process.env.CLOUDFLARE_R2_PUBLIC_BASE ?? "(set CLOUDFLARE_R2_PUBLIC_BASE)"}/`);
+  console.log(`Audio hosted at: ${cfPublicBase}/`);
 }
 
 main().catch((err) => {
