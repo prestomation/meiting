@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { speak, canUseSpeech } from '../lib/tts'
-import { checkAnswer, checkPhoneticAnswer } from '../lib/scoring'
+import { checkAnswer, scorePhonetic } from '../lib/scoring'
 import { startSpeechRecognition } from '../lib/speech'
 import {
   getHskLevel,
@@ -119,6 +119,7 @@ export default function Session() {
   // Speak-it state
   const [speechState, setSpeechState] = useState<SpeechState>('idle')
   const [transcript, setTranscript] = useState('')
+  const [phoneticScore, setPhoneticScore] = useState<number | null>(null)
   const stopRecognitionRef = useRef<(() => void) | null>(null)
 
   const currentItem = items[currentIndex]
@@ -231,6 +232,7 @@ export default function Session() {
     setShowPinyin(false)
     setSpeechState('idle')
     setTranscript('')
+    setPhoneticScore(null)
     setPhase('playing')
   }
 
@@ -289,6 +291,7 @@ export default function Session() {
       setShowPinyin(false)
       setSpeechState('idle')
       setTranscript('')
+      setPhoneticScore(null)
       setPhase('playing')
     }
   }
@@ -310,18 +313,21 @@ export default function Session() {
       setTranscript(result.transcript)
       setSpeechState('processing')
 
-      const answerResult = checkPhoneticAnswer(result.transcript, capturedCharacters)
+      const score = scorePhonetic(result.transcript, capturedCharacters)
+      const pct = Math.round(score * 100)
+      setPhoneticScore(pct)
 
-      if (answerResult === 'correct') {
+      if (score >= 1.0) {
         setSpeechState('idle')
         advanceToAnswered(true)
-      } else if (answerResult === 'close' && !retryUsed) {
+      } else if (!retryUsed) {
+        // Always give one retry if not 100% — show score as hint
         setRetryUsed(true)
         setSpeechState('idle')
-        // Show hint — allow retry, don't record result yet
       } else {
+        // Second attempt: accept >=70% as correct, otherwise incorrect
         setSpeechState('idle')
-        advanceToAnswered(false)
+        advanceToAnswered(score >= 0.7)
       }
     })
   }
@@ -505,31 +511,66 @@ export default function Session() {
           </div>
         ) : (
           <div className="speak-area">
+            {/* Idle — tap to start */}
             {phase === 'playing' && speechState === 'idle' && (
               <button className="mic-btn" onClick={handleStartSpeech}>
                 🎤 Tap to speak
               </button>
             )}
+
+            {/* Listening — passive pulsing indicator */}
             {phase === 'playing' && speechState === 'listening' && (
-              <button className="mic-btn listening" onClick={handleStopSpeech}>
-                🔴 Listening... (tap to stop)
-              </button>
-            )}
-            {phase === 'playing' && speechState === 'processing' && (
               <>
-                <div className="mic-processing">Processing...</div>
-                <button className="btn-secondary" onClick={handleStopSpeech}>Cancel</button>
+                <div className="mic-listening-indicator">
+                  <div className="mic-pulse-ring" />
+                  <div className="mic-icon-large">🎤</div>
+                  <p className="mic-listening-label">Listening...</p>
+                  <p className="mic-listening-hint">Speak the sentence, then pause</p>
+                </div>
+                <button className="btn-cancel-speech" onClick={handleStopSpeech}>Cancel</button>
               </>
             )}
-            {/* Close hint for speak mode */}
-            {retryUsed && phase === 'playing' && (
-              <div className="hint-close">你快到了！ So close! Try again 🙂</div>
+
+            {/* Processing — spinner */}
+            {phase === 'playing' && speechState === 'processing' && (
+              <div className="mic-processing">
+                <div className="spinner" />
+                <p>Analyzing your pronunciation...</p>
+              </div>
             )}
-            {transcript && (
+
+            {/* Retry hint (close but not correct, first attempt) */}
+            {retryUsed && phase === 'playing' && speechState === 'idle' && (
+              <div className="hint-close">
+                你快到了！ So close!
+                {phoneticScore !== null && <span className="phonetic-score"> ({phoneticScore}% match)</span>}
+                {' '}Try again 🙂
+              </div>
+            )}
+
+            {/* Transcript display */}
+            {transcript && speechState === 'idle' && (
               <div className="transcript-display">
                 You said: <span className="transcript-text">{transcript}</span>
               </div>
             )}
+
+            {/* Phonetic score + correct answer after failed attempt */}
+            {phase === 'answered' && answerMode === 'speak' && (
+              <div className="speak-result">
+                {phoneticScore !== null && (
+                  <div className="phonetic-score-display">
+                    Phonetic match: <strong>{phoneticScore}%</strong>
+                  </div>
+                )}
+                {transcript && (
+                  <div className="transcript-display">
+                    You said: <span className="transcript-text">{transcript}</span>
+                  </div>
+                )}
+              </div>
+            )}
+
             {!canUseSpeech() && (
               <div className="speech-unsupported">
                 ⚠️ Speech recognition not supported in this browser. Use Chrome or Edge.
