@@ -70,7 +70,9 @@ function getDataPath(level: number): string {
 }
 
 function getAudioR2Key(id: string): string {
-  return `${id}.mp3`;
+  // Sanitize ID: only allow alphanumeric, hyphen, underscore — prevent path traversal
+  const safe = id.replace(/[^a-zA-Z0-9\-_]/g, '_');
+  return `${safe}.mp3`;
 }
 
 // ---- Retry with exponential backoff ----
@@ -148,7 +150,11 @@ async function uploadToR2(
       err.name = 'ThrottlingException';
       throw err;
     }
-    if (!r.ok) throw new Error(`R2 upload failed: HTTP ${r.status} (${r.statusText})`);
+    if (!r.ok) {
+      await r.body?.cancel(); // drain/release the connection
+      throw new Error(`R2 upload failed: HTTP ${r.status} (${r.statusText})`);
+    }
+    await r.body?.cancel(); // drain response body to release connection
   }, `R2:${key}`);
 
   return `${publicBase}/${key}`;
@@ -272,10 +278,14 @@ async function main() {
   const queue: number[] = needsAudio.map((_, i) => i);
 
   const worker = async () => {
-    // Check abort before AND after shift — in Node.js the event loop is single-threaded
-    // so shift() is atomic, but we re-check abort after each await to stop promptly
-    let idx: number | undefined;
-    while (!abort.signal.aborted && (idx = queue.shift()) !== undefined) {
+    while (true) {
+      if (abort.signal.aborted) break;
+      const idx = queue.shift();
+      if (idx === undefined) break;
+      if (abort.signal.aborted) {
+        queue.unshift(idx); // put it back — another run can retry
+        break;
+      }
       await processItem(needsAudio[idx], idx);
     }
   };
