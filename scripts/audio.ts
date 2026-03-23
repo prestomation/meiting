@@ -91,7 +91,7 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
         (err?.message ?? '').toLowerCase().includes('throttl') ||
         (err?.message ?? '').toLowerCase().includes('rate exceeded');
 
-      if (isThrottle && attempt < MAX_RETRIES) {
+      if (isThrottle && attempt + 1 < MAX_RETRIES) {
         const delay = BASE_DELAY_MS * Math.pow(2, attempt) + Math.random() * 200;
         process.stdout.write(`⏳ throttled (attempt ${attempt + 1}/${MAX_RETRIES}, retry in ${Math.round(delay)}ms)... `);
         await new Promise((r) => setTimeout(r, delay));
@@ -117,12 +117,10 @@ async function uploadToR2(key: string, buffer: Buffer): Promise<string> {
   const bucket = process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio';
   const publicBase = getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE');
 
-  const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
+  const uploadUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
 
-  const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
-
-  const resp = await withRetry(async () => {
-    const r = await fetch(url, {
+  await withRetry(async () => {
+    const r = await fetch(uploadUrl, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -135,7 +133,7 @@ async function uploadToR2(key: string, buffer: Buffer): Promise<string> {
       err.name = 'ThrottlingException';
       throw err;
     }
-    if (!r.ok) throw new Error(`R2 upload failed: ${r.status} ${await r.text()}`);
+    if (!r.ok) throw new Error(`R2 upload failed: ${r.status} ${r.statusText}`);
     return r;
   }, `R2:${key}`);
 
