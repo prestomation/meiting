@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { speak, canUseSpeech } from '../lib/tts'
+import { canUseSpeech } from '../lib/tts'
 import { checkAnswer, scorePhonetic } from '../lib/scoring'
 import { startSpeechRecognition } from '../lib/speech'
 import {
@@ -52,29 +52,22 @@ function stopActiveAudio(audioRef: React.MutableRefObject<HTMLAudioElement | nul
     audioRef.current.currentTime = 0
     audioRef.current = null
   }
-  if (typeof window !== 'undefined' && window.speechSynthesis) {
-    window.speechSynthesis.cancel()
   }
-}
 
 function playItem(
   item: ContentItem,
   audioRef: React.MutableRefObject<HTMLAudioElement | null>,
   rate: number = 1,
 ) {
+  if (!item.audio) return // No audio available — silent skip
   stopActiveAudio(audioRef)
-  if (item.audio) {
-    const audio = new Audio(item.audio)
-    audio.playbackRate = rate
-    audioRef.current = audio
-    audio.play().catch(() => {
-      // Clear the failed reference before falling back to TTS
-      if (audioRef.current === audio) audioRef.current = null
-      speak(item.characters, undefined, rate)
-    })
-  } else {
-    speak(item.characters, undefined, rate)
-  }
+  const audio = new Audio(item.audio)
+  audio.playbackRate = rate
+  audioRef.current = audio
+  audio.play().catch(() => {
+    if (audioRef.current === audio) audioRef.current = null
+    // No TTS fallback — neural audio only
+  })
 }
 
 export default function Session() {
@@ -194,7 +187,7 @@ export default function Session() {
           audioRef.current = cached
           cached.play().catch(() => {
             if (audioRef.current === cached) audioRef.current = null
-            speak(currentItem.characters, undefined, playbackRateRef.current)
+            // No TTS fallback — neural audio only
           })
           return
         }
