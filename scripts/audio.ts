@@ -4,13 +4,22 @@
  *
  * Reads src/data/hsk[N].json
  * For each item missing audio, calls AWS Polly (Zhiyu neural voice)
- * Saves MP3 to public/audio/{id}.mp3
- * Updates audio field in JSON
- * Idempotent: skips items that already have audio AND the file exists
+ * Uploads MP3 directly to Cloudflare R2 (meiting-audio bucket)
+ * Updates audio field in JSON with public R2 URL
+ * Idempotent: skips items that already have an R2 audio URL
+ *
+ * Throttle handling: exponential backoff with jitter, up to MAX_RETRIES
  *
  * Usage:
  *   npx ts-node scripts/audio.ts --level 1
  *   npx ts-node scripts/audio.ts --level 2
+ *
+ * Required env vars:
+ *   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION  (for Polly)
+ *   CLOUDFLARE_API_TOKEN                                   (for R2 upload)
+ *   CLOUDFLARE_ACCOUNT_ID                                  (CF account ID)
+ *   CLOUDFLARE_R2_PUBLIC_BASE                              (e.g. https://pub-xxx.r2.dev)
+ *   CLOUDFLARE_R2_BUCKET                                   (optional, default: meiting-audio)
  */
 
 import {
@@ -60,25 +69,103 @@ function getDataPath(level: number): string {
   return path.resolve(__dirname, '..', 'src', 'data', `hsk${level}.json`);
 }
 
-function getAudioDir(): string {
-  return path.resolve(__dirname, '..', 'public', 'audio');
+function getAudioR2Key(id: string): string {
+  // Sanitize ID: only allow alphanumeric, hyphen, underscore — prevent path traversal
+  const safe = id.replace(/[^a-zA-Z0-9\-_]/g, '_');
+  return `${safe}.mp3`;
 }
 
-function getAudioPath(id: string): string {
-  return path.join(getAudioDir(), `${id}.mp3`);
+// ---- Retry with exponential backoff ----
+
+const MAX_RETRIES = 6;
+const BASE_DELAY_MS = 500;
+const THROTTLE_BASE_DELAY_MS = 2000; // longer backoff for rate limit errors
+
+function isThrottleError(err: any): boolean {
+  return (
+    err?.name === 'ThrottlingException' ||
+    err?.Code === 'ThrottlingException' ||
+    err?.$metadata?.httpStatusCode === 429 ||
+    (err?.message ?? '').toLowerCase().includes('throttl') ||
+    (err?.message ?? '').toLowerCase().includes('rate exceeded')
+  );
 }
 
-function getAudioPublicPath(id: string): string {
-  return `/audio/${id}.mp3`;
+/**
+ * Retry fn up to MAX_RETRIES times total.
+ * Throttle errors use longer exponential backoff.
+ * All other errors use shorter backoff.
+ * After MAX_RETRIES attempts, throws — never silently skips.
+ */
+async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
+  // attempt counts from 0; we allow attempts 0..MAX_RETRIES-1 (MAX_RETRIES total)
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+      return await fn();
+    } catch (err: any) {
+      if (attempt === MAX_RETRIES - 1) {
+        throw new Error(`${label} failed after ${MAX_RETRIES} attempts: ${err?.message ?? err}`);
+      }
+      const throttle = isThrottleError(err);
+      const base = throttle ? THROTTLE_BASE_DELAY_MS : BASE_DELAY_MS;
+      const delay = base * Math.pow(2, attempt) + Math.random() * 200;
+      const reason = throttle ? 'throttled' : `error (${(err?.message ?? '').slice(0, 40)})`;
+      process.stdout.write(`\n  ⏳ ${reason} — attempt ${attempt + 1}/${MAX_RETRIES} in ${Math.round(delay)}ms... `);
+      await new Promise((r) => setTimeout(r, delay));
+    }
+  }
+  // TypeScript needs this — the loop above always returns or throws
+  throw new Error(`${label}: unreachable`);
 }
 
-// ---- Polly synthesize ----
+// ---- R2 upload via Cloudflare API ----
 
-async function synthesize(
+function getRequiredEnv(name: string): string {
+  const val = process.env[name];
+  if (!val) throw new Error(`Required environment variable ${name} is not set`);
+  return val;
+}
+
+async function uploadToR2(
+  key: string,
+  buffer: Buffer,
+  token: string,
+  accountId: string,
+  bucket: string,
+  publicBase: string,
+): Promise<string> {
+  const uploadUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
+
+  await withRetry(async (): Promise<void> => {
+    const r = await fetch(uploadUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'audio/mpeg',
+      },
+      body: buffer,
+    });
+    if (r.status === 429) {
+      const err: any = new Error('R2 rate limit');
+      err.name = 'ThrottlingException';
+      throw err;
+    }
+    if (!r.ok) {
+      await r.body?.cancel(); // drain/release the connection
+      throw new Error(`R2 upload failed: HTTP ${r.status} (${r.statusText})`);
+    }
+    await r.body?.cancel(); // drain response body to release connection
+  }, `R2:${key}`);
+
+  return `${publicBase}/${key}`;
+}
+
+// ---- Polly synthesize to buffer ----
+
+async function synthesizeToBuffer(
   polly: PollyClient,
   text: string,
-  outputPath: string
-): Promise<void> {
+): Promise<Buffer> {
   const command = new SynthesizeSpeechCommand({
     Text: text,
     TextType: TextType.TEXT,
@@ -88,30 +175,33 @@ async function synthesize(
     LanguageCode: 'cmn-CN',
   });
 
-  const response = await polly.send(command);
+  const response = await withRetry(() => polly.send(command), `Polly:${text.slice(0, 20)}`);
 
   if (!response.AudioStream) {
     throw new Error('No audio stream returned from Polly');
   }
 
-  // Convert stream to buffer
   const chunks: Uint8Array[] = [];
   for await (const chunk of response.AudioStream as AsyncIterable<Uint8Array>) {
     chunks.push(chunk);
   }
-
-  const buffer = Buffer.concat(chunks);
-  fs.writeFileSync(outputPath, buffer);
+  return Buffer.concat(chunks);
 }
+
+
 
 // ---- Main ----
 
 async function main() {
+  // fetch is built-in from Node.js 18+; fail fast if not available
+  if (typeof fetch === 'undefined') {
+    console.error('❌ fetch is not available. Requires Node.js 18 or later.');
+    process.exit(1);
+  }
+
   const { level } = parseArgs();
 
   const dataPath = getDataPath(level);
-  const audioDir = getAudioDir();
-
   // Load data
   if (!fs.existsSync(dataPath)) {
     console.error(`Data file not found: ${dataPath}`);
@@ -123,17 +213,12 @@ async function main() {
   console.log(`Loaded ${items.length} items from HSK ${level} data`);
 
   // Ensure audio directory exists
-  if (!fs.existsSync(audioDir)) {
-    fs.mkdirSync(audioDir, { recursive: true });
-    console.log(`Created audio directory: ${audioDir}`);
-  }
-
-  // Find items that need audio
+  // Find items that need audio — skip items already pointing at R2
   const needsAudio = items.filter((item) => {
     if (!item.audio) return true;
-    // Check if file actually exists
-    const filePath = path.join(audioDir, `${item.id}.mp3`);
-    return !fs.existsSync(filePath);
+    // Already has an R2 URL — skip
+    if (item.audio.includes('r2.dev') || item.audio.includes('r2.cloudflarestorage')) return false;
+    return true;
   });
 
   console.log(
@@ -145,6 +230,15 @@ async function main() {
     return;
   }
 
+  // Validate all required credentials upfront — fail fast before any API calls
+  const cfToken = getRequiredEnv('CLOUDFLARE_API_TOKEN');
+  const cfAccountId = getRequiredEnv('CLOUDFLARE_ACCOUNT_ID');
+  const cfPublicBase = getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE');
+  const cfBucket = process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio';
+  getRequiredEnv('AWS_ACCESS_KEY_ID');
+  getRequiredEnv('AWS_SECRET_ACCESS_KEY');
+  console.log('Credentials validated ✓');
+
   // Initialize Polly client
   const polly = new PollyClient({
     region: process.env.AWS_REGION || 'us-east-1',
@@ -154,8 +248,6 @@ async function main() {
   const SAVE_INTERVAL = 20; // write JSON every N completions
 
   let processed = 0;
-  let failed = 0;
-  const failedIds: string[] = [];
   let pendingSave = 0;
 
   // Save helper — debounced by SAVE_INTERVAL
@@ -167,43 +259,56 @@ async function main() {
     }
   };
 
-  // Worker: process one item
+  // Worker: synthesize via Polly, upload to R2, update item
+  // Throws on failure — no silent skips allowed
   const processItem = async (item: ContentItem, index: number): Promise<void> => {
-    const audioFilePath = getAudioPath(item.id);
-    const audioPublicPath = getAudioPublicPath(item.id);
-
-    try {
-      process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters} ... `);
-      await synthesize(polly, item.characters, audioFilePath);
-      item.audio = audioPublicPath;
-      process.stdout.write('✓\n');
-      processed++;
-      maybeSave();
-    } catch (err) {
-      process.stdout.write(`✗ (${(err as Error).message})\n`);
-      failed++;
-      failedIds.push(item.id);
-    }
+    const key = getAudioR2Key(item.id);
+    process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
+    const buffer = await synthesizeToBuffer(polly, item.characters);
+    const url = await uploadToR2(key, buffer, cfToken, cfAccountId, cfBucket, cfPublicBase);
+    item.audio = url;
+    process.stdout.write('✓\n');
+    processed++;
+    maybeSave();
   };
 
-  // Concurrency queue — run CONCURRENCY workers draining a shared index
-  let cursor = 0;
+  // Concurrency queue — workers pull from a shared queue of indices
+  // Uses a shared AbortController so all workers stop immediately on first failure
+  const abort = new AbortController();
+  const queue: number[] = needsAudio.map((_, i) => i);
+
   const worker = async () => {
-    while (cursor < needsAudio.length) {
-      const idx = cursor++;
+    while (true) {
+      if (abort.signal.aborted) break;
+      const idx = queue.shift();
+      if (idx === undefined) break;
+      if (abort.signal.aborted) {
+        queue.unshift(idx); // put it back — another run can retry
+        break;
+      }
       await processItem(needsAudio[idx], idx);
     }
   };
-  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-  console.log(`\nDone!`);
-  console.log(`  Processed: ${processed}`);
-  console.log(`  Failed: ${failed}`);
-
-  if (failedIds.length > 0) {
-    console.log(`  Failed IDs: ${failedIds.join(', ')}`);
-    console.log('  Run again to retry failed items.');
+  try {
+    await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
+      try {
+        await worker();
+      } catch (err) {
+        abort.abort(); // Signal all other workers to stop
+        throw err;     // Re-throw so Promise.all rejects
+      }
+    }));
+  } catch (err) {
+    // Save progress for items that succeeded before the failure
+    fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
+    console.error(`\n\n❌ Audio generation failed: ${(err as Error).message}`);
+    console.error(`   ${processed} items succeeded before failure.`);
+    console.error(`   Saved progress. Fix the issue and rerun to continue from where it left off.`);
+    process.exit(1);
   }
+
+  console.log(`\n✅ Done! All ${processed} items processed successfully.`);
 
   // Final save
   fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
@@ -212,9 +317,7 @@ async function main() {
   const withAudio = items.filter((item) => item.audio).length;
   console.log(`\nFinal state: ${withAudio}/${items.length} items have audio`);
 
-  // Show where audio files are
-  const audioFiles = fs.readdirSync(audioDir).filter((f) => f.endsWith('.mp3'));
-  console.log(`Audio files in ${audioDir}: ${audioFiles.length}`);
+  console.log(`Audio hosted at: ${cfPublicBase}/`);
 }
 
 main().catch((err) => {
