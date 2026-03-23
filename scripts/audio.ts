@@ -15,9 +15,11 @@
  *   npx ts-node scripts/audio.ts --level 2
  *
  * Required env vars:
- *   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
- *   CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_R2_ACCESS_KEY_ID, CLOUDFLARE_R2_SECRET_ACCESS_KEY
- *   (or set CF_API_TOKEN for token-based auth)
+ *   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION  (for Polly)
+ *   CLOUDFLARE_API_TOKEN                                   (for R2 upload)
+ *   CLOUDFLARE_ACCOUNT_ID                                  (CF account ID)
+ *   CLOUDFLARE_R2_PUBLIC_BASE                              (e.g. https://pub-xxx.r2.dev)
+ *   CLOUDFLARE_R2_BUCKET                                   (optional, default: meiting-audio)
  */
 
 import {
@@ -103,15 +105,21 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
 
 // ---- R2 upload via Cloudflare API ----
 
-const CF_ACCOUNT_ID = '364b2140fbff5211780667a063dfa257';
-const R2_BUCKET = 'meiting-audio';
-const R2_PUBLIC_BASE = 'https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev';
+function getRequiredEnv(name: string): string {
+  const val = process.env[name];
+  if (!val) throw new Error(`Required environment variable ${name} is not set`);
+  return val;
+}
 
 async function uploadToR2(key: string, buffer: Buffer): Promise<string> {
-  const token = process.env.CLOUDFLARE_API_TOKEN;
-  if (!token) throw new Error('CLOUDFLARE_API_TOKEN env var required');
+  const token = getRequiredEnv('CLOUDFLARE_API_TOKEN');
+  const accountId = getRequiredEnv('CLOUDFLARE_ACCOUNT_ID');
+  const bucket = process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio';
+  const publicBase = getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE');
 
-  const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/r2/buckets/${R2_BUCKET}/objects/${key}`;
+  const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
+
+  const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
 
   const resp = await withRetry(async () => {
     const r = await fetch(url, {
@@ -131,7 +139,7 @@ async function uploadToR2(key: string, buffer: Buffer): Promise<string> {
     return r;
   }, `R2:${key}`);
 
-  return `${R2_PUBLIC_BASE}/${key}`;
+  return `${publicBase}/${key}`;
 }
 
 // ---- Polly synthesize to buffer ----
@@ -265,7 +273,7 @@ async function main() {
   const withAudio = items.filter((item) => item.audio).length;
   console.log(`\nFinal state: ${withAudio}/${items.length} items have audio`);
 
-  console.log(`Audio hosted at: ${R2_PUBLIC_BASE}/`);
+  console.log(`Audio hosted at: ${process.env.CLOUDFLARE_R2_PUBLIC_BASE ?? "(set CLOUDFLARE_R2_PUBLIC_BASE)"}/`);
 }
 
 main().catch((err) => {
