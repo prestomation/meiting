@@ -12,6 +12,7 @@ Schema: [{"characters": "爱", "pinyin": "ài", "english": "to love; to be fond 
 
 import csv
 import json
+import ssl
 import urllib.request
 import urllib.error
 import re
@@ -21,12 +22,16 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 WORDLIST_DIR = os.path.join(SCRIPT_DIR, 'wordlists')
 TIMEOUT_SECONDS = 30
 
+# Use the system's default SSL context (validates certificates)
+SSL_CONTEXT = ssl.create_default_context()
+
 
 def fetch_url(url):
     """Fetch a URL and return its content as a string. Raises on error."""
     print(f"Fetching {url}...")
     try:
-        with urllib.request.urlopen(url, timeout=TIMEOUT_SECONDS) as r:
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=TIMEOUT_SECONDS, context=SSL_CONTEXT) as r:
             return r.read().decode('utf-8')
     except urllib.error.HTTPError as e:
         raise RuntimeError(f"HTTP {e.code} fetching {url}: {e.reason}") from e
@@ -38,7 +43,8 @@ def fetch_json(url):
     """Fetch a URL and parse it as JSON. Raises on error."""
     print(f"Fetching {url}...")
     try:
-        with urllib.request.urlopen(url, timeout=TIMEOUT_SECONDS) as r:
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=TIMEOUT_SECONDS, context=SSL_CONTEXT) as r:
             try:
                 return json.load(r)
             except json.JSONDecodeError as e:
@@ -152,8 +158,10 @@ def build_wordlists():
         missing_english = 0
 
         for w in words:
-            chars = w['characters']
-            pinyin = w['pinyin']
+            chars = w.get('characters', '').strip()
+            pinyin = w.get('pinyin', '').strip()
+            if not chars or not pinyin:
+                continue
 
             # Try drkameleon first
             english = english_lookup.get(chars, '')
