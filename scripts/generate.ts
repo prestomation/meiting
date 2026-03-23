@@ -378,7 +378,7 @@ async function main() {
   const passRate =
     totalGenerated > 0
       ? (((totalGenerated - totalRejected) / totalGenerated) * 100).toFixed(1)
-      : '0';
+      : (0).toFixed(1);
   console.log(`\n=== Generation complete ===`);
   console.log(`Total generated: ${totalGenerated}`);
   console.log(`Total rejected: ${totalRejected}`);
@@ -411,6 +411,13 @@ async function main() {
     id: item.id,
     characters: item.characters,
   }));
+
+  const REQUIRED_DISTRACTORS = 3;
+  if (poolForDistractors.length <= REQUIRED_DISTRACTORS) {
+    console.warn(
+      `Warning: pool size (${poolForDistractors.length}) is too small to guarantee ${REQUIRED_DISTRACTORS} distractors per sentence. Some items may have fewer distractors.`
+    );
+  }
 
   console.log(`\nAssigning phonetic distractors from pool of ${allItemsPool.length} sentences...`);
 

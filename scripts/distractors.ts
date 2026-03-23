@@ -58,18 +58,25 @@ export function selectDistractors(
       return scoreB - scoreA;
     });
 
-  // Pick top candidates, shuffle slightly for variety
+  // Pick top candidates, shuffle using Fisher-Yates for uniform randomness
   const top = candidates.slice(0, Math.min(count * 3, candidates.length));
-  top.sort(() => Math.random() - 0.5);
+  for (let i = top.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [top[i], top[j]] = [top[j], top[i]];
+  }
 
   const result = top.slice(0, count).map((c) => c.sentence);
 
-  // Fallback: if not enough phonetic matches, just grab random items from pool
-  if (result.length < count) {
+  // Fallback: if not enough phonetic matches, grab random items from pool
+  if (result.length < count && pool.length > 1) {
     const remaining = pool
       .filter((s) => s.id !== target.id && !result.includes(s.characters))
       .map((s) => s.characters);
-    remaining.sort(() => Math.random() - 0.5);
+    // Fisher-Yates shuffle on fallback candidates
+    for (let i = remaining.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
+    }
     result.push(...remaining.slice(0, count - result.length));
   }
 
