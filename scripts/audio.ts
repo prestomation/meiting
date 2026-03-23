@@ -4,13 +4,20 @@
  *
  * Reads src/data/hsk[N].json
  * For each item missing audio, calls AWS Polly (Zhiyu neural voice)
- * Saves MP3 to public/audio/{id}.mp3
- * Updates audio field in JSON
- * Idempotent: skips items that already have audio AND the file exists
+ * Uploads MP3 directly to Cloudflare R2 (meiting-audio bucket)
+ * Updates audio field in JSON with public R2 URL
+ * Idempotent: skips items that already have an R2 audio URL
+ *
+ * Throttle handling: exponential backoff with jitter, up to MAX_RETRIES
  *
  * Usage:
  *   npx ts-node scripts/audio.ts --level 1
  *   npx ts-node scripts/audio.ts --level 2
+ *
+ * Required env vars:
+ *   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION
+ *   CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_R2_ACCESS_KEY_ID, CLOUDFLARE_R2_SECRET_ACCESS_KEY
+ *   (or set CF_API_TOKEN for token-based auth)
  */
 
 import {
@@ -60,25 +67,79 @@ function getDataPath(level: number): string {
   return path.resolve(__dirname, '..', 'src', 'data', `hsk${level}.json`);
 }
 
-function getAudioDir(): string {
-  return path.resolve(__dirname, '..', 'public', 'audio');
+function getAudioR2Key(id: string): string {
+  return `${id}.mp3`;
 }
 
-function getAudioPath(id: string): string {
-  return path.join(getAudioDir(), `${id}.mp3`);
+// ---- Retry with exponential backoff ----
+
+const MAX_RETRIES = 6;
+const BASE_DELAY_MS = 500;
+
+async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
+  let attempt = 0;
+  while (true) {
+    try {
+      return await fn();
+    } catch (err: any) {
+      const isThrottle =
+        err?.name === 'ThrottlingException' ||
+        err?.Code === 'ThrottlingException' ||
+        err?.$metadata?.httpStatusCode === 429 ||
+        (err?.message ?? '').toLowerCase().includes('throttl') ||
+        (err?.message ?? '').toLowerCase().includes('rate exceeded');
+
+      if (isThrottle && attempt < MAX_RETRIES) {
+        const delay = BASE_DELAY_MS * Math.pow(2, attempt) + Math.random() * 200;
+        process.stdout.write(`⏳ throttled (attempt ${attempt + 1}/${MAX_RETRIES}, retry in ${Math.round(delay)}ms)... `);
+        await new Promise((r) => setTimeout(r, delay));
+        attempt++;
+        continue;
+      }
+      throw err;
+    }
+  }
 }
 
-function getAudioPublicPath(id: string): string {
-  return `/audio/${id}.mp3`;
+// ---- R2 upload via Cloudflare API ----
+
+const CF_ACCOUNT_ID = '364b2140fbff5211780667a063dfa257';
+const R2_BUCKET = 'meiting-audio';
+const R2_PUBLIC_BASE = 'https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev';
+
+async function uploadToR2(key: string, buffer: Buffer): Promise<string> {
+  const token = process.env.CLOUDFLARE_API_TOKEN;
+  if (!token) throw new Error('CLOUDFLARE_API_TOKEN env var required');
+
+  const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/r2/buckets/${R2_BUCKET}/objects/${key}`;
+
+  const resp = await withRetry(async () => {
+    const r = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'audio/mpeg',
+      },
+      body: buffer,
+    });
+    if (r.status === 429) {
+      const err: any = new Error('R2 rate limit');
+      err.name = 'ThrottlingException';
+      throw err;
+    }
+    if (!r.ok) throw new Error(`R2 upload failed: ${r.status} ${await r.text()}`);
+    return r;
+  }, `R2:${key}`);
+
+  return `${R2_PUBLIC_BASE}/${key}`;
 }
 
-// ---- Polly synthesize ----
+// ---- Polly synthesize to buffer ----
 
-async function synthesize(
+async function synthesizeToBuffer(
   polly: PollyClient,
   text: string,
-  outputPath: string
-): Promise<void> {
+): Promise<Buffer> {
   const command = new SynthesizeSpeechCommand({
     Text: text,
     TextType: TextType.TEXT,
@@ -88,21 +149,20 @@ async function synthesize(
     LanguageCode: 'cmn-CN',
   });
 
-  const response = await polly.send(command);
+  const response = await withRetry(() => polly.send(command), `Polly:${text.slice(0, 20)}`);
 
   if (!response.AudioStream) {
     throw new Error('No audio stream returned from Polly');
   }
 
-  // Convert stream to buffer
   const chunks: Uint8Array[] = [];
   for await (const chunk of response.AudioStream as AsyncIterable<Uint8Array>) {
     chunks.push(chunk);
   }
-
-  const buffer = Buffer.concat(chunks);
-  fs.writeFileSync(outputPath, buffer);
+  return Buffer.concat(chunks);
 }
+
+
 
 // ---- Main ----
 
@@ -110,8 +170,6 @@ async function main() {
   const { level } = parseArgs();
 
   const dataPath = getDataPath(level);
-  const audioDir = getAudioDir();
-
   // Load data
   if (!fs.existsSync(dataPath)) {
     console.error(`Data file not found: ${dataPath}`);
@@ -123,17 +181,12 @@ async function main() {
   console.log(`Loaded ${items.length} items from HSK ${level} data`);
 
   // Ensure audio directory exists
-  if (!fs.existsSync(audioDir)) {
-    fs.mkdirSync(audioDir, { recursive: true });
-    console.log(`Created audio directory: ${audioDir}`);
-  }
-
-  // Find items that need audio
+  // Find items that need audio — skip items already pointing at R2
   const needsAudio = items.filter((item) => {
     if (!item.audio) return true;
-    // Check if file actually exists
-    const filePath = path.join(audioDir, `${item.id}.mp3`);
-    return !fs.existsSync(filePath);
+    // Already has an R2 URL — skip
+    if (item.audio.includes('r2.dev') || item.audio.includes('r2.cloudflarestorage')) return false;
+    return true;
   });
 
   console.log(
@@ -167,15 +220,14 @@ async function main() {
     }
   };
 
-  // Worker: process one item
+  // Worker: synthesize via Polly, upload to R2, update item
   const processItem = async (item: ContentItem, index: number): Promise<void> => {
-    const audioFilePath = getAudioPath(item.id);
-    const audioPublicPath = getAudioPublicPath(item.id);
-
+    const key = getAudioR2Key(item.id);
     try {
-      process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters} ... `);
-      await synthesize(polly, item.characters, audioFilePath);
-      item.audio = audioPublicPath;
+      process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
+      const buffer = await synthesizeToBuffer(polly, item.characters);
+      const url = await uploadToR2(key, buffer);
+      item.audio = url;
       process.stdout.write('✓\n');
       processed++;
       maybeSave();
@@ -183,6 +235,7 @@ async function main() {
       process.stdout.write(`✗ (${(err as Error).message})\n`);
       failed++;
       failedIds.push(item.id);
+      // Do NOT mark item.audio — leave it empty so a rerun will retry
     }
   };
 
@@ -212,9 +265,7 @@ async function main() {
   const withAudio = items.filter((item) => item.audio).length;
   console.log(`\nFinal state: ${withAudio}/${items.length} items have audio`);
 
-  // Show where audio files are
-  const audioFiles = fs.readdirSync(audioDir).filter((f) => f.endsWith('.mp3'));
-  console.log(`Audio files in ${audioDir}: ${audioFiles.length}`);
+  console.log(`Audio hosted at: ${R2_PUBLIC_BASE}/`);
 }
 
 main().catch((err) => {
