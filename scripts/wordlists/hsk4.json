@@ -1,0 +1,5002 @@
+[
+  {
+    "characters": "阿姨",
+    "pinyin": "āyí",
+    "english": "maternal aunt; step-mother; childcare worker"
+  },
+  {
+    "characters": "啊",
+    "pinyin": "ā",
+    "english": "interjection of surprise; Ah!; Oh!"
+  },
+  {
+    "characters": "矮",
+    "pinyin": "ǎi",
+    "english": "low; short (in length)"
+  },
+  {
+    "characters": "矮小",
+    "pinyin": "ǎixiǎo",
+    "english": "short and small; low and small; undersized"
+  },
+  {
+    "characters": "爱国",
+    "pinyin": "àiguó",
+    "english": "to love one's country; patriotic"
+  },
+  {
+    "characters": "爱护",
+    "pinyin": "àihù",
+    "english": "to cherish; to treasure; to take care of"
+  },
+  {
+    "characters": "安",
+    "pinyin": "ān",
+    "english": "surname An"
+  },
+  {
+    "characters": "安置",
+    "pinyin": "ānzhì",
+    "english": "to find a place for; to help settle down; to arrange for"
+  },
+  {
+    "characters": "按时",
+    "pinyin": "ànshí",
+    "english": "on time; before deadline; on schedule"
+  },
+  {
+    "characters": "暗",
+    "pinyin": "àn",
+    "english": "variant of 暗"
+  },
+  {
+    "characters": "暗示",
+    "pinyin": "ànshì",
+    "english": "to hint; to suggest; hint; suggestion"
+  },
+  {
+    "characters": "巴士",
+    "pinyin": "bāshì",
+    "english": "bus (loanword); motor coach"
+  },
+  {
+    "characters": "百货",
+    "pinyin": "bǎihuò",
+    "english": "general merchandise"
+  },
+  {
+    "characters": "摆",
+    "pinyin": "bǎi",
+    "english": "to arrange; to exhibit; to move to and fro"
+  },
+  {
+    "characters": "摆动",
+    "pinyin": "bǎidòng",
+    "english": "to sway; to swing; to move back and forth"
+  },
+  {
+    "characters": "摆脱",
+    "pinyin": "bǎituō",
+    "english": "to break away from; to cast off (old ideas etc); to get rid of"
+  },
+  {
+    "characters": "败",
+    "pinyin": "bài",
+    "english": "to defeat; to damage; to lose (to an opponent)"
+  },
+  {
+    "characters": "办事",
+    "pinyin": "bànshì",
+    "english": "to handle (affairs); to work"
+  },
+  {
+    "characters": "包裹",
+    "pinyin": "bāoguǒ",
+    "english": "to wrap up; to bind up; bundle"
+  },
+  {
+    "characters": "包含",
+    "pinyin": "bāohán",
+    "english": "to contain; to embody; to include"
+  },
+  {
+    "characters": "包括",
+    "pinyin": "bāokuò",
+    "english": "to comprise; to include; to involve"
+  },
+  {
+    "characters": "薄",
+    "pinyin": "báo",
+    "english": "surname Bo"
+  },
+  {
+    "characters": "宝",
+    "pinyin": "bǎo",
+    "english": "variant of 宝"
+  },
+  {
+    "characters": "宝宝",
+    "pinyin": "bǎobao",
+    "english": "darling; baby"
+  },
+  {
+    "characters": "宝贝",
+    "pinyin": "bǎobèi",
+    "english": "treasured object; treasure; darling"
+  },
+  {
+    "characters": "宝贵",
+    "pinyin": "bǎoguì",
+    "english": "valuable; precious; to value"
+  },
+  {
+    "characters": "宝石",
+    "pinyin": "bǎoshí",
+    "english": "precious stone; gem"
+  },
+  {
+    "characters": "保密",
+    "pinyin": "bǎomì",
+    "english": "to keep sth confidential; to maintain secrecy"
+  },
+  {
+    "characters": "保守",
+    "pinyin": "bǎoshǒu",
+    "english": "conservative; to guard; to keep"
+  },
+  {
+    "characters": "抱",
+    "pinyin": "bào",
+    "english": "to hold; to carry (in one's arms); to hug"
+  },
+  {
+    "characters": "背景",
+    "pinyin": "bèijǐng",
+    "english": "background; backdrop; context; (fig.) powerful backer"
+  },
+  {
+    "characters": "倍",
+    "pinyin": "bèi",
+    "english": "(two, three etc) -fold; times (multiplier); double"
+  },
+  {
+    "characters": "被迫",
+    "pinyin": "bèipò",
+    "english": "to be compelled; to be forced"
+  },
+  {
+    "characters": "本科",
+    "pinyin": "běnkē",
+    "english": "undergraduate course; undergraduate (attributive)"
+  },
+  {
+    "characters": "笨",
+    "pinyin": "bèn",
+    "english": "stupid; foolish; silly"
+  },
+  {
+    "characters": "比分",
+    "pinyin": "bǐfēn",
+    "english": "score"
+  },
+  {
+    "characters": "毕业",
+    "pinyin": "bìyè",
+    "english": "graduation; to graduate; to finish school"
+  },
+  {
+    "characters": "毕业生",
+    "pinyin": "bìyèshēng",
+    "english": "graduate"
+  },
+  {
+    "characters": "避",
+    "pinyin": "bì",
+    "english": "to avoid; to shun; to flee"
+  },
+  {
+    "characters": "避免",
+    "pinyin": "bìmiǎn",
+    "english": "to avert; to prevent; to avoid"
+  },
+  {
+    "characters": "编",
+    "pinyin": "biān",
+    "english": "to weave; to plait; to organize"
+  },
+  {
+    "characters": "辩论",
+    "pinyin": "biànlùn",
+    "english": "debate; argument; to argue over"
+  },
+  {
+    "characters": "标志",
+    "pinyin": "biāozhì",
+    "english": "sign; mark; symbol"
+  },
+  {
+    "characters": "表情",
+    "pinyin": "biǎoqíng",
+    "english": "(facial) expression; to express one's feelings"
+  },
+  {
+    "characters": "表扬",
+    "pinyin": "biǎoyáng",
+    "english": "to praise; to commend"
+  },
+  {
+    "characters": "别",
+    "pinyin": "bié",
+    "english": "surname Bie"
+  },
+  {
+    "characters": "冰",
+    "pinyin": "bīng",
+    "english": "ice; to chill sth; (of an object or substance) to feel cold"
+  },
+  {
+    "characters": "冰箱",
+    "pinyin": "bīngxiāng",
+    "english": "icebox; freezer cabinet; refrigerator"
+  },
+  {
+    "characters": "冰雪",
+    "pinyin": "bīngxuě",
+    "english": "ice and snow"
+  },
+  {
+    "characters": "兵",
+    "pinyin": "bīng",
+    "english": "soldiers; a force; an army"
+  },
+  {
+    "characters": "并",
+    "pinyin": "bìng",
+    "english": "and; furthermore; also"
+  },
+  {
+    "characters": "不要紧",
+    "pinyin": "bùyàojǐn",
+    "english": "unimportant; not serious; it doesn't matter"
+  },
+  {
+    "characters": "不在乎",
+    "pinyin": "bùzàihu",
+    "english": "not to care"
+  },
+  {
+    "characters": "不管",
+    "pinyin": "bùguǎn",
+    "english": "not to be concerned; regardless of; no matter"
+  },
+  {
+    "characters": "不然",
+    "pinyin": "bùrán",
+    "english": "not so; no; or else"
+  },
+  {
+    "characters": "布置",
+    "pinyin": "bùzhì",
+    "english": "to put in order; to arrange; to decorate"
+  },
+  {
+    "characters": "步行",
+    "pinyin": "bùxíng",
+    "english": "to go on foot; to walk"
+  },
+  {
+    "characters": "擦",
+    "pinyin": "cā",
+    "english": "to rub; to scratch; to towel; to wipe with a towel; to apply (lipstick, lotion etc)"
+  },
+  {
+    "characters": "才",
+    "pinyin": "cái",
+    "english": "ability; talent; sb of a certain type; a capable individual"
+  },
+  {
+    "characters": "材料",
+    "pinyin": "cáiliào",
+    "english": "(raw) material; data; (fig.) person who has the potential to do the job"
+  },
+  {
+    "characters": "财产",
+    "pinyin": "cáichǎn",
+    "english": "property; assets; estate"
+  },
+  {
+    "characters": "财富",
+    "pinyin": "cáifù",
+    "english": "wealth; riches"
+  },
+  {
+    "characters": "采访",
+    "pinyin": "cǎifǎng",
+    "english": "to interview; to gather news; to hunt for and collect"
+  },
+  {
+    "characters": "参考",
+    "pinyin": "cānkǎo",
+    "english": "consultation; reference; to consult"
+  },
+  {
+    "characters": "参与",
+    "pinyin": "cānyù",
+    "english": "to participate (in sth)"
+  },
+  {
+    "characters": "操场",
+    "pinyin": "cāochǎng",
+    "english": "playground; sports field; drill ground"
+  },
+  {
+    "characters": "操作",
+    "pinyin": "cāozuò",
+    "english": "to work; to operate; to manipulate"
+  },
+  {
+    "characters": "测",
+    "pinyin": "cè",
+    "english": "to survey; to measure; to conjecture"
+  },
+  {
+    "characters": "测量",
+    "pinyin": "cèliáng",
+    "english": "survey; to measure; to gauge"
+  },
+  {
+    "characters": "测试",
+    "pinyin": "cèshì",
+    "english": "to test (machinery etc); to test (a person's skill in a particular area); a test"
+  },
+  {
+    "characters": "曾",
+    "pinyin": "céng",
+    "english": "surname Zeng"
+  },
+  {
+    "characters": "茶叶",
+    "pinyin": "cháyè",
+    "english": "tea; tea leaves"
+  },
+  {
+    "characters": "产品",
+    "pinyin": "chǎnpǐn",
+    "english": "goods; merchandise; product"
+  },
+  {
+    "characters": "长途",
+    "pinyin": "chángtú",
+    "english": "long distance"
+  },
+  {
+    "characters": "常识",
+    "pinyin": "chángshí",
+    "english": "common sense; general knowledge"
+  },
+  {
+    "characters": "唱片",
+    "pinyin": "chàngpiàn",
+    "english": "gramophone record; LP; music CD"
+  },
+  {
+    "characters": "抄",
+    "pinyin": "chāo",
+    "english": "to make a copy; to plagiarize; to search and seize"
+  },
+  {
+    "characters": "抄写",
+    "pinyin": "chāoxiě",
+    "english": "to copy; to transcribe"
+  },
+  {
+    "characters": "潮",
+    "pinyin": "cháo",
+    "english": "tide; damp; moist; humid; fashionable; trendy"
+  },
+  {
+    "characters": "潮流",
+    "pinyin": "cháoliú",
+    "english": "tide; current; trend"
+  },
+  {
+    "characters": "潮湿",
+    "pinyin": "cháoshī",
+    "english": "damp; moist"
+  },
+  {
+    "characters": "彻底",
+    "pinyin": "chèdǐ",
+    "english": "thorough; thoroughly; complete"
+  },
+  {
+    "characters": "沉",
+    "pinyin": "chén",
+    "english": "to submerge; to immerse; to sink"
+  },
+  {
+    "characters": "沉默",
+    "pinyin": "chénmò",
+    "english": "taciturn; uncommunicative; silent"
+  },
+  {
+    "characters": "沉重",
+    "pinyin": "chénzhòng",
+    "english": "heavy; hard; serious"
+  },
+  {
+    "characters": "称赞",
+    "pinyin": "chēngzàn",
+    "english": "to praise; to acclaim; to commend"
+  },
+  {
+    "characters": "成人",
+    "pinyin": "chéngrén",
+    "english": "adult"
+  },
+  {
+    "characters": "诚实",
+    "pinyin": "chéngshí",
+    "english": "honest"
+  },
+  {
+    "characters": "诚信",
+    "pinyin": "chéngxìn",
+    "english": "genuine; honest; in good faith"
+  },
+  {
+    "characters": "承担",
+    "pinyin": "chéngdān",
+    "english": "to undertake; to assume (responsibility etc)"
+  },
+  {
+    "characters": "承认",
+    "pinyin": "chéngrèn",
+    "english": "to admit; to concede; to recognize"
+  },
+  {
+    "characters": "承受",
+    "pinyin": "chéngshòu",
+    "english": "to bear; to support; to inherit"
+  },
+  {
+    "characters": "程序",
+    "pinyin": "chéngxù",
+    "english": "procedures; sequence; order"
+  },
+  {
+    "characters": "吃惊",
+    "pinyin": "chījīng",
+    "english": "to be startled; to be shocked; to be amazed"
+  },
+  {
+    "characters": "迟到",
+    "pinyin": "chídào",
+    "english": "to arrive late"
+  },
+  {
+    "characters": "尺",
+    "pinyin": "chǐ",
+    "english": "one of the characters used to represent a musical note in gongche notation, 工尺谱"
+  },
+  {
+    "characters": "尺寸",
+    "pinyin": "chǐcùn",
+    "english": "size; dimensions; measurements (esp. of clothes); (coll.) propriety"
+  },
+  {
+    "characters": "尺子",
+    "pinyin": "chǐzi",
+    "english": "ruler (measuring instrument)"
+  },
+  {
+    "characters": "冲",
+    "pinyin": "chōng",
+    "english": "(of water) to dash against; to mix with water; to infuse"
+  },
+  {
+    "characters": "充电",
+    "pinyin": "chōngdiàn",
+    "english": "to recharge (a battery); (fig.) to recharge one's batteries (through leisure); to update one's skills and knowledge"
+  },
+  {
+    "characters": "充电器",
+    "pinyin": "chōngdiànqì",
+    "english": "battery charger"
+  },
+  {
+    "characters": "充分",
+    "pinyin": "chōngfèn",
+    "english": "ample; sufficient; adequate"
+  },
+  {
+    "characters": "虫子",
+    "pinyin": "chóngzi",
+    "english": "insect; bug; worm"
+  },
+  {
+    "characters": "抽",
+    "pinyin": "chōu",
+    "english": "to draw out; to pull out from in between; to remove part of the whole"
+  },
+  {
+    "characters": "抽奖",
+    "pinyin": "chōujiǎng",
+    "english": "to draw a prize; a lottery; a raffle"
+  },
+  {
+    "characters": "抽烟",
+    "pinyin": "chōuyān",
+    "english": "to smoke (a cigarette, tobacco)"
+  },
+  {
+    "characters": "出口",
+    "pinyin": "chūkǒu",
+    "english": "an exit; to speak; to export"
+  },
+  {
+    "characters": "出色",
+    "pinyin": "chūsè",
+    "english": "remarkable; outstanding"
+  },
+  {
+    "characters": "出售",
+    "pinyin": "chūshòu",
+    "english": "to sell; to offer for sale; to put on the market"
+  },
+  {
+    "characters": "出席",
+    "pinyin": "chūxí",
+    "english": "to attend; to participate; present"
+  },
+  {
+    "characters": "处于",
+    "pinyin": "chǔyú",
+    "english": "to be in (some state, position, or condition)"
+  },
+  {
+    "characters": "处",
+    "pinyin": "chù",
+    "english": "to reside; to live; to dwell"
+  },
+  {
+    "characters": "穿上",
+    "pinyin": "chuānshang",
+    "english": "to put on (clothes etc)"
+  },
+  {
+    "characters": "传统",
+    "pinyin": "chuántǒng",
+    "english": "tradition; traditional; convention"
+  },
+  {
+    "characters": "窗户",
+    "pinyin": "chuānghu",
+    "english": "window"
+  },
+  {
+    "characters": "窗台",
+    "pinyin": "chuāngtái",
+    "english": "window sill; window ledge"
+  },
+  {
+    "characters": "窗子",
+    "pinyin": "chuāngzi",
+    "english": "window"
+  },
+  {
+    "characters": "春季",
+    "pinyin": "chūnjì",
+    "english": "springtime"
+  },
+  {
+    "characters": "纯",
+    "pinyin": "chún",
+    "english": "pure; simple; unmixed"
+  },
+  {
+    "characters": "纯净水",
+    "pinyin": "chúnjìngshuǐ",
+    "english": "purified water"
+  },
+  {
+    "characters": "词汇",
+    "pinyin": "cíhuì",
+    "english": "variant of 词汇"
+  },
+  {
+    "characters": "此",
+    "pinyin": "cǐ",
+    "english": "this; these"
+  },
+  {
+    "characters": "此外",
+    "pinyin": "cǐwài",
+    "english": "besides; in addition; moreover"
+  },
+  {
+    "characters": "次",
+    "pinyin": "cì",
+    "english": "next in sequence; second; the second (day, time etc)"
+  },
+  {
+    "characters": "刺",
+    "pinyin": "cì",
+    "english": "(onom.) whoosh"
+  },
+  {
+    "characters": "刺激",
+    "pinyin": "cìjī",
+    "english": "to provoke; to irritate; to upset; to stimulate; to excite; irritant"
+  },
+  {
+    "characters": "从此",
+    "pinyin": "cóngcǐ",
+    "english": "from now on; since then; henceforth"
+  },
+  {
+    "characters": "粗",
+    "pinyin": "cū",
+    "english": "coarse; rough; thick (for cylindrical objects)"
+  },
+  {
+    "characters": "粗心",
+    "pinyin": "cūxīn",
+    "english": "careless; thoughtless"
+  },
+  {
+    "characters": "促进",
+    "pinyin": "cùjìn",
+    "english": "to promote (an idea or cause); to advance; boost"
+  },
+  {
+    "characters": "促使",
+    "pinyin": "cùshǐ",
+    "english": "to induce; to promote; to urge"
+  },
+  {
+    "characters": "促销",
+    "pinyin": "cùxiāo",
+    "english": "to promote sales"
+  },
+  {
+    "characters": "措施",
+    "pinyin": "cuòshī",
+    "english": "measure; step"
+  },
+  {
+    "characters": "打",
+    "pinyin": "dá",
+    "english": "dozen (loanword)"
+  },
+  {
+    "characters": "答案",
+    "pinyin": "dá'àn",
+    "english": "answer; solution"
+  },
+  {
+    "characters": "打败",
+    "pinyin": "dǎbài",
+    "english": "to defeat; to overpower; to beat"
+  },
+  {
+    "characters": "打雷",
+    "pinyin": "dǎléi",
+    "english": "to rumble with thunder; clap of thunder"
+  },
+  {
+    "characters": "打扫",
+    "pinyin": "dǎsǎo",
+    "english": "to clean; to sweep"
+  },
+  {
+    "characters": "打折",
+    "pinyin": "dǎzhé",
+    "english": "to give a discount"
+  },
+  {
+    "characters": "打针",
+    "pinyin": "dǎzhēn",
+    "english": "to give or have an injection"
+  },
+  {
+    "characters": "大巴",
+    "pinyin": "dàbā",
+    "english": "(coll.) large bus; coach; (abbr. for 大型巴士)"
+  },
+  {
+    "characters": "大多",
+    "pinyin": "dàduō",
+    "english": "for the most part; many; most"
+  },
+  {
+    "characters": "大方",
+    "pinyin": "dàfang",
+    "english": "expert; scholar; mother earth"
+  },
+  {
+    "characters": "大哥",
+    "pinyin": "dàgē",
+    "english": "eldest brother; big brother (polite address for a man of about the same age as oneself); gang leader"
+  },
+  {
+    "characters": "大规模",
+    "pinyin": "dà guīmó",
+    "english": "large scale; extensive; wide scale"
+  },
+  {
+    "characters": "大会",
+    "pinyin": "dàhuì",
+    "english": "general assembly; general meeting; convention"
+  },
+  {
+    "characters": "大姐",
+    "pinyin": "dàjiě",
+    "english": "big sister; elder sister; older sister (also polite term of address for a girl or woman slightly older than the speaker)"
+  },
+  {
+    "characters": "大楼",
+    "pinyin": "dà lóu",
+    "english": "building (a relatively large, multistory one)"
+  },
+  {
+    "characters": "大陆",
+    "pinyin": "dàlù",
+    "english": "mainland China (reference to the PRC)"
+  },
+  {
+    "characters": "大妈",
+    "pinyin": "dàmā",
+    "english": "father's elder brother's wife; aunt (affectionate term for an elderly woman)"
+  },
+  {
+    "characters": "大型",
+    "pinyin": "dàxíng",
+    "english": "large; large-scale"
+  },
+  {
+    "characters": "大爷",
+    "pinyin": "dàye",
+    "english": "arrogant idler; self-centered show-off"
+  },
+  {
+    "characters": "大众",
+    "pinyin": "dàzhòng",
+    "english": "Volkswagen (automobile manufacturer)"
+  },
+  {
+    "characters": "代替",
+    "pinyin": "dàitì",
+    "english": "to replace; to take the place of"
+  },
+  {
+    "characters": "待遇",
+    "pinyin": "dàiyù",
+    "english": "treatment; pay; salary"
+  },
+  {
+    "characters": "袋",
+    "pinyin": "dài",
+    "english": "pouch; bag; sack"
+  },
+  {
+    "characters": "戴",
+    "pinyin": "dài",
+    "english": "surname Dai"
+  },
+  {
+    "characters": "担保",
+    "pinyin": "dānbǎo",
+    "english": "to guarantee; to vouch for"
+  },
+  {
+    "characters": "担任",
+    "pinyin": "dānrèn",
+    "english": "to hold a governmental office or post; to assume office of; to take charge of"
+  },
+  {
+    "characters": "担心",
+    "pinyin": "dānxīn",
+    "english": "anxious; worried; uneasy"
+  },
+  {
+    "characters": "单",
+    "pinyin": "dān",
+    "english": "surname Shan"
+  },
+  {
+    "characters": "单纯",
+    "pinyin": "dānchún",
+    "english": "simple; pure; unsophisticated"
+  },
+  {
+    "characters": "单调",
+    "pinyin": "dāndiào",
+    "english": "monotonous"
+  },
+  {
+    "characters": "单独",
+    "pinyin": "dāndú",
+    "english": "alone; by oneself; on one's own"
+  },
+  {
+    "characters": "淡",
+    "pinyin": "dàn",
+    "english": "insipid; diluted; weak"
+  },
+  {
+    "characters": "导游",
+    "pinyin": "dǎoyóu",
+    "english": "tour guide; guidebook; to conduct a tour"
+  },
+  {
+    "characters": "导致",
+    "pinyin": "dǎozhì",
+    "english": "to lead to; to create; to cause"
+  },
+  {
+    "characters": "倒闭",
+    "pinyin": "dǎobì",
+    "english": "to go bankrupt; to close down"
+  },
+  {
+    "characters": "倒车",
+    "pinyin": "dǎochē",
+    "english": "to change buses, trains etc"
+  },
+  {
+    "characters": "倒车",
+    "pinyin": "dàochē",
+    "english": "to change buses, trains etc"
+  },
+  {
+    "characters": "得意",
+    "pinyin": "déyì",
+    "english": "proud of oneself; pleased with oneself; complacent"
+  },
+  {
+    "characters": "得",
+    "pinyin": "děi",
+    "english": "to obtain; to get; to gain"
+  },
+  {
+    "characters": "灯光",
+    "pinyin": "dēngguāng",
+    "english": "(stage) lighting; light"
+  },
+  {
+    "characters": "登",
+    "pinyin": "dēng",
+    "english": "to scale (a height); to ascend; to mount"
+  },
+  {
+    "characters": "登记",
+    "pinyin": "dēngjì",
+    "english": "to register (one's name)"
+  },
+  {
+    "characters": "登录",
+    "pinyin": "dēnglù",
+    "english": "to register; to log in"
+  },
+  {
+    "characters": "登山",
+    "pinyin": "dēngshān",
+    "english": "to climb a mountain; climbing; mountaineering"
+  },
+  {
+    "characters": "的确",
+    "pinyin": "díquè",
+    "english": "really; indeed"
+  },
+  {
+    "characters": "敌人",
+    "pinyin": "dírén",
+    "english": "enemy"
+  },
+  {
+    "characters": "底",
+    "pinyin": "dǐ",
+    "english": "(equivalent to 的 as possessive particle)"
+  },
+  {
+    "characters": "地方",
+    "pinyin": "dìfāng",
+    "english": "region; regional (away from the central administration); local"
+  },
+  {
+    "characters": "地面",
+    "pinyin": "dìmiàn",
+    "english": "floor; ground; surface"
+  },
+  {
+    "characters": "地位",
+    "pinyin": "dìwèi",
+    "english": "position; status; place"
+  },
+  {
+    "characters": "地下",
+    "pinyin": "dìxià",
+    "english": "underground; subterranean; covert"
+  },
+  {
+    "characters": "地址",
+    "pinyin": "dìzhǐ",
+    "english": "address"
+  },
+  {
+    "characters": "典型",
+    "pinyin": "diǎnxíng",
+    "english": "model; typical case; archetype"
+  },
+  {
+    "characters": "点名",
+    "pinyin": "diǎnmíng",
+    "english": "roll call; to mention sb by name; (to call or praise or criticize sb) by name"
+  },
+  {
+    "characters": "电灯",
+    "pinyin": "diàndēng",
+    "english": "electric light"
+  },
+  {
+    "characters": "电动车",
+    "pinyin": "diàndòngchē",
+    "english": "Electric vehicle"
+  },
+  {
+    "characters": "电梯",
+    "pinyin": "diàntī",
+    "english": "elevator; escalator"
+  },
+  {
+    "characters": "电源",
+    "pinyin": "diànyuán",
+    "english": "electric power source"
+  },
+  {
+    "characters": "顶",
+    "pinyin": "dǐng",
+    "english": "apex; crown of the head; top"
+  },
+  {
+    "characters": "定",
+    "pinyin": "dìng",
+    "english": "to set; to fix; to determine"
+  },
+  {
+    "characters": "冬季",
+    "pinyin": "dōngjì",
+    "english": "winter"
+  },
+  {
+    "characters": "动画片",
+    "pinyin": "dònghuàpiàn",
+    "english": "animated film"
+  },
+  {
+    "characters": "动摇",
+    "pinyin": "dòngyáo",
+    "english": "to sway; to waver; to rock"
+  },
+  {
+    "characters": "豆腐",
+    "pinyin": "dòufu",
+    "english": "tofu; bean curd"
+  },
+  {
+    "characters": "独立",
+    "pinyin": "dúlì",
+    "english": "independent; independence; to stand alone"
+  },
+  {
+    "characters": "独特",
+    "pinyin": "dútè",
+    "english": "unique; distinctive"
+  },
+  {
+    "characters": "独自",
+    "pinyin": "dúzì",
+    "english": "alone"
+  },
+  {
+    "characters": "堵",
+    "pinyin": "dǔ",
+    "english": "to block up (a road, pipe etc); to stop up (a hole); (fig.) (of a person) choked up with anxiety or stress"
+  },
+  {
+    "characters": "堵车",
+    "pinyin": "dǔchē",
+    "english": "traffic jam; (of traffic) to get congested"
+  },
+  {
+    "characters": "肚子",
+    "pinyin": "dùzi",
+    "english": "belly; abdomen; stomach"
+  },
+  {
+    "characters": "度过",
+    "pinyin": "dùguò",
+    "english": "to pass; to spend (time); to survive"
+  },
+  {
+    "characters": "锻炼",
+    "pinyin": "duànliàn",
+    "english": "to toughen; to temper; to engage in physical exercise"
+  },
+  {
+    "characters": "对比",
+    "pinyin": "duìbǐ",
+    "english": "to contrast; contrast; ratio"
+  },
+  {
+    "characters": "对付",
+    "pinyin": "duìfu",
+    "english": "to handle; to deal with; to tackle; to get by with; to make do; (dialect) (usu. used in the negative) to get along with (sb)"
+  },
+  {
+    "characters": "对于",
+    "pinyin": "duìyú",
+    "english": "regarding; as far as (sth) is concerned; with regard to"
+  },
+  {
+    "characters": "多次",
+    "pinyin": "duō cì",
+    "english": "many times; repeatedly"
+  },
+  {
+    "characters": "多年",
+    "pinyin": "duō nián",
+    "english": "many years; for many years; longstanding"
+  },
+  {
+    "characters": "多样",
+    "pinyin": "duōyàng",
+    "english": "diverse; diversity; manifold"
+  },
+  {
+    "characters": "多种",
+    "pinyin": "duō zhǒng",
+    "english": "many kinds of; multiple; diverse; multi-"
+  },
+  {
+    "characters": "恶心",
+    "pinyin": "ěxin",
+    "english": "variant of 恶心"
+  },
+  {
+    "characters": "儿童",
+    "pinyin": "értóng",
+    "english": "child"
+  },
+  {
+    "characters": "而",
+    "pinyin": "ér",
+    "english": "and; as well as; and so"
+  },
+  {
+    "characters": "而是",
+    "pinyin": "ér shì",
+    "english": "rather"
+  },
+  {
+    "characters": "耳机",
+    "pinyin": "ěrjī",
+    "english": "headphones; earphones; telephone receiver"
+  },
+  {
+    "characters": "二手",
+    "pinyin": "èrshǒu",
+    "english": "indirectly acquired; second-hand (information, equipment etc); assistant"
+  },
+  {
+    "characters": "发挥",
+    "pinyin": "fāhuī",
+    "english": "to display; to exhibit; to bring out implicit or innate qualities"
+  },
+  {
+    "characters": "发票",
+    "pinyin": "fāpiào",
+    "english": "invoice; receipt or bill for purchase"
+  },
+  {
+    "characters": "发烧",
+    "pinyin": "fāshāo",
+    "english": "to have a high temperature (from illness); to have a fever"
+  },
+  {
+    "characters": "法",
+    "pinyin": "fǎ",
+    "english": "variant of 法"
+  },
+  {
+    "characters": "法官",
+    "pinyin": "fǎguān",
+    "english": "judge (in court)"
+  },
+  {
+    "characters": "法律",
+    "pinyin": "fǎlǜ",
+    "english": "law"
+  },
+  {
+    "characters": "法院",
+    "pinyin": "fǎyuàn",
+    "english": "court of law; court"
+  },
+  {
+    "characters": "翻",
+    "pinyin": "fān",
+    "english": "to turn over; to flip over; to overturn"
+  },
+  {
+    "characters": "翻译",
+    "pinyin": "fānyì",
+    "english": "to translate; to interpret; translator"
+  },
+  {
+    "characters": "烦",
+    "pinyin": "fán",
+    "english": "to feel vexed; to bother; to trouble"
+  },
+  {
+    "characters": "反",
+    "pinyin": "fǎn",
+    "english": "contrary; in reverse; inside out or upside down"
+  },
+  {
+    "characters": "反而",
+    "pinyin": "fǎn'ér",
+    "english": "on the contrary; instead"
+  },
+  {
+    "characters": "反映",
+    "pinyin": "fǎnyìng",
+    "english": "to mirror; to reflect; mirror image"
+  },
+  {
+    "characters": "方",
+    "pinyin": "fāng",
+    "english": "surname Fang"
+  },
+  {
+    "characters": "方案",
+    "pinyin": "fāng'àn",
+    "english": "plan; program (for action etc); proposal"
+  },
+  {
+    "characters": "方针",
+    "pinyin": "fāngzhēn",
+    "english": "policy; guidelines"
+  },
+  {
+    "characters": "放松",
+    "pinyin": "fàngsōng",
+    "english": "to relax; to slacken; to loosen"
+  },
+  {
+    "characters": "非",
+    "pinyin": "fēi",
+    "english": "abbr. for 洲, Africa"
+  },
+  {
+    "characters": "肥",
+    "pinyin": "féi",
+    "english": "fat; fertile; loose-fitting or large"
+  },
+  {
+    "characters": "分布",
+    "pinyin": "fēnbù",
+    "english": "to scatter; to distribute; to be distributed (over an area etc)"
+  },
+  {
+    "characters": "分散",
+    "pinyin": "fēnsàn",
+    "english": "to scatter; to disperse; to distribute"
+  },
+  {
+    "characters": "分手",
+    "pinyin": "fēnshǒu",
+    "english": "to part company; to split up; to break up"
+  },
+  {
+    "characters": "分为",
+    "pinyin": "fēnwéi",
+    "english": "to divide sth into (parts); to subdivide"
+  },
+  {
+    "characters": "…分之…",
+    "pinyin": "…fēn zhī…",
+    "english": ""
+  },
+  {
+    "characters": "纷纷",
+    "pinyin": "fēnfēn",
+    "english": "one after another; in succession; one by one"
+  },
+  {
+    "characters": "奋斗",
+    "pinyin": "fèndòu",
+    "english": "to strive; to struggle"
+  },
+  {
+    "characters": "风格",
+    "pinyin": "fēnggé",
+    "english": "style"
+  },
+  {
+    "characters": "风景",
+    "pinyin": "fēngjǐng",
+    "english": "scenery; landscape"
+  },
+  {
+    "characters": "风俗",
+    "pinyin": "fēngsú",
+    "english": "social custom"
+  },
+  {
+    "characters": "封闭",
+    "pinyin": "fēngbì",
+    "english": "to close; to seal off; to close down (an illegal venue); closed (i.e. isolated from outside input)"
+  },
+  {
+    "characters": "否则",
+    "pinyin": "fǒuzé",
+    "english": "otherwise; if not; or (else)"
+  },
+  {
+    "characters": "夫妇",
+    "pinyin": "fūfù",
+    "english": "a (married) couple; husband and wife"
+  },
+  {
+    "characters": "夫妻",
+    "pinyin": "fūqī",
+    "english": "husband and wife; married couple"
+  },
+  {
+    "characters": "夫人",
+    "pinyin": "fūrén",
+    "english": "lady; madam; Mrs."
+  },
+  {
+    "characters": "符号",
+    "pinyin": "fúhào",
+    "english": "symbol; mark; sign"
+  },
+  {
+    "characters": "符合",
+    "pinyin": "fúhé",
+    "english": "in keeping with; in accordance with; tallying with"
+  },
+  {
+    "characters": "付出",
+    "pinyin": "fùchū",
+    "english": "to pay; to expend; to invest (energy or time)"
+  },
+  {
+    "characters": "负担",
+    "pinyin": "fùdān",
+    "english": "to bear (an expense, a responsibility etc); burden"
+  },
+  {
+    "characters": "附近",
+    "pinyin": "fùjìn",
+    "english": "nearby; neighboring; (in the) vicinity (of); neighborhood"
+  },
+  {
+    "characters": "复制",
+    "pinyin": "fùzhì",
+    "english": "to duplicate; to make a copy of; to copy"
+  },
+  {
+    "characters": "改善",
+    "pinyin": "gǎishàn",
+    "english": "to make better; to improve"
+  },
+  {
+    "characters": "改正",
+    "pinyin": "gǎizhèng",
+    "english": "to correct; to amend; to put right"
+  },
+  {
+    "characters": "盖",
+    "pinyin": "gài",
+    "english": "surname Ge"
+  },
+  {
+    "characters": "概括",
+    "pinyin": "gàikuò",
+    "english": "to summarize; to generalize; briefly; in broad outline"
+  },
+  {
+    "characters": "感兴趣",
+    "pinyin": "gǎn xìngqù",
+    "english": "to be interested"
+  },
+  {
+    "characters": "高潮",
+    "pinyin": "gāocháo",
+    "english": "high tide; high water; upsurge; peak of activity; climax (of a story, a competition etc)"
+  },
+  {
+    "characters": "高价",
+    "pinyin": "gāojià",
+    "english": "high price"
+  },
+  {
+    "characters": "高尚",
+    "pinyin": "gāoshàng",
+    "english": "noble; lofty; refined"
+  },
+  {
+    "characters": "高铁",
+    "pinyin": "gāotiě",
+    "english": "high speed rail"
+  },
+  {
+    "characters": "格外",
+    "pinyin": "géwài",
+    "english": "especially; particularly"
+  },
+  {
+    "characters": "隔",
+    "pinyin": "gé",
+    "english": "to separate; to partition; to stand or lie between"
+  },
+  {
+    "characters": "隔开",
+    "pinyin": "gékāi",
+    "english": "to separate"
+  },
+  {
+    "characters": "个别",
+    "pinyin": "gèbié",
+    "english": "individually; one by one; just one or two; exceptional; rare"
+  },
+  {
+    "characters": "个体",
+    "pinyin": "gètǐ",
+    "english": "individual"
+  },
+  {
+    "characters": "各个",
+    "pinyin": "gègè",
+    "english": "every; various; separately, one by one"
+  },
+  {
+    "characters": "根",
+    "pinyin": "gēn",
+    "english": "root; basis; classifier for long slender objects, e.g. cigarettes, guitar strings"
+  },
+  {
+    "characters": "根据",
+    "pinyin": "gēnjù",
+    "english": "according to; based on; basis"
+  },
+  {
+    "characters": "工程",
+    "pinyin": "gōngchéng",
+    "english": "engineering; an engineering project; project"
+  },
+  {
+    "characters": "公元",
+    "pinyin": "gōngyuán",
+    "english": "CE (Common Era); Christian Era; AD (Anno Domini)"
+  },
+  {
+    "characters": "供应",
+    "pinyin": "gōngyìng",
+    "english": "to supply; to provide; to offer"
+  },
+  {
+    "characters": "共",
+    "pinyin": "gòng",
+    "english": "common; general; to share"
+  },
+  {
+    "characters": "构成",
+    "pinyin": "gòuchéng",
+    "english": "to constitute; to form; to compose"
+  },
+  {
+    "characters": "构造",
+    "pinyin": "gòuzào",
+    "english": "structure; composition; tectonic (geology)"
+  },
+  {
+    "characters": "购买",
+    "pinyin": "gòumǎi",
+    "english": "to purchase; to buy"
+  },
+  {
+    "characters": "购物",
+    "pinyin": "gòuwù",
+    "english": "shopping"
+  },
+  {
+    "characters": "骨头",
+    "pinyin": "gǔtou",
+    "english": "bone; moral character; bitterness"
+  },
+  {
+    "characters": "固定",
+    "pinyin": "gùdìng",
+    "english": "to fix; to fasten; to set rigidly in place"
+  },
+  {
+    "characters": "瓜",
+    "pinyin": "guā",
+    "english": "melon; gourd; squash"
+  },
+  {
+    "characters": "怪",
+    "pinyin": "guài",
+    "english": "bewildering; odd; strange"
+  },
+  {
+    "characters": "关",
+    "pinyin": "guān",
+    "english": "surname Guan"
+  },
+  {
+    "characters": "关闭",
+    "pinyin": "guānbì",
+    "english": "to close; to shut (a window etc); (of a shop, school etc) to shut down"
+  },
+  {
+    "characters": "关于",
+    "pinyin": "guānyú",
+    "english": "pertaining to; concerning; with regard to"
+  },
+  {
+    "characters": "官",
+    "pinyin": "guān",
+    "english": "surname Guan"
+  },
+  {
+    "characters": "官方",
+    "pinyin": "guānfāng",
+    "english": "government; official (approved or issued by an authority)"
+  },
+  {
+    "characters": "光临",
+    "pinyin": "guānglín",
+    "english": "(formal) to honor with one's presence; to attend"
+  },
+  {
+    "characters": "光盘",
+    "pinyin": "guāngpán",
+    "english": "compact disc (CD); DVD; CD-ROM"
+  },
+  {
+    "characters": "逛",
+    "pinyin": "guàng",
+    "english": "to stroll; to visit"
+  },
+  {
+    "characters": "归",
+    "pinyin": "guī",
+    "english": "surname Gui"
+  },
+  {
+    "characters": "规律",
+    "pinyin": "guīlǜ",
+    "english": "rule (e.g. of science); law of behavior; regular pattern"
+  },
+  {
+    "characters": "规模",
+    "pinyin": "guīmó",
+    "english": "scale; scope; extent"
+  },
+  {
+    "characters": "规则",
+    "pinyin": "guīzé",
+    "english": "rule; regulation; rules and regulations"
+  },
+  {
+    "characters": "果实",
+    "pinyin": "guǒshí",
+    "english": "fruit (produced by a plant); (fig.) fruits (of success etc); results"
+  },
+  {
+    "characters": "过分",
+    "pinyin": "guòfèn",
+    "english": "excessive; undue; overly"
+  },
+  {
+    "characters": "海水",
+    "pinyin": "hǎishuǐ",
+    "english": "seawater"
+  },
+  {
+    "characters": "海鲜",
+    "pinyin": "hǎixiān",
+    "english": "seafood"
+  },
+  {
+    "characters": "含",
+    "pinyin": "hán",
+    "english": "to keep in the mouth; to contain"
+  },
+  {
+    "characters": "含量",
+    "pinyin": "hánliàng",
+    "english": "content; quantity contained"
+  },
+  {
+    "characters": "含义",
+    "pinyin": "hányì",
+    "english": "meaning (implicit in a phrase); implied meaning; hidden meaning"
+  },
+  {
+    "characters": "含有",
+    "pinyin": "hányǒu",
+    "english": "to contain; including"
+  },
+  {
+    "characters": "寒假",
+    "pinyin": "hánjià",
+    "english": "winter vacation"
+  },
+  {
+    "characters": "寒冷",
+    "pinyin": "hánlěng",
+    "english": "cold (climate); frigid; very cold"
+  },
+  {
+    "characters": "行业",
+    "pinyin": "hángyè",
+    "english": "trade; profession; industry; business"
+  },
+  {
+    "characters": "航班",
+    "pinyin": "hángbān",
+    "english": "(scheduled) flight; (scheduled) sailing"
+  },
+  {
+    "characters": "航空",
+    "pinyin": "hángkōng",
+    "english": "aviation"
+  },
+  {
+    "characters": "毫米",
+    "pinyin": "háomǐ",
+    "english": "millimeter"
+  },
+  {
+    "characters": "毫升",
+    "pinyin": "háoshēng",
+    "english": "milliliter"
+  },
+  {
+    "characters": "好友",
+    "pinyin": "hǎoyǒu",
+    "english": "close friend; pal; (social networking website) friend"
+  },
+  {
+    "characters": "号码",
+    "pinyin": "hàomǎ",
+    "english": "number"
+  },
+  {
+    "characters": "好",
+    "pinyin": "hào",
+    "english": "good; appropriate; proper; all right!"
+  },
+  {
+    "characters": "合同",
+    "pinyin": "hétóng",
+    "english": "(business) contract"
+  },
+  {
+    "characters": "黑暗",
+    "pinyin": "hēi'àn",
+    "english": "dark; darkly; darkness"
+  },
+  {
+    "characters": "红包",
+    "pinyin": "hóngbāo",
+    "english": "money wrapped in red as a gift; bonus payment; kickback"
+  },
+  {
+    "characters": "后头",
+    "pinyin": "hòutou",
+    "english": "behind; the back; the rear"
+  },
+  {
+    "characters": "厚",
+    "pinyin": "hòu",
+    "english": "thick; deep or profound; kind"
+  },
+  {
+    "characters": "呼吸",
+    "pinyin": "hūxī",
+    "english": "to breathe"
+  },
+  {
+    "characters": "忽视",
+    "pinyin": "hūshì",
+    "english": "to neglect; to overlook; to disregard; to ignore"
+  },
+  {
+    "characters": "户",
+    "pinyin": "hù",
+    "english": "a household; door; family"
+  },
+  {
+    "characters": "护士",
+    "pinyin": "hùshi",
+    "english": "nurse"
+  },
+  {
+    "characters": "花",
+    "pinyin": "huā",
+    "english": "surname Hua"
+  },
+  {
+    "characters": "划",
+    "pinyin": "huá",
+    "english": "to row; to paddle; profitable"
+  },
+  {
+    "characters": "划",
+    "pinyin": "huà",
+    "english": "to row; to paddle; profitable"
+  },
+  {
+    "characters": "怀念",
+    "pinyin": "huáiniàn",
+    "english": "to cherish the memory of; to think of; to reminisce"
+  },
+  {
+    "characters": "怀疑",
+    "pinyin": "huáiyí",
+    "english": "to doubt (sth); to be skeptical of; to have one's doubts"
+  },
+  {
+    "characters": "缓解",
+    "pinyin": "huǎnjiě",
+    "english": "to bring relief; to alleviate (a crisis); to dull (a pain)"
+  },
+  {
+    "characters": "黄瓜",
+    "pinyin": "huángguā",
+    "english": "cucumber"
+  },
+  {
+    "characters": "黄金",
+    "pinyin": "huángjīn",
+    "english": "gold; golden (opportunity); prime (time)"
+  },
+  {
+    "characters": "回复",
+    "pinyin": "huífù",
+    "english": "to reply; to recover; to return (to a previous condition)"
+  },
+  {
+    "characters": "汇",
+    "pinyin": "huì",
+    "english": "to remit; to converge (of rivers); to exchange"
+  },
+  {
+    "characters": "汇报",
+    "pinyin": "huìbào",
+    "english": "to report; to give an account of; to collect information and report back"
+  },
+  {
+    "characters": "汇率",
+    "pinyin": "huìlǜ",
+    "english": "exchange rate"
+  },
+  {
+    "characters": "婚礼",
+    "pinyin": "hūnlǐ",
+    "english": "wedding ceremony; wedding"
+  },
+  {
+    "characters": "火",
+    "pinyin": "huǒ",
+    "english": "surname Huo"
+  },
+  {
+    "characters": "伙",
+    "pinyin": "huǒ",
+    "english": "meals (abbr. for 食); variant of 伙"
+  },
+  {
+    "characters": "伙伴",
+    "pinyin": "huǒbàn",
+    "english": "partner; companion; comrade"
+  },
+  {
+    "characters": "或许",
+    "pinyin": "huòxǔ",
+    "english": "perhaps; maybe"
+  },
+  {
+    "characters": "货",
+    "pinyin": "huò",
+    "english": "goods; money; commodity"
+  },
+  {
+    "characters": "获",
+    "pinyin": "huò",
+    "english": "(literary) to catch; to capture; (literary) to get; to obtain; to win"
+  },
+  {
+    "characters": "获得",
+    "pinyin": "huòdé",
+    "english": "to obtain; to receive; to get"
+  },
+  {
+    "characters": "获奖",
+    "pinyin": "huòjiǎng",
+    "english": "to win an award"
+  },
+  {
+    "characters": "获取",
+    "pinyin": "huòqǔ",
+    "english": "to gain; to get; to acquire"
+  },
+  {
+    "characters": "几乎",
+    "pinyin": "jīhū",
+    "english": "almost; nearly; practically"
+  },
+  {
+    "characters": "机构",
+    "pinyin": "jīgòu",
+    "english": "mechanism; structure; organization"
+  },
+  {
+    "characters": "机遇",
+    "pinyin": "jīyù",
+    "english": "opportunity; favorable circumstance; stroke of luck"
+  },
+  {
+    "characters": "积累",
+    "pinyin": "jīlěi",
+    "english": "to accumulate; accumulation; cumulative"
+  },
+  {
+    "characters": "激动",
+    "pinyin": "jīdòng",
+    "english": "to move emotionally; to stir up (emotions); to excite"
+  },
+  {
+    "characters": "激烈",
+    "pinyin": "jīliè",
+    "english": "(of competition or fighting) intense; fierce; (of pain) acute"
+  },
+  {
+    "characters": "及格",
+    "pinyin": "jígé",
+    "english": "to pass an exam or a test; to meet a minimum standard"
+  },
+  {
+    "characters": "极",
+    "pinyin": "jí",
+    "english": "extremely; pole (geography, physics); utmost"
+  },
+  {
+    "characters": "极其",
+    "pinyin": "jíqí",
+    "english": "extremely"
+  },
+  {
+    "characters": "即将",
+    "pinyin": "jíjiāng",
+    "english": "on the eve of; to be about to; to be on the verge of"
+  },
+  {
+    "characters": "急忙",
+    "pinyin": "jímáng",
+    "english": "hastily"
+  },
+  {
+    "characters": "集合",
+    "pinyin": "jíhé",
+    "english": "to gather; to assemble; (math.) set"
+  },
+  {
+    "characters": "记载",
+    "pinyin": "jìzǎi",
+    "english": "to write down; to record; written account"
+  },
+  {
+    "characters": "纪律",
+    "pinyin": "jìlǜ",
+    "english": "discipline"
+  },
+  {
+    "characters": "技巧",
+    "pinyin": "jìqiǎo",
+    "english": "skill; technique"
+  },
+  {
+    "characters": "系",
+    "pinyin": "jì",
+    "english": "to connect; to relate to; to tie up"
+  },
+  {
+    "characters": "季",
+    "pinyin": "jì",
+    "english": "surname Ji"
+  },
+  {
+    "characters": "季度",
+    "pinyin": "jìdù",
+    "english": "quarter of a year; season (sports)"
+  },
+  {
+    "characters": "季节",
+    "pinyin": "jìjié",
+    "english": "time; season; period"
+  },
+  {
+    "characters": "既",
+    "pinyin": "jì",
+    "english": "already; since; both... (and...)"
+  },
+  {
+    "characters": "既然",
+    "pinyin": "jìrán",
+    "english": "since; as; this being the case"
+  },
+  {
+    "characters": "寄",
+    "pinyin": "jì",
+    "english": "to send; to mail; to entrust"
+  },
+  {
+    "characters": "加班",
+    "pinyin": "jiābān",
+    "english": "to work overtime"
+  },
+  {
+    "characters": "加入",
+    "pinyin": "jiārù",
+    "english": "to become a member; to join; to mix into"
+  },
+  {
+    "characters": "加油站",
+    "pinyin": "jiāyóuzhàn",
+    "english": "gas station"
+  },
+  {
+    "characters": "家务",
+    "pinyin": "jiāwù",
+    "english": "household duties; housework"
+  },
+  {
+    "characters": "假如",
+    "pinyin": "jiǎrú",
+    "english": "if"
+  },
+  {
+    "characters": "坚固",
+    "pinyin": "jiāngù",
+    "english": "firm; firmly; hard"
+  },
+  {
+    "characters": "检测",
+    "pinyin": "jiǎncè",
+    "english": "to detect; to test; detection"
+  },
+  {
+    "characters": "减",
+    "pinyin": "jiǎn",
+    "english": "to lower; to decrease; to reduce"
+  },
+  {
+    "characters": "减肥",
+    "pinyin": "jiǎnféi",
+    "english": "to lose weight"
+  },
+  {
+    "characters": "减少",
+    "pinyin": "jiǎnshǎo",
+    "english": "to lessen; to decrease; to reduce; to lower"
+  },
+  {
+    "characters": "简历",
+    "pinyin": "jiǎnlì",
+    "english": "curriculum vitae (CV); résumé; biographical notes"
+  },
+  {
+    "characters": "健身",
+    "pinyin": "jiànshēn",
+    "english": "to exercise; to keep fit; to work out"
+  },
+  {
+    "characters": "渐渐",
+    "pinyin": "jiànjiàn",
+    "english": "gradually"
+  },
+  {
+    "characters": "江",
+    "pinyin": "jiāng",
+    "english": "surname Jiang"
+  },
+  {
+    "characters": "讲究",
+    "pinyin": "jiǎngjiu",
+    "english": "to pay particular attention to; carefully selected for quality; tastefully chosen"
+  },
+  {
+    "characters": "讲座",
+    "pinyin": "jiǎngzuò",
+    "english": "a course of lectures"
+  },
+  {
+    "characters": "奖",
+    "pinyin": "jiǎng",
+    "english": "prize; award; encouragement"
+  },
+  {
+    "characters": "奖金",
+    "pinyin": "jiǎngjīn",
+    "english": "premium; award money; bonus"
+  },
+  {
+    "characters": "奖学金",
+    "pinyin": "jiǎngxuéjīn",
+    "english": "scholarship"
+  },
+  {
+    "characters": "降",
+    "pinyin": "jiàng",
+    "english": "to drop; to fall; to come down"
+  },
+  {
+    "characters": "降低",
+    "pinyin": "jiàngdī",
+    "english": "to reduce; to lower; to bring down"
+  },
+  {
+    "characters": "降价",
+    "pinyin": "jiàngjià",
+    "english": "to cut the price; to drive down the price; to get cheaper"
+  },
+  {
+    "characters": "降落",
+    "pinyin": "jiàngluò",
+    "english": "to descend; to land"
+  },
+  {
+    "characters": "降温",
+    "pinyin": "jiàngwēn",
+    "english": "to become cooler; to lower the temperature; cooling"
+  },
+  {
+    "characters": "交换",
+    "pinyin": "jiāohuàn",
+    "english": "to exchange; to swap; to switch (telecom)"
+  },
+  {
+    "characters": "交际",
+    "pinyin": "jiāojì",
+    "english": "communication; social intercourse"
+  },
+  {
+    "characters": "教授",
+    "pinyin": "jiàoshòu",
+    "english": "professor; to instruct; to lecture on"
+  },
+  {
+    "characters": "教训",
+    "pinyin": "jiàoxùn",
+    "english": "to provide guidance; to lecture sb; to upbraid"
+  },
+  {
+    "characters": "阶段",
+    "pinyin": "jiēduàn",
+    "english": "stage; section; phase"
+  },
+  {
+    "characters": "街道",
+    "pinyin": "jiēdào",
+    "english": "street; subdistrict; residential district"
+  },
+  {
+    "characters": "节省",
+    "pinyin": "jiéshěng",
+    "english": "saving; to save; to use sparingly"
+  },
+  {
+    "characters": "结",
+    "pinyin": "jié",
+    "english": "(of a plant) to produce (fruit or seeds); Taiwan pr. [jié]"
+  },
+  {
+    "characters": "结构",
+    "pinyin": "jiégòu",
+    "english": "structure; composition; makeup"
+  },
+  {
+    "characters": "结论",
+    "pinyin": "jiélùn",
+    "english": "conclusion; verdict; to conclude"
+  },
+  {
+    "characters": "姐妹",
+    "pinyin": "jiěmèi",
+    "english": "sisters; siblings; sister (school, city etc)"
+  },
+  {
+    "characters": "解释",
+    "pinyin": "jiěshì",
+    "english": "explanation; to explain; to interpret"
+  },
+  {
+    "characters": "尽快",
+    "pinyin": "jǐnkuài",
+    "english": "as quickly as possible; as soon as possible"
+  },
+  {
+    "characters": "紧密",
+    "pinyin": "jǐnmì",
+    "english": "inseparably close"
+  },
+  {
+    "characters": "尽力",
+    "pinyin": "jìnlì",
+    "english": "to strive one's hardest; to spare no effort"
+  },
+  {
+    "characters": "进口",
+    "pinyin": "jìnkǒu",
+    "english": "to import; imported; entrance"
+  },
+  {
+    "characters": "近代",
+    "pinyin": "jìndài",
+    "english": "the not-very-distant past; modern times, excluding recent decades; (in the context of Chinese history) the period from the Opium Wars until the May 4th Movement (mid-19th century to 1919)"
+  },
+  {
+    "characters": "禁止",
+    "pinyin": "jìnzhǐ",
+    "english": "to prohibit; to forbid; to ban"
+  },
+  {
+    "characters": "经典",
+    "pinyin": "jīngdiǎn",
+    "english": "the classics; scriptures; classical"
+  },
+  {
+    "characters": "精力",
+    "pinyin": "jīnglì",
+    "english": "energy"
+  },
+  {
+    "characters": "竟然",
+    "pinyin": "jìngrán",
+    "english": "unexpectedly; to one's surprise; in spite of everything"
+  },
+  {
+    "characters": "镜头",
+    "pinyin": "jìngtóu",
+    "english": "camera lens; camera shot (in a movie etc); scene"
+  },
+  {
+    "characters": "镜子",
+    "pinyin": "jìngzi",
+    "english": "mirror"
+  },
+  {
+    "characters": "究竟",
+    "pinyin": "jiūjìng",
+    "english": "to go to the bottom of a matter; after all; when all is said and done"
+  },
+  {
+    "characters": "酒吧",
+    "pinyin": "jiǔbā",
+    "english": "bar; pub; saloon"
+  },
+  {
+    "characters": "居民",
+    "pinyin": "jūmín",
+    "english": "resident; inhabitant"
+  },
+  {
+    "characters": "居住",
+    "pinyin": "jūzhù",
+    "english": "to reside; to dwell; to live in a place"
+  },
+  {
+    "characters": "局",
+    "pinyin": "jú",
+    "english": "narrow"
+  },
+  {
+    "characters": "巨大",
+    "pinyin": "jùdà",
+    "english": "huge; immense; very large"
+  },
+  {
+    "characters": "具备",
+    "pinyin": "jùbèi",
+    "english": "to possess; to have; equipped with"
+  },
+  {
+    "characters": "距离",
+    "pinyin": "jùlí",
+    "english": "distance; to be apart from"
+  },
+  {
+    "characters": "聚",
+    "pinyin": "jù",
+    "english": "to congregate; to assemble; to mass"
+  },
+  {
+    "characters": "聚会",
+    "pinyin": "jùhuì",
+    "english": "party; gathering; to meet"
+  },
+  {
+    "characters": "卷",
+    "pinyin": "juǎn",
+    "english": "to roll up; roll; classifier for small rolled things (wad of paper money, movie reel etc)"
+  },
+  {
+    "characters": "卷",
+    "pinyin": "juàn",
+    "english": "to roll up; roll; classifier for small rolled things (wad of paper money, movie reel etc)"
+  },
+  {
+    "characters": "角色",
+    "pinyin": "juésè",
+    "english": "role; character in a novel; persona"
+  },
+  {
+    "characters": "开花",
+    "pinyin": "kāihuā",
+    "english": "to bloom; to blossom; to flower; (fig.) to burst; to split open; (fig.) to burst with joy"
+  },
+  {
+    "characters": "开水",
+    "pinyin": "kāishuǐ",
+    "english": "boiled water; boiling water"
+  },
+  {
+    "characters": "看不起",
+    "pinyin": "kànbuqǐ",
+    "english": "to look down upon; to despise"
+  },
+  {
+    "characters": "看来",
+    "pinyin": "kànlái",
+    "english": "apparently; it seems that"
+  },
+  {
+    "characters": "看望",
+    "pinyin": "kànwàng",
+    "english": "to pay a visit to; to see (sb)"
+  },
+  {
+    "characters": "考察",
+    "pinyin": "kǎochá",
+    "english": "to inspect; to observe and study; on-the-spot investigation"
+  },
+  {
+    "characters": "考虑",
+    "pinyin": "kǎolǜ",
+    "english": "to think over; to consider; consideration"
+  },
+  {
+    "characters": "棵",
+    "pinyin": "kē",
+    "english": "classifier for trees, cabbages, plants etc"
+  },
+  {
+    "characters": "可见",
+    "pinyin": "kějiàn",
+    "english": "it can clearly be seen (that this is the case); it is (thus) clear; clear"
+  },
+  {
+    "characters": "空间",
+    "pinyin": "kōngjiān",
+    "english": "space; room; (fig.) scope; leeway; (astronomy) outer space"
+  },
+  {
+    "characters": "空",
+    "pinyin": "kòng",
+    "english": "empty; air; sky"
+  },
+  {
+    "characters": "口袋",
+    "pinyin": "kǒudai",
+    "english": "pocket; bag; sack"
+  },
+  {
+    "characters": "口语",
+    "pinyin": "kǒuyǔ",
+    "english": "colloquial speech; spoken language; vernacular language"
+  },
+  {
+    "characters": "苦",
+    "pinyin": "kǔ",
+    "english": "bitter; hardship; pain"
+  },
+  {
+    "characters": "会计",
+    "pinyin": "kuàijì",
+    "english": "accountant; accountancy; accounting"
+  },
+  {
+    "characters": "快递",
+    "pinyin": "kuàidì",
+    "english": "express delivery"
+  },
+  {
+    "characters": "宽",
+    "pinyin": "kuān",
+    "english": "surname Kuan"
+  },
+  {
+    "characters": "宽广",
+    "pinyin": "kuānguǎng",
+    "english": "wide; broad; extensive"
+  },
+  {
+    "characters": "矿泉水",
+    "pinyin": "kuàngquánshuǐ",
+    "english": "mineral water"
+  },
+  {
+    "characters": "扩大",
+    "pinyin": "kuòdà",
+    "english": "to expand; to enlarge; to broaden one's scope"
+  },
+  {
+    "characters": "扩展",
+    "pinyin": "kuòzhǎn",
+    "english": "to extend; to expand; extension"
+  },
+  {
+    "characters": "括号",
+    "pinyin": "kuòhào",
+    "english": "parentheses; brackets"
+  },
+  {
+    "characters": "垃圾",
+    "pinyin": "lājī",
+    "english": "trash; refuse; garbage"
+  },
+  {
+    "characters": "拉开",
+    "pinyin": "lākāi",
+    "english": "to pull open; to pull apart; to space out"
+  },
+  {
+    "characters": "辣",
+    "pinyin": "là",
+    "english": "old variant of 辣"
+  },
+  {
+    "characters": "来不及",
+    "pinyin": "láibují",
+    "english": "there's not enough time (to do sth); it's too late (to do sth)"
+  },
+  {
+    "characters": "来得及",
+    "pinyin": "láidejí",
+    "english": "to have enough time; can do it in time; can still make it"
+  },
+  {
+    "characters": "来源",
+    "pinyin": "láiyuán",
+    "english": "source (of information etc); origin"
+  },
+  {
+    "characters": "老公",
+    "pinyin": "lǎogōng",
+    "english": "(coll.) husband"
+  },
+  {
+    "characters": "老家",
+    "pinyin": "lǎojiā",
+    "english": "native place; place of origin; home state or region"
+  },
+  {
+    "characters": "老婆",
+    "pinyin": "lǎopo",
+    "english": "(coll.) wife"
+  },
+  {
+    "characters": "老实",
+    "pinyin": "lǎoshi",
+    "english": "honest; sincere; well-behaved; naive; gullible"
+  },
+  {
+    "characters": "乐趣",
+    "pinyin": "lèqù",
+    "english": "delight; pleasure; joy"
+  },
+  {
+    "characters": "泪",
+    "pinyin": "lèi",
+    "english": "tears"
+  },
+  {
+    "characters": "泪水",
+    "pinyin": "lèishuǐ",
+    "english": "teardrop; tears"
+  },
+  {
+    "characters": "类型",
+    "pinyin": "lèixíng",
+    "english": "type; kind; category; (computer programming) type"
+  },
+  {
+    "characters": "冷静",
+    "pinyin": "lěngjìng",
+    "english": "calm; cool-headed; dispassionate; (of a place) deserted; quiet"
+  },
+  {
+    "characters": "厘米",
+    "pinyin": "límǐ",
+    "english": "centimeter"
+  },
+  {
+    "characters": "离不开",
+    "pinyin": "lí bu kāi",
+    "english": "inseparable; inevitably linked to"
+  },
+  {
+    "characters": "力气",
+    "pinyin": "lìqi",
+    "english": "strength"
+  },
+  {
+    "characters": "历史",
+    "pinyin": "lìshǐ",
+    "english": "history"
+  },
+  {
+    "characters": "立即",
+    "pinyin": "lìjí",
+    "english": "immediately"
+  },
+  {
+    "characters": "利息",
+    "pinyin": "lìxī",
+    "english": "interest (on a loan)"
+  },
+  {
+    "characters": "利益",
+    "pinyin": "lìyì",
+    "english": "benefit; (in sb's) interest"
+  },
+  {
+    "characters": "俩",
+    "pinyin": "liǎ",
+    "english": "two (colloquial equivalent of 两个); both; some"
+  },
+  {
+    "characters": "良好",
+    "pinyin": "liánghǎo",
+    "english": "good; favorable; well"
+  },
+  {
+    "characters": "量",
+    "pinyin": "liáng",
+    "english": "to measure"
+  },
+  {
+    "characters": "粮食",
+    "pinyin": "liángshi",
+    "english": "foodstuff; cereals"
+  },
+  {
+    "characters": "两边",
+    "pinyin": "liǎngbiān",
+    "english": "either side; both sides"
+  },
+  {
+    "characters": "疗养",
+    "pinyin": "liáoyǎng",
+    "english": "to get well; to heal; to recuperate"
+  },
+  {
+    "characters": "了不起",
+    "pinyin": "liǎobuqǐ",
+    "english": "amazing; terrific; extraordinary"
+  },
+  {
+    "characters": "了解",
+    "pinyin": "liǎojiě",
+    "english": "to understand; to realize; to find out"
+  },
+  {
+    "characters": "列",
+    "pinyin": "liè",
+    "english": "to arrange; to line up; file"
+  },
+  {
+    "characters": "列车",
+    "pinyin": "lièchē",
+    "english": "(railway) train"
+  },
+  {
+    "characters": "列入",
+    "pinyin": "lièrù",
+    "english": "to include on a list"
+  },
+  {
+    "characters": "列为",
+    "pinyin": "lièwéi",
+    "english": "to be classified as"
+  },
+  {
+    "characters": "临时",
+    "pinyin": "línshí",
+    "english": "as the time draws near; at the last moment; temporary"
+  },
+  {
+    "characters": "零食",
+    "pinyin": "língshí",
+    "english": "between-meal nibbles; snacks"
+  },
+  {
+    "characters": "流传",
+    "pinyin": "liúchuán",
+    "english": "to spread; to circulate; to hand down"
+  },
+  {
+    "characters": "楼梯",
+    "pinyin": "lóutī",
+    "english": "stair; staircase"
+  },
+  {
+    "characters": "陆地",
+    "pinyin": "lùdì",
+    "english": "dry land (as opposed to the sea)"
+  },
+  {
+    "characters": "陆续",
+    "pinyin": "lùxù",
+    "english": "in turn; successively; one after the other"
+  },
+  {
+    "characters": "录取",
+    "pinyin": "lùqǔ",
+    "english": "to accept an applicant (prospective student, employee etc) who passes an entrance exam; to admit (a student); to hire (a job candidate)"
+  },
+  {
+    "characters": "律师",
+    "pinyin": "lǜshī",
+    "english": "lawyer"
+  },
+  {
+    "characters": "轮",
+    "pinyin": "lún",
+    "english": "wheel; disk; ring; steamship; to take turns; to rotate"
+  },
+  {
+    "characters": "轮船",
+    "pinyin": "lúnchuán",
+    "english": "steamship; steamer; steamboat"
+  },
+  {
+    "characters": "轮椅",
+    "pinyin": "lúnyǐ",
+    "english": "wheelchair"
+  },
+  {
+    "characters": "轮子",
+    "pinyin": "lúnzi",
+    "english": "wheel; (derog.) Falun Gong practitioner"
+  },
+  {
+    "characters": "论文",
+    "pinyin": "lùnwén",
+    "english": "paper; treatise; thesis"
+  },
+  {
+    "characters": "落",
+    "pinyin": "luò",
+    "english": "to leave out; to be missing; to leave behind or forget to bring"
+  },
+  {
+    "characters": "毛巾",
+    "pinyin": "máojīn",
+    "english": "towel"
+  },
+  {
+    "characters": "毛衣",
+    "pinyin": "máoyī",
+    "english": "(wool) sweater"
+  },
+  {
+    "characters": "帽子",
+    "pinyin": "màozi",
+    "english": "hat; cap; (fig.) label"
+  },
+  {
+    "characters": "没错",
+    "pinyin": "méi cuò",
+    "english": "that's right; sure!; rest assured!"
+  },
+  {
+    "characters": "没法儿",
+    "pinyin": "méifǎr",
+    "english": "Can't"
+  },
+  {
+    "characters": "没想到",
+    "pinyin": "méi xiǎngdào",
+    "english": "didn't expect"
+  },
+  {
+    "characters": "美金",
+    "pinyin": "měijīn",
+    "english": "US dollar; USD"
+  },
+  {
+    "characters": "美女",
+    "pinyin": "měinǚ",
+    "english": "beautiful woman"
+  },
+  {
+    "characters": "梦",
+    "pinyin": "mèng",
+    "english": "dream; (bound form) to dream"
+  },
+  {
+    "characters": "梦见",
+    "pinyin": "mèngjiàn",
+    "english": "to dream about (sth or sb); to see in a dream"
+  },
+  {
+    "characters": "梦想",
+    "pinyin": "mèngxiǎng",
+    "english": "(fig.) to dream of; dream"
+  },
+  {
+    "characters": "秘密",
+    "pinyin": "mìmì",
+    "english": "secret; private; confidential; clandestine; a secret"
+  },
+  {
+    "characters": "秘书",
+    "pinyin": "mìshū",
+    "english": "secretary"
+  },
+  {
+    "characters": "密",
+    "pinyin": "mì",
+    "english": "surname Mi; name of an ancient state"
+  },
+  {
+    "characters": "密码",
+    "pinyin": "mìmǎ",
+    "english": "cipher; secret code; password; PIN"
+  },
+  {
+    "characters": "密切",
+    "pinyin": "mìqiè",
+    "english": "close; familiar; intimate"
+  },
+  {
+    "characters": "免费",
+    "pinyin": "miǎnfèi",
+    "english": "free (of charge)"
+  },
+  {
+    "characters": "面临",
+    "pinyin": "miànlín",
+    "english": "to face sth; to be confronted with"
+  },
+  {
+    "characters": "面试",
+    "pinyin": "miànshì",
+    "english": "to be interviewed (as a candidate); interview"
+  },
+  {
+    "characters": "描述",
+    "pinyin": "miáoshù",
+    "english": "to describe; description"
+  },
+  {
+    "characters": "描写",
+    "pinyin": "miáoxiě",
+    "english": "to describe; to depict; to portray"
+  },
+  {
+    "characters": "名牌儿",
+    "pinyin": "míngpáir",
+    "english": "Famous brand"
+  },
+  {
+    "characters": "名片",
+    "pinyin": "míngpiàn",
+    "english": "(business) card"
+  },
+  {
+    "characters": "名人",
+    "pinyin": "míngrén",
+    "english": "personage; celebrity"
+  },
+  {
+    "characters": "摸",
+    "pinyin": "mō",
+    "english": "to feel with the hand; to touch; to stroke"
+  },
+  {
+    "characters": "模特儿",
+    "pinyin": "mótèr",
+    "english": "(fashion) model (loanword)"
+  },
+  {
+    "characters": "模型",
+    "pinyin": "móxíng",
+    "english": "model; mold; matrix"
+  },
+  {
+    "characters": "末",
+    "pinyin": "mò",
+    "english": "tip; end; final stage"
+  },
+  {
+    "characters": "默默",
+    "pinyin": "mòmò",
+    "english": "in silence; not speaking"
+  },
+  {
+    "characters": "哪怕",
+    "pinyin": "nǎpà",
+    "english": "even; even if; even though"
+  },
+  {
+    "characters": "哪",
+    "pinyin": "na",
+    "english": "how; which"
+  },
+  {
+    "characters": "男女",
+    "pinyin": "nánnǚ",
+    "english": "male-female; male and female"
+  },
+  {
+    "characters": "男士",
+    "pinyin": "nánshì",
+    "english": "man; gentleman"
+  },
+  {
+    "characters": "难免",
+    "pinyin": "nánmiǎn",
+    "english": "hard to avoid; difficult to escape from; will inevitably"
+  },
+  {
+    "characters": "脑袋",
+    "pinyin": "nǎodai",
+    "english": "head; skull; brains"
+  },
+  {
+    "characters": "闹",
+    "pinyin": "nào",
+    "english": "variant of 闹"
+  },
+  {
+    "characters": "闹钟",
+    "pinyin": "nàozhōng",
+    "english": "alarm clock"
+  },
+  {
+    "characters": "内部",
+    "pinyin": "nèibù",
+    "english": "interior; inside (part, section); internal"
+  },
+  {
+    "characters": "内科",
+    "pinyin": "nèikē",
+    "english": "internal medicine; general medicine"
+  },
+  {
+    "characters": "能干",
+    "pinyin": "nénggàn",
+    "english": "capable; competent"
+  },
+  {
+    "characters": "宁静",
+    "pinyin": "níngjìng",
+    "english": "tranquil; tranquility; serenity"
+  },
+  {
+    "characters": "浓",
+    "pinyin": "nóng",
+    "english": "concentrated; dense; strong (smell etc)"
+  },
+  {
+    "characters": "女士",
+    "pinyin": "nǚshì",
+    "english": "lady; madam; Miss"
+  },
+  {
+    "characters": "暖气",
+    "pinyin": "nuǎnqì",
+    "english": "central heating; heater; warm air"
+  },
+  {
+    "characters": "拍照",
+    "pinyin": "pāizhào",
+    "english": "to take a picture"
+  },
+  {
+    "characters": "排列",
+    "pinyin": "páiliè",
+    "english": "to arrange in order; (math.) permutation"
+  },
+  {
+    "characters": "牌",
+    "pinyin": "pái",
+    "english": "mahjong tile; playing card; game pieces"
+  },
+  {
+    "characters": "盘",
+    "pinyin": "pán",
+    "english": "plate; dish; tray"
+  },
+  {
+    "characters": "盘子",
+    "pinyin": "pánzi",
+    "english": "tray; plate; dish"
+  },
+  {
+    "characters": "胖子",
+    "pinyin": "pàngzi",
+    "english": "fat person; fatty"
+  },
+  {
+    "characters": "培训",
+    "pinyin": "péixùn",
+    "english": "to cultivate; to train; to groom"
+  },
+  {
+    "characters": "培训班",
+    "pinyin": "péixùnbān",
+    "english": "training class"
+  },
+  {
+    "characters": "培养",
+    "pinyin": "péiyǎng",
+    "english": "to cultivate; to breed; to foster"
+  },
+  {
+    "characters": "培育",
+    "pinyin": "péiyù",
+    "english": "to train; to breed"
+  },
+  {
+    "characters": "批",
+    "pinyin": "pī",
+    "english": "to ascertain; to act on; to criticize"
+  },
+  {
+    "characters": "批",
+    "pinyin": "pī",
+    "english": "to ascertain; to act on; to criticize"
+  },
+  {
+    "characters": "片面",
+    "pinyin": "piànmiàn",
+    "english": "unilateral; one-sided"
+  },
+  {
+    "characters": "品质",
+    "pinyin": "pǐnzhì",
+    "english": "character; intrinsic quality (of a person); quality (of a product or service, or as in \"quality of life\", \"air quality\" etc)"
+  },
+  {
+    "characters": "平方",
+    "pinyin": "píngfāng",
+    "english": "square (as in square foot, square mile, square root)"
+  },
+  {
+    "characters": "平静",
+    "pinyin": "píngjìng",
+    "english": "tranquil; undisturbed; serene"
+  },
+  {
+    "characters": "平均",
+    "pinyin": "píngjūn",
+    "english": "average; on average; evenly; in equal proportions"
+  },
+  {
+    "characters": "平稳",
+    "pinyin": "píngwěn",
+    "english": "smooth; steady"
+  },
+  {
+    "characters": "迫切",
+    "pinyin": "pòqiè",
+    "english": "urgent; pressing"
+  },
+  {
+    "characters": "破产",
+    "pinyin": "pòchǎn",
+    "english": "to go bankrupt; to become impoverished; bankruptcy"
+  },
+  {
+    "characters": "妻子",
+    "pinyin": "qīzi",
+    "english": "wife and children"
+  },
+  {
+    "characters": "期待",
+    "pinyin": "qīdài",
+    "english": "to look forward to; to await; expectation"
+  },
+  {
+    "characters": "期间",
+    "pinyin": "qījiān",
+    "english": "period of time; time; time period"
+  },
+  {
+    "characters": "期末",
+    "pinyin": "qīmò",
+    "english": "end of term"
+  },
+  {
+    "characters": "期限",
+    "pinyin": "qīxiàn",
+    "english": "time limit; deadline; allotted time"
+  },
+  {
+    "characters": "期中",
+    "pinyin": "qīzhōng",
+    "english": "interim; midterm"
+  },
+  {
+    "characters": "其余",
+    "pinyin": "qíyú",
+    "english": "the rest; the others; remaining"
+  },
+  {
+    "characters": "企业",
+    "pinyin": "qǐyè",
+    "english": "company; firm; enterprise; corporation"
+  },
+  {
+    "characters": "气球",
+    "pinyin": "qìqiú",
+    "english": "balloon"
+  },
+  {
+    "characters": "汽水",
+    "pinyin": "qìshuǐ",
+    "english": "soda pop; carbonated soft drink"
+  },
+  {
+    "characters": "汽油",
+    "pinyin": "qìyóu",
+    "english": "gasoline"
+  },
+  {
+    "characters": "器官",
+    "pinyin": "qìguān",
+    "english": "(physiology) organ; apparatus"
+  },
+  {
+    "characters": "前头",
+    "pinyin": "qiántou",
+    "english": "in front; at the head; ahead"
+  },
+  {
+    "characters": "前途",
+    "pinyin": "qiántú",
+    "english": "prospects; future outlook; journey"
+  },
+  {
+    "characters": "浅",
+    "pinyin": "qiǎn",
+    "english": "sound of moving water"
+  },
+  {
+    "characters": "巧克力",
+    "pinyin": "qiǎokèlì",
+    "english": "chocolate (loanword)"
+  },
+  {
+    "characters": "切",
+    "pinyin": "qiē",
+    "english": "to cut; to slice; to carve; (math) tangential"
+  },
+  {
+    "characters": "亲爱",
+    "pinyin": "qīn'ài",
+    "english": "dear; beloved; darling"
+  },
+  {
+    "characters": "亲密",
+    "pinyin": "qīnmì",
+    "english": "intimate; close"
+  },
+  {
+    "characters": "青春",
+    "pinyin": "qīngchūn",
+    "english": "youth; youthfulness"
+  },
+  {
+    "characters": "轻松",
+    "pinyin": "qīngsōng",
+    "english": "light; gentle; relaxed"
+  },
+  {
+    "characters": "轻易",
+    "pinyin": "qīngyì",
+    "english": "easily; lightly; rashly"
+  },
+  {
+    "characters": "清醒",
+    "pinyin": "qīngxǐng",
+    "english": "clear-headed; sober; awake"
+  },
+  {
+    "characters": "情景",
+    "pinyin": "qíngjǐng",
+    "english": "scene; spectacle; circumstances"
+  },
+  {
+    "characters": "穷",
+    "pinyin": "qióng",
+    "english": "poor; destitute; to use up"
+  },
+  {
+    "characters": "穷人",
+    "pinyin": "qióngrén",
+    "english": "poor people; the poor"
+  },
+  {
+    "characters": "秋季",
+    "pinyin": "qiūjì",
+    "english": "autumn; fall"
+  },
+  {
+    "characters": "趋势",
+    "pinyin": "qūshì",
+    "english": "trend; tendency"
+  },
+  {
+    "characters": "圈",
+    "pinyin": "quān",
+    "english": "to confine; to lock up; to pen in"
+  },
+  {
+    "characters": "权利",
+    "pinyin": "quánlì",
+    "english": "right (i.e. an entitlement to sth); (classical) power and wealth"
+  },
+  {
+    "characters": "却",
+    "pinyin": "què",
+    "english": "old variant of 却"
+  },
+  {
+    "characters": "确认",
+    "pinyin": "quèrèn",
+    "english": "to confirm; to verify; confirmation"
+  },
+  {
+    "characters": "然而",
+    "pinyin": "rán'ér",
+    "english": "however; yet; but"
+  },
+  {
+    "characters": "燃料",
+    "pinyin": "ránliào",
+    "english": "fuel"
+  },
+  {
+    "characters": "燃烧",
+    "pinyin": "ránshāo",
+    "english": "to ignite; to combust; to burn"
+  },
+  {
+    "characters": "热闹",
+    "pinyin": "rènao",
+    "english": "bustling with noise and excitement; lively"
+  },
+  {
+    "characters": "热心",
+    "pinyin": "rèxīn",
+    "english": "enthusiastic; ardent; zealous"
+  },
+  {
+    "characters": "人家",
+    "pinyin": "rénjia",
+    "english": "household; dwelling; family"
+  },
+  {
+    "characters": "日记",
+    "pinyin": "rìjì",
+    "english": "diary"
+  },
+  {
+    "characters": "日历",
+    "pinyin": "rìlì",
+    "english": "calendar"
+  },
+  {
+    "characters": "如今",
+    "pinyin": "rújīn",
+    "english": "nowadays; now"
+  },
+  {
+    "characters": "弱",
+    "pinyin": "ruò",
+    "english": "weak; feeble; young; inferior; not as good as"
+  },
+  {
+    "characters": "伞",
+    "pinyin": "sǎn",
+    "english": "umbrella; parasol"
+  },
+  {
+    "characters": "散",
+    "pinyin": "sàn",
+    "english": "variant of 散"
+  },
+  {
+    "characters": "扫",
+    "pinyin": "sǎo",
+    "english": "to sweep"
+  },
+  {
+    "characters": "色",
+    "pinyin": "sè",
+    "english": "color; look; appearance"
+  },
+  {
+    "characters": "色彩",
+    "pinyin": "sècǎi",
+    "english": "tint; coloring; coloration; (fig.) flavor; character"
+  },
+  {
+    "characters": "森林",
+    "pinyin": "sēnlín",
+    "english": "forest"
+  },
+  {
+    "characters": "晒",
+    "pinyin": "shài",
+    "english": "variant of 晒"
+  },
+  {
+    "characters": "闪",
+    "pinyin": "shǎn",
+    "english": "surname Shan"
+  },
+  {
+    "characters": "闪电",
+    "pinyin": "shǎndiàn",
+    "english": "lightning"
+  },
+  {
+    "characters": "善良",
+    "pinyin": "shànliáng",
+    "english": "good and honest; kindhearted"
+  },
+  {
+    "characters": "善于",
+    "pinyin": "shànyú",
+    "english": "to be good at; to be adept at"
+  },
+  {
+    "characters": "伤害",
+    "pinyin": "shānghài",
+    "english": "to injure; to harm"
+  },
+  {
+    "characters": "商务",
+    "pinyin": "shāngwù",
+    "english": "commercial affairs; commercial; commerce"
+  },
+  {
+    "characters": "赏",
+    "pinyin": "shǎng",
+    "english": "to bestow (a reward); to give (to an inferior); to hand down"
+  },
+  {
+    "characters": "上个月",
+    "pinyin": "shàng ge yuè",
+    "english": "last month"
+  },
+  {
+    "characters": "上楼",
+    "pinyin": "shàng lóu",
+    "english": "to go upstairs"
+  },
+  {
+    "characters": "上门",
+    "pinyin": "shàngmén",
+    "english": "to drop in; to visit; to lock a door"
+  },
+  {
+    "characters": "烧",
+    "pinyin": "shāo",
+    "english": "to burn; to cook; to stew"
+  },
+  {
+    "characters": "设施",
+    "pinyin": "shèshī",
+    "english": "facilities; installation"
+  },
+  {
+    "characters": "设置",
+    "pinyin": "shèzhì",
+    "english": "to set up; to install"
+  },
+  {
+    "characters": "申请",
+    "pinyin": "shēnqǐng",
+    "english": "to apply for sth; application form"
+  },
+  {
+    "characters": "身材",
+    "pinyin": "shēncái",
+    "english": "stature; build (height and weight); figure"
+  },
+  {
+    "characters": "身份",
+    "pinyin": "shēnfèn",
+    "english": "identity; aspect of one's identity (i.e. sth that one is – mayor, father, permanent resident etc); role"
+  },
+  {
+    "characters": "身高",
+    "pinyin": "shēngāo",
+    "english": "(a person's) height"
+  },
+  {
+    "characters": "深厚",
+    "pinyin": "shēnhòu",
+    "english": "deep; profound"
+  },
+  {
+    "characters": "神话",
+    "pinyin": "shénhuà",
+    "english": "legend; fairy tale; myth"
+  },
+  {
+    "characters": "神秘",
+    "pinyin": "shénmì",
+    "english": "mysterious; mystery"
+  },
+  {
+    "characters": "甚至",
+    "pinyin": "shènzhì",
+    "english": "even; so much so that"
+  },
+  {
+    "characters": "失败",
+    "pinyin": "shībài",
+    "english": "to be defeated; to lose; to fail (e.g. experiments)"
+  },
+  {
+    "characters": "失望",
+    "pinyin": "shīwàng",
+    "english": "disappointed; to lose hope; to despair"
+  },
+  {
+    "characters": "失业",
+    "pinyin": "shīyè",
+    "english": "unemployment; to lose one's job"
+  },
+  {
+    "characters": "诗",
+    "pinyin": "shī",
+    "english": "abbr. for Shijing 诗经, the Book of Songs"
+  },
+  {
+    "characters": "诗人",
+    "pinyin": "shīrén",
+    "english": "bard; poet"
+  },
+  {
+    "characters": "湿",
+    "pinyin": "shī",
+    "english": "variant of 湿"
+  },
+  {
+    "characters": "实施",
+    "pinyin": "shíshī",
+    "english": "to implement; to carry out"
+  },
+  {
+    "characters": "实用",
+    "pinyin": "shíyòng",
+    "english": "practical; functional; pragmatic"
+  },
+  {
+    "characters": "食堂",
+    "pinyin": "shítáng",
+    "english": "dining hall; cafeteria"
+  },
+  {
+    "characters": "使劲",
+    "pinyin": "shǐjìn",
+    "english": "to exert all one's strength"
+  },
+  {
+    "characters": "士兵",
+    "pinyin": "shìbīng",
+    "english": "soldier"
+  },
+  {
+    "characters": "市区",
+    "pinyin": "shìqū",
+    "english": "urban district; downtown; city center"
+  },
+  {
+    "characters": "似的",
+    "pinyin": "shìde",
+    "english": "seems as if; rather like; Taiwan pr. [sì de]"
+  },
+  {
+    "characters": "事物",
+    "pinyin": "shìwù",
+    "english": "thing; object"
+  },
+  {
+    "characters": "事先",
+    "pinyin": "shìxiān",
+    "english": "in advance; before the event; beforehand"
+  },
+  {
+    "characters": "试卷",
+    "pinyin": "shìjuàn",
+    "english": "examination paper; test paper"
+  },
+  {
+    "characters": "是否",
+    "pinyin": "shìfǒu",
+    "english": "whether (or not); if; is or isn't"
+  },
+  {
+    "characters": "收回",
+    "pinyin": "shōuhuí",
+    "english": "to regain; to retake; to take back"
+  },
+  {
+    "characters": "收获",
+    "pinyin": "shōuhuò",
+    "english": "variant of 收获"
+  },
+  {
+    "characters": "收益",
+    "pinyin": "shōuyì",
+    "english": "earnings; profit"
+  },
+  {
+    "characters": "手工",
+    "pinyin": "shǒugōng",
+    "english": "handwork; manual"
+  },
+  {
+    "characters": "手里",
+    "pinyin": "shǒu li",
+    "english": "in hand; (a situation is) in sb's hands"
+  },
+  {
+    "characters": "手术",
+    "pinyin": "shǒushù",
+    "english": "(surgical) operation; surgery"
+  },
+  {
+    "characters": "手套",
+    "pinyin": "shǒutào",
+    "english": "glove; mitten"
+  },
+  {
+    "characters": "守",
+    "pinyin": "shǒu",
+    "english": "to guard; to defend; to keep watch"
+  },
+  {
+    "characters": "首",
+    "pinyin": "shǒu",
+    "english": "head; chief; first (occasion, thing etc)"
+  },
+  {
+    "characters": "受不了",
+    "pinyin": "shòubuliǎo",
+    "english": "unbearable; unable to endure; can't stand"
+  },
+  {
+    "characters": "售货员",
+    "pinyin": "shòuhuòyuán",
+    "english": "salesperson"
+  },
+  {
+    "characters": "叔叔",
+    "pinyin": "shūshu",
+    "english": "father's younger brother; uncle; Taiwan pr. [shú shu]"
+  },
+  {
+    "characters": "舒适",
+    "pinyin": "shūshì",
+    "english": "cozy; snug"
+  },
+  {
+    "characters": "熟练",
+    "pinyin": "shúliàn",
+    "english": "practiced; proficient; skilled"
+  },
+  {
+    "characters": "暑假",
+    "pinyin": "shǔjià",
+    "english": "summer vacation"
+  },
+  {
+    "characters": "树林",
+    "pinyin": "shùlín",
+    "english": "Shulin city in New Taipei City 市, Taiwan"
+  },
+  {
+    "characters": "树叶",
+    "pinyin": "shùyè",
+    "english": "tree leaves"
+  },
+  {
+    "characters": "数据",
+    "pinyin": "shùjù",
+    "english": "data"
+  },
+  {
+    "characters": "数码",
+    "pinyin": "shùmǎ",
+    "english": "number; numerals; figures"
+  },
+  {
+    "characters": "刷",
+    "pinyin": "shuā",
+    "english": "to brush; to paint; to daub"
+  },
+  {
+    "characters": "刷牙",
+    "pinyin": "shuā yá",
+    "english": "to brush one's teeth"
+  },
+  {
+    "characters": "刷子",
+    "pinyin": "shuāzi",
+    "english": "brush; scrub"
+  },
+  {
+    "characters": "帅",
+    "pinyin": "shuài",
+    "english": "surname Shuai"
+  },
+  {
+    "characters": "帅哥",
+    "pinyin": "shuàigē",
+    "english": "handsome guy; lady-killer; handsome (form of address)"
+  },
+  {
+    "characters": "率先",
+    "pinyin": "shuàixiān",
+    "english": "to take the lead; to show initiative"
+  },
+  {
+    "characters": "睡着",
+    "pinyin": "shuìzháo",
+    "english": "to fall asleep"
+  },
+  {
+    "characters": "顺序",
+    "pinyin": "shùnxù",
+    "english": "sequence; order"
+  },
+  {
+    "characters": "说不定",
+    "pinyin": "shuōbudìng",
+    "english": "can't say for sure; maybe"
+  },
+  {
+    "characters": "说服",
+    "pinyin": "shuōfú",
+    "english": "to persuade; to convince; to talk sb over"
+  },
+  {
+    "characters": "思考",
+    "pinyin": "sīkǎo",
+    "english": "to reflect on; to ponder over"
+  },
+  {
+    "characters": "似乎",
+    "pinyin": "sìhū",
+    "english": "it seems; seemingly; as if"
+  },
+  {
+    "characters": "松",
+    "pinyin": "sōng",
+    "english": "surname Song"
+  },
+  {
+    "characters": "松树",
+    "pinyin": "sōngshù",
+    "english": "pine; pine tree"
+  },
+  {
+    "characters": "塑料",
+    "pinyin": "sùliào",
+    "english": "plastics"
+  },
+  {
+    "characters": "塑料袋",
+    "pinyin": "sùliàodài",
+    "english": "plastic bag"
+  },
+  {
+    "characters": "酸",
+    "pinyin": "suān",
+    "english": "sour; tart; sick at heart"
+  },
+  {
+    "characters": "酸奶",
+    "pinyin": "suānnǎi",
+    "english": "yogurt"
+  },
+  {
+    "characters": "随手",
+    "pinyin": "suíshǒu",
+    "english": "conveniently; without extra trouble; while doing it"
+  },
+  {
+    "characters": "孙女",
+    "pinyin": "sūnnǚ",
+    "english": "son's daughter; granddaughter"
+  },
+  {
+    "characters": "孙子",
+    "pinyin": "sūnzi",
+    "english": "Sun Tzu, also known as Sun Wu 孙武 (c. 500 BC, dates of birth and death uncertain), general, strategist and philosopher of the Spring and Autumn Period (700-475 BC), believed to be the author of the “Art of War” 孙子兵法, one of the Seven Military Classics of ancient China 武经七书"
+  },
+  {
+    "characters": "缩短",
+    "pinyin": "suōduǎn",
+    "english": "to curtail; to cut down"
+  },
+  {
+    "characters": "缩小",
+    "pinyin": "suōxiǎo",
+    "english": "to reduce; to decrease; to shrink"
+  },
+  {
+    "characters": "台阶",
+    "pinyin": "táijiē",
+    "english": "steps; flight of steps; step (over obstacle)"
+  },
+  {
+    "characters": "台上",
+    "pinyin": "táishàng",
+    "english": "on stage"
+  },
+  {
+    "characters": "躺",
+    "pinyin": "tǎng",
+    "english": "to recline; to lie down"
+  },
+  {
+    "characters": "套餐",
+    "pinyin": "tàocān",
+    "english": "set meal; (fig.) product or service package (e.g. for a cell phone subscription)"
+  },
+  {
+    "characters": "特价",
+    "pinyin": "tèjià",
+    "english": "special price"
+  },
+  {
+    "characters": "特殊",
+    "pinyin": "tèshū",
+    "english": "special; particular; unusual"
+  },
+  {
+    "characters": "特征",
+    "pinyin": "tèzhēng",
+    "english": "characteristic; diagnostic property; distinctive feature"
+  },
+  {
+    "characters": "提供",
+    "pinyin": "tígōng",
+    "english": "to offer; to supply; to provide"
+  },
+  {
+    "characters": "提醒",
+    "pinyin": "tíxǐng",
+    "english": "to remind; to call attention to; to warn of"
+  },
+  {
+    "characters": "体操",
+    "pinyin": "tǐcāo",
+    "english": "gymnastic; gymnastics"
+  },
+  {
+    "characters": "体检",
+    "pinyin": "tǐjiǎn",
+    "english": "abbr. for 体格检查"
+  },
+  {
+    "characters": "体重",
+    "pinyin": "tǐzhòng",
+    "english": "body weight"
+  },
+  {
+    "characters": "替",
+    "pinyin": "tì",
+    "english": "to substitute for; to take the place of; to replace"
+  },
+  {
+    "characters": "替代",
+    "pinyin": "tìdài",
+    "english": "to substitute for; to replace; to supersede"
+  },
+  {
+    "characters": "天真",
+    "pinyin": "tiānzhēn",
+    "english": "naive; innocent; artless"
+  },
+  {
+    "characters": "填",
+    "pinyin": "tián",
+    "english": "to fill or stuff; (of a form etc) to fill in"
+  },
+  {
+    "characters": "填空",
+    "pinyin": "tiánkòng",
+    "english": "to fill a job vacancy; to fill in a blank (e.g. on questionnaire or exam paper)"
+  },
+  {
+    "characters": "挑",
+    "pinyin": "tiāo",
+    "english": "to carry on a shoulder pole; to choose; to pick"
+  },
+  {
+    "characters": "挑选",
+    "pinyin": "tiāoxuǎn",
+    "english": "to choose; to select"
+  },
+  {
+    "characters": "调皮",
+    "pinyin": "tiáopí",
+    "english": "naughty; mischievous; unruly"
+  },
+  {
+    "characters": "挑",
+    "pinyin": "tiǎo",
+    "english": "to carry on a shoulder pole; to choose; to pick"
+  },
+  {
+    "characters": "挑战",
+    "pinyin": "tiǎozhàn",
+    "english": "to challenge; challenge"
+  },
+  {
+    "characters": "贴",
+    "pinyin": "tiē",
+    "english": "to stick; to paste; to post (e.g. on a blog)"
+  },
+  {
+    "characters": "停下",
+    "pinyin": "tíngxia",
+    "english": "to stop"
+  },
+  {
+    "characters": "挺",
+    "pinyin": "tǐng",
+    "english": "straight; erect; to stick out (a part of the body)"
+  },
+  {
+    "characters": "通知书",
+    "pinyin": "tōngzhīshū",
+    "english": "written notice"
+  },
+  {
+    "characters": "同情",
+    "pinyin": "tóngqíng",
+    "english": "to sympathize with; sympathy"
+  },
+  {
+    "characters": "童话",
+    "pinyin": "tónghuà",
+    "english": "children's fairy tales"
+  },
+  {
+    "characters": "童年",
+    "pinyin": "tóngnián",
+    "english": "childhood"
+  },
+  {
+    "characters": "统计",
+    "pinyin": "tǒngjì",
+    "english": "statistics; to count; to add up"
+  },
+  {
+    "characters": "统一",
+    "pinyin": "tǒngyī",
+    "english": "to unify; to integrate; unified; integrated"
+  },
+  {
+    "characters": "痛快",
+    "pinyin": "tòngkuài",
+    "english": "delighted; to one's heart's content; straightforward"
+  },
+  {
+    "characters": "投",
+    "pinyin": "tóu",
+    "english": "to cast; to send; to throw oneself (into the river etc)"
+  },
+  {
+    "characters": "投入",
+    "pinyin": "tóurù",
+    "english": "to throw into; to put into; to throw oneself into"
+  },
+  {
+    "characters": "投诉",
+    "pinyin": "tóusù",
+    "english": "complaint; to complain; to register a complaint (esp. as a customer)"
+  },
+  {
+    "characters": "投资",
+    "pinyin": "tóuzī",
+    "english": "investment; to invest"
+  },
+  {
+    "characters": "透",
+    "pinyin": "tòu",
+    "english": "(bound form) to penetrate; to seep through; to tell secretly; to leak; thoroughly; through and through"
+  },
+  {
+    "characters": "透明",
+    "pinyin": "tòumíng",
+    "english": "transparent; (fig.) transparent; open to scrutiny"
+  },
+  {
+    "characters": "图案",
+    "pinyin": "tú'àn",
+    "english": "design; pattern"
+  },
+  {
+    "characters": "途中",
+    "pinyin": "túzhōng",
+    "english": "en route"
+  },
+  {
+    "characters": "土地",
+    "pinyin": "tǔdì",
+    "english": "land; soil; territory"
+  },
+  {
+    "characters": "推迟",
+    "pinyin": "tuīchí",
+    "english": "to postpone; to put off; to defer"
+  },
+  {
+    "characters": "推销",
+    "pinyin": "tuīxiāo",
+    "english": "to market; to sell"
+  },
+  {
+    "characters": "脱",
+    "pinyin": "tuō",
+    "english": "to shed; to take off; to escape"
+  },
+  {
+    "characters": "袜子",
+    "pinyin": "wàzi",
+    "english": "socks; stockings"
+  },
+  {
+    "characters": "外汇",
+    "pinyin": "wàihuì",
+    "english": "foreign (currency) exchange"
+  },
+  {
+    "characters": "外交官",
+    "pinyin": "wàijiāoguān",
+    "english": "diplomat"
+  },
+  {
+    "characters": "外套",
+    "pinyin": "wàitào",
+    "english": "coat; jacket"
+  },
+  {
+    "characters": "弯",
+    "pinyin": "wān",
+    "english": "to bend; bent; a bend; a turn (in a road etc)"
+  },
+  {
+    "characters": "晚点",
+    "pinyin": "wǎndiǎn",
+    "english": "(of trains etc) late; delayed; behind schedule"
+  },
+  {
+    "characters": "万一",
+    "pinyin": "wànyī",
+    "english": "just in case; if by any chance; contingency"
+  },
+  {
+    "characters": "王",
+    "pinyin": "wáng",
+    "english": "surname Wang"
+  },
+  {
+    "characters": "网络",
+    "pinyin": "wǎngluò",
+    "english": "Internet"
+  },
+  {
+    "characters": "网址",
+    "pinyin": "wǎngzhǐ",
+    "english": "website; web address; URL"
+  },
+  {
+    "characters": "微笑",
+    "pinyin": "wēixiào",
+    "english": "smile; to smile"
+  },
+  {
+    "characters": "微信",
+    "pinyin": "wēixìn",
+    "english": "Weixin or WeChat (mobile text and voice messaging service developed by Tencent 腾讯)"
+  },
+  {
+    "characters": "围巾",
+    "pinyin": "wéijīn",
+    "english": "scarf; shawl"
+  },
+  {
+    "characters": "维持",
+    "pinyin": "wéichí",
+    "english": "to keep; to maintain; to preserve"
+  },
+  {
+    "characters": "维护",
+    "pinyin": "wéihù",
+    "english": "to defend; to safeguard; to protect"
+  },
+  {
+    "characters": "维修",
+    "pinyin": "wéixiū",
+    "english": "maintenance (of equipment); to protect and maintain"
+  },
+  {
+    "characters": "尾巴",
+    "pinyin": "wěiba",
+    "english": "tail; colloquial pr. [yǐ ba]"
+  },
+  {
+    "characters": "未必",
+    "pinyin": "wèibì",
+    "english": "not necessarily; maybe not"
+  },
+  {
+    "characters": "未来",
+    "pinyin": "wèilái",
+    "english": "future; tomorrow; approaching"
+  },
+  {
+    "characters": "位于",
+    "pinyin": "wèiyú",
+    "english": "to be located at; to be situated at; to lie"
+  },
+  {
+    "characters": "位置",
+    "pinyin": "wèizhì",
+    "english": "position; place; seat"
+  },
+  {
+    "characters": "味儿",
+    "pinyin": "wèir",
+    "english": "taste"
+  },
+  {
+    "characters": "喂",
+    "pinyin": "wèi",
+    "english": "hello (when answering the phone)"
+  },
+  {
+    "characters": "稳",
+    "pinyin": "wěn",
+    "english": "settled; steady; stable"
+  },
+  {
+    "characters": "稳定",
+    "pinyin": "wěndìng",
+    "english": "steady; stable; stability"
+  },
+  {
+    "characters": "问候",
+    "pinyin": "wènhòu",
+    "english": "to give one's respects; to send a greeting; (fig.) (coll.) to make offensive reference to (somebody dear to the person to whom one is speaking)"
+  },
+  {
+    "characters": "无",
+    "pinyin": "wú",
+    "english": "not to have; no; none"
+  },
+  {
+    "characters": "无法",
+    "pinyin": "wúfǎ",
+    "english": "unable; incapable"
+  },
+  {
+    "characters": "无聊",
+    "pinyin": "wúliáo",
+    "english": "bored; boring; senseless"
+  },
+  {
+    "characters": "无论",
+    "pinyin": "wúlùn",
+    "english": "no matter what or how; regardless of whether..."
+  },
+  {
+    "characters": "无数",
+    "pinyin": "wúshù",
+    "english": "countless; numberless; innumerable"
+  },
+  {
+    "characters": "无所谓",
+    "pinyin": "wúsuǒwèi",
+    "english": "to be indifferent; not to matter; cannot be said to be"
+  },
+  {
+    "characters": "无限",
+    "pinyin": "wúxiàn",
+    "english": "unlimited; unbounded"
+  },
+  {
+    "characters": "五颜六色",
+    "pinyin": "wǔyán-liùsè",
+    "english": "multicolored; every color under the sun"
+  },
+  {
+    "characters": "误会",
+    "pinyin": "wùhuì",
+    "english": "to misunderstand; to mistake; misunderstanding"
+  },
+  {
+    "characters": "西瓜",
+    "pinyin": "xīguā",
+    "english": "watermelon"
+  },
+  {
+    "characters": "吸",
+    "pinyin": "xī",
+    "english": "to breathe; to suck in; to absorb"
+  },
+  {
+    "characters": "吸管",
+    "pinyin": "xīguǎn",
+    "english": "(drinking) straw; pipette; eyedropper"
+  },
+  {
+    "characters": "吸收",
+    "pinyin": "xīshōu",
+    "english": "to absorb; to assimilate; to ingest"
+  },
+  {
+    "characters": "吸烟",
+    "pinyin": "xīyān",
+    "english": "to smoke"
+  },
+  {
+    "characters": "吸引",
+    "pinyin": "xīyǐn",
+    "english": "to attract; to appeal to; to fascinate"
+  },
+  {
+    "characters": "喜爱",
+    "pinyin": "xǐ'ài",
+    "english": "to like; to love; to be fond of"
+  },
+  {
+    "characters": "系列",
+    "pinyin": "xìliè",
+    "english": "series; set"
+  },
+  {
+    "characters": "系统",
+    "pinyin": "xìtǒng",
+    "english": "system"
+  },
+  {
+    "characters": "细",
+    "pinyin": "xì",
+    "english": "thin or slender; finely particulate; thin and soft"
+  },
+  {
+    "characters": "细节",
+    "pinyin": "xìjié",
+    "english": "details; particulars"
+  },
+  {
+    "characters": "细致",
+    "pinyin": "xìzhì",
+    "english": "delicate; fine; careful"
+  },
+  {
+    "characters": "下个月",
+    "pinyin": "xià ge yuè",
+    "english": "next month"
+  },
+  {
+    "characters": "下降",
+    "pinyin": "xiàjiàng",
+    "english": "to decline; to drop; to fall"
+  },
+  {
+    "characters": "下楼",
+    "pinyin": "xià lóu",
+    "english": "to go downstairs"
+  },
+  {
+    "characters": "下载",
+    "pinyin": "xiàzài",
+    "english": "to download; also pr. [xià zài]"
+  },
+  {
+    "characters": "夏季",
+    "pinyin": "xiàjì",
+    "english": "summer"
+  },
+  {
+    "characters": "鲜",
+    "pinyin": "xiān",
+    "english": "variant of 鲜"
+  },
+  {
+    "characters": "鲜花",
+    "pinyin": "xiānhuā",
+    "english": "flower; fresh flowers"
+  },
+  {
+    "characters": "鲜明",
+    "pinyin": "xiānmíng",
+    "english": "bright; clear-cut; distinct"
+  },
+  {
+    "characters": "咸",
+    "pinyin": "xián",
+    "english": "surname Xian"
+  },
+  {
+    "characters": "显著",
+    "pinyin": "xiǎnzhù",
+    "english": "outstanding; notable; remarkable"
+  },
+  {
+    "characters": "县",
+    "pinyin": "xiàn",
+    "english": "county"
+  },
+  {
+    "characters": "限制",
+    "pinyin": "xiànzhì",
+    "english": "to restrict; to limit; to confine"
+  },
+  {
+    "characters": "相处",
+    "pinyin": "xiāngchǔ",
+    "english": "to be in contact (with sb); to associate; to interact"
+  },
+  {
+    "characters": "相反",
+    "pinyin": "xiāngfǎn",
+    "english": "opposite; contrary"
+  },
+  {
+    "characters": "箱",
+    "pinyin": "xiāng",
+    "english": "box; trunk; chest"
+  },
+  {
+    "characters": "箱子",
+    "pinyin": "xiāngzi",
+    "english": "suitcase; chest; box"
+  },
+  {
+    "characters": "想念",
+    "pinyin": "xiǎngniàn",
+    "english": "to miss; to remember with longing; to long to see again"
+  },
+  {
+    "characters": "想象",
+    "pinyin": "xiǎngxiàng",
+    "english": "to imagine; to envision; imagination"
+  },
+  {
+    "characters": "项",
+    "pinyin": "xiàng",
+    "english": "surname Xiang"
+  },
+  {
+    "characters": "项目",
+    "pinyin": "xiàngmù",
+    "english": "item; project; (sports) event"
+  },
+  {
+    "characters": "相片",
+    "pinyin": "xiàngpiàn",
+    "english": "image; photograph"
+  },
+  {
+    "characters": "消化",
+    "pinyin": "xiāohuà",
+    "english": "to digest (food); (fig.) to absorb (information etc); to assimilate; to process"
+  },
+  {
+    "characters": "销售",
+    "pinyin": "xiāoshòu",
+    "english": "to sell; to market; sales (representative, agreement etc)"
+  },
+  {
+    "characters": "小吃",
+    "pinyin": "xiǎochī",
+    "english": "snack; refreshments"
+  },
+  {
+    "characters": "小伙子",
+    "pinyin": "xiǎohuǒzi",
+    "english": "young man; young guy; lad"
+  },
+  {
+    "characters": "小型",
+    "pinyin": "xiǎoxíng",
+    "english": "small scale; small size"
+  },
+  {
+    "characters": "效率",
+    "pinyin": "xiàolǜ",
+    "english": "efficiency"
+  },
+  {
+    "characters": "些",
+    "pinyin": "xiē",
+    "english": "classifier indicating a small amount or small number greater than 1: some, a few, several"
+  },
+  {
+    "characters": "心理",
+    "pinyin": "xīnlǐ",
+    "english": "psychology; mentality"
+  },
+  {
+    "characters": "新郎",
+    "pinyin": "xīnláng",
+    "english": "bridegroom; groom"
+  },
+  {
+    "characters": "新娘",
+    "pinyin": "xīnniáng",
+    "english": "bride"
+  },
+  {
+    "characters": "新鲜",
+    "pinyin": "xīnxiān",
+    "english": "fresh (experience, food etc); freshness; novel"
+  },
+  {
+    "characters": "新型",
+    "pinyin": "xīnxíng",
+    "english": "new type; new kind"
+  },
+  {
+    "characters": "兴奋",
+    "pinyin": "xīngfèn",
+    "english": "excited; excitement; (physiology) excitation"
+  },
+  {
+    "characters": "形容",
+    "pinyin": "xíngróng",
+    "english": "to describe; (literary) countenance; appearance"
+  },
+  {
+    "characters": "形势",
+    "pinyin": "xíngshì",
+    "english": "circumstances; situation; terrain"
+  },
+  {
+    "characters": "型",
+    "pinyin": "xíng",
+    "english": "mold; type; style"
+  },
+  {
+    "characters": "型号",
+    "pinyin": "xínghào",
+    "english": "model (particular version of a manufactured article); type (product specification in terms of color, size etc)"
+  },
+  {
+    "characters": "醒",
+    "pinyin": "xǐng",
+    "english": "to wake up; to be awake; to become aware"
+  },
+  {
+    "characters": "兴趣",
+    "pinyin": "xìngqù",
+    "english": "interest (desire to know about sth); interest (thing in which one is interested); hobby"
+  },
+  {
+    "characters": "性质",
+    "pinyin": "xìngzhì",
+    "english": "nature; characteristic"
+  },
+  {
+    "characters": "兄弟",
+    "pinyin": "xiōngdì",
+    "english": "brothers; younger brother; I, me (humble term used by men in public speech)"
+  },
+  {
+    "characters": "胸部",
+    "pinyin": "xiōngbù",
+    "english": "chest; bosom"
+  },
+  {
+    "characters": "修理",
+    "pinyin": "xiūlǐ",
+    "english": "to repair; to fix; to prune"
+  },
+  {
+    "characters": "选择",
+    "pinyin": "xuǎnzé",
+    "english": "to select; to pick; choice"
+  },
+  {
+    "characters": "学分",
+    "pinyin": "xuéfēn",
+    "english": "course credit"
+  },
+  {
+    "characters": "学年",
+    "pinyin": "xuénián",
+    "english": "academic year"
+  },
+  {
+    "characters": "学时",
+    "pinyin": "xuéshí",
+    "english": "class hour; period"
+  },
+  {
+    "characters": "学术",
+    "pinyin": "xuéshù",
+    "english": "learning; science; academic"
+  },
+  {
+    "characters": "学问",
+    "pinyin": "xuéwen",
+    "english": "learning; knowledge"
+  },
+  {
+    "characters": "寻找",
+    "pinyin": "xúnzhǎo",
+    "english": "to seek; to look for"
+  },
+  {
+    "characters": "迅速",
+    "pinyin": "xùnsù",
+    "english": "rapid; speedy; fast"
+  },
+  {
+    "characters": "牙",
+    "pinyin": "yá",
+    "english": "tooth; ivory"
+  },
+  {
+    "characters": "牙刷",
+    "pinyin": "yáshuā",
+    "english": "toothbrush"
+  },
+  {
+    "characters": "亚运会",
+    "pinyin": "Yàyùnhuì",
+    "english": "Asian Games"
+  },
+  {
+    "characters": "呀",
+    "pinyin": "ya",
+    "english": "(particle equivalent to 啊 after a vowel, expressing surprise or doubt)"
+  },
+  {
+    "characters": "延长",
+    "pinyin": "yáncháng",
+    "english": "Yanchang county in Yan'an 安, Shaanxi"
+  },
+  {
+    "characters": "延期",
+    "pinyin": "yánqī",
+    "english": "to delay; to extend; to postpone"
+  },
+  {
+    "characters": "延续",
+    "pinyin": "yánxù",
+    "english": "to continue; to go on; to last"
+  },
+  {
+    "characters": "严",
+    "pinyin": "yán",
+    "english": "surname Yan"
+  },
+  {
+    "characters": "严格",
+    "pinyin": "yángé",
+    "english": "strict; stringent; tight"
+  },
+  {
+    "characters": "严重",
+    "pinyin": "yánzhòng",
+    "english": "grave; serious; severe"
+  },
+  {
+    "characters": "研究",
+    "pinyin": "yánjiū",
+    "english": "research; a study; to research"
+  },
+  {
+    "characters": "研究生",
+    "pinyin": "yánjiūshēng",
+    "english": "graduate student; postgraduate student; research student"
+  },
+  {
+    "characters": "研制",
+    "pinyin": "yánzhì",
+    "english": "to research and manufacture; to research and to develop"
+  },
+  {
+    "characters": "盐",
+    "pinyin": "yán",
+    "english": "salt"
+  },
+  {
+    "characters": "眼镜",
+    "pinyin": "yǎnjìng",
+    "english": "spectacles; eyeglasses"
+  },
+  {
+    "characters": "眼泪",
+    "pinyin": "yǎnlèi",
+    "english": "tears; crying"
+  },
+  {
+    "characters": "眼里",
+    "pinyin": "yǎnli",
+    "english": "In the eyes"
+  },
+  {
+    "characters": "演讲",
+    "pinyin": "yǎnjiǎng",
+    "english": "lecture; to make a speech"
+  },
+  {
+    "characters": "阳台",
+    "pinyin": "yángtái",
+    "english": "variant of 阳台"
+  },
+  {
+    "characters": "养成",
+    "pinyin": "yǎngchéng",
+    "english": "to cultivate; to raise; to form (a habit)"
+  },
+  {
+    "characters": "腰",
+    "pinyin": "yāo",
+    "english": "waist; lower back; pocket"
+  },
+  {
+    "characters": "摇",
+    "pinyin": "yáo",
+    "english": "surname Yao"
+  },
+  {
+    "characters": "药物",
+    "pinyin": "yàowù",
+    "english": "medicaments; pharmaceuticals; medication"
+  },
+  {
+    "characters": "要",
+    "pinyin": "yào",
+    "english": "(bound form) to demand; to coerce"
+  },
+  {
+    "characters": "业余",
+    "pinyin": "yèyú",
+    "english": "in one's spare time; outside working hours; amateur (historian etc)"
+  },
+  {
+    "characters": "叶子",
+    "pinyin": "yèzi",
+    "english": "leaf; (slang) marijuana"
+  },
+  {
+    "characters": "医疗",
+    "pinyin": "yīliáo",
+    "english": "medical treatment"
+  },
+  {
+    "characters": "医学",
+    "pinyin": "yīxué",
+    "english": "medicine; medical science; study of medicine"
+  },
+  {
+    "characters": "依靠",
+    "pinyin": "yīkào",
+    "english": "to rely on sth (for support etc); to depend on"
+  },
+  {
+    "characters": "依然",
+    "pinyin": "yīrán",
+    "english": "still; as before"
+  },
+  {
+    "characters": "一律",
+    "pinyin": "yīlǜ",
+    "english": "same; uniformly; all"
+  },
+  {
+    "characters": "一再",
+    "pinyin": "yīzài",
+    "english": "repeatedly"
+  },
+  {
+    "characters": "一致",
+    "pinyin": "yīzhì",
+    "english": "unanimous; identical (views or opinions)"
+  },
+  {
+    "characters": "移",
+    "pinyin": "yí",
+    "english": "to move; to shift; to change"
+  },
+  {
+    "characters": "移动",
+    "pinyin": "yídòng",
+    "english": "to move; movement; migration"
+  },
+  {
+    "characters": "移民",
+    "pinyin": "yímín",
+    "english": "to immigrate; to migrate; emigrant"
+  },
+  {
+    "characters": "遗产",
+    "pinyin": "yíchǎn",
+    "english": "heritage; legacy; inheritance"
+  },
+  {
+    "characters": "遗传",
+    "pinyin": "yíchuán",
+    "english": "heredity; to inherit (a trait); to pass on (to one's offspring)"
+  },
+  {
+    "characters": "疑问",
+    "pinyin": "yíwèn",
+    "english": "question; interrogation; doubt"
+  },
+  {
+    "characters": "以及",
+    "pinyin": "yǐjí",
+    "english": "as well as; too; and"
+  },
+  {
+    "characters": "以内",
+    "pinyin": "yǐnèi",
+    "english": "within; less than"
+  },
+  {
+    "characters": "一般来说",
+    "pinyin": "yībānláishuō",
+    "english": "generally speaking"
+  },
+  {
+    "characters": "义务",
+    "pinyin": "yìwù",
+    "english": "duty; obligation; volunteer (work etc)"
+  },
+  {
+    "characters": "议论",
+    "pinyin": "yìlùn",
+    "english": "to comment; to talk about; to discuss"
+  },
+  {
+    "characters": "引",
+    "pinyin": "yǐn",
+    "english": "to draw (e.g. a bow); to pull; to stretch sth"
+  },
+  {
+    "characters": "引导",
+    "pinyin": "yǐndǎo",
+    "english": "to guide; to lead (around); to conduct"
+  },
+  {
+    "characters": "引进",
+    "pinyin": "yǐnjìn",
+    "english": "to recommend; to introduce (from outside)"
+  },
+  {
+    "characters": "引起",
+    "pinyin": "yǐnqǐ",
+    "english": "to give rise to; to lead to; to cause; to arouse"
+  },
+  {
+    "characters": "应",
+    "pinyin": "yīng",
+    "english": "surname Ying; Taiwan pr. [Yìng]"
+  },
+  {
+    "characters": "英勇",
+    "pinyin": "yīngyǒng",
+    "english": "heroic; gallant; valiant"
+  },
+  {
+    "characters": "营业",
+    "pinyin": "yíngyè",
+    "english": "to do business; to trade"
+  },
+  {
+    "characters": "赢得",
+    "pinyin": "yíngdé",
+    "english": "to win; to gain"
+  },
+  {
+    "characters": "影子",
+    "pinyin": "yǐngzi",
+    "english": "shadow; reflection; (fig.) hint"
+  },
+  {
+    "characters": "勇敢",
+    "pinyin": "yǒnggǎn",
+    "english": "brave; courageous"
+  },
+  {
+    "characters": "勇气",
+    "pinyin": "yǒngqì",
+    "english": "courage; valor"
+  },
+  {
+    "characters": "用途",
+    "pinyin": "yòngtú",
+    "english": "use; application"
+  },
+  {
+    "characters": "优良",
+    "pinyin": "yōuliáng",
+    "english": "fine; good; first-rate"
+  },
+  {
+    "characters": "优美",
+    "pinyin": "yōuměi",
+    "english": "graceful; fine; elegant"
+  },
+  {
+    "characters": "优秀",
+    "pinyin": "yōuxiù",
+    "english": "outstanding; excellent"
+  },
+  {
+    "characters": "邮局",
+    "pinyin": "yóujú",
+    "english": "post office"
+  },
+  {
+    "characters": "有劲儿",
+    "pinyin": "yǒujìnr",
+    "english": "Strength"
+  },
+  {
+    "characters": "有趣",
+    "pinyin": "yǒuqù",
+    "english": "interesting; fascinating; amusing"
+  },
+  {
+    "characters": "有限",
+    "pinyin": "yǒuxiàn",
+    "english": "limited; finite"
+  },
+  {
+    "characters": "幼儿园",
+    "pinyin": "yòu'éryuán",
+    "english": "kindergarten; nursery school"
+  },
+  {
+    "characters": "于是",
+    "pinyin": "yúshì",
+    "english": "thereupon; as a result; consequently; thus; hence"
+  },
+  {
+    "characters": "语法",
+    "pinyin": "yǔfǎ",
+    "english": "grammar"
+  },
+  {
+    "characters": "语音",
+    "pinyin": "yǔyīn",
+    "english": "speech sounds; pronunciation; colloquial (rather than literary) pronunciation of a Chinese character"
+  },
+  {
+    "characters": "玉",
+    "pinyin": "yù",
+    "english": "jade"
+  },
+  {
+    "characters": "玉米",
+    "pinyin": "yùmǐ",
+    "english": "corn; maize"
+  },
+  {
+    "characters": "预测",
+    "pinyin": "yùcè",
+    "english": "to forecast; to predict"
+  },
+  {
+    "characters": "预订",
+    "pinyin": "yùdìng",
+    "english": "to place an order; to book ahead"
+  },
+  {
+    "characters": "遇",
+    "pinyin": "yù",
+    "english": "surname Yu"
+  },
+  {
+    "characters": "遇到",
+    "pinyin": "yùdào",
+    "english": "to meet; to run into; to come across"
+  },
+  {
+    "characters": "遇见",
+    "pinyin": "yùjiàn",
+    "english": "to meet"
+  },
+  {
+    "characters": "原料",
+    "pinyin": "yuánliào",
+    "english": "raw material"
+  },
+  {
+    "characters": "原则",
+    "pinyin": "yuánzé",
+    "english": "principle; doctrine"
+  },
+  {
+    "characters": "圆",
+    "pinyin": "yuán",
+    "english": "circle; round; circular"
+  },
+  {
+    "characters": "圆满",
+    "pinyin": "yuánmǎn",
+    "english": "satisfactory; consummate; perfect"
+  },
+  {
+    "characters": "约会",
+    "pinyin": "yuēhuì",
+    "english": "appointment; engagement; date"
+  },
+  {
+    "characters": "月底",
+    "pinyin": "yuèdǐ",
+    "english": "end of the month"
+  },
+  {
+    "characters": "阅读",
+    "pinyin": "yuèdú",
+    "english": "to read; reading"
+  },
+  {
+    "characters": "运动会",
+    "pinyin": "yùndònghuì",
+    "english": "sports competition"
+  },
+  {
+    "characters": "运动员",
+    "pinyin": "yùndòngyuán",
+    "english": "athlete"
+  },
+  {
+    "characters": "运气",
+    "pinyin": "yùnqi",
+    "english": "luck (good or bad)"
+  },
+  {
+    "characters": "运用",
+    "pinyin": "yùnyòng",
+    "english": "to use; to put to use"
+  },
+  {
+    "characters": "再三",
+    "pinyin": "zàisān",
+    "english": "over and over again; again and again"
+  },
+  {
+    "characters": "在乎",
+    "pinyin": "zàihu",
+    "english": "to care about; equivalent of 在于"
+  },
+  {
+    "characters": "在于",
+    "pinyin": "zàiyú",
+    "english": "to be in; to lie in; to consist in"
+  },
+  {
+    "characters": "赞成",
+    "pinyin": "zànchéng",
+    "english": "to approve; to endorse; (literary) to assist"
+  },
+  {
+    "characters": "赞赏",
+    "pinyin": "zànshǎng",
+    "english": "to admire; to praise; to appreciate"
+  },
+  {
+    "characters": "赞助",
+    "pinyin": "zànzhù",
+    "english": "to support; to assist; to sponsor"
+  },
+  {
+    "characters": "造型",
+    "pinyin": "zàoxíng",
+    "english": "to model; to shape; appearance"
+  },
+  {
+    "characters": "战斗",
+    "pinyin": "zhàndòu",
+    "english": "to fight; to engage in combat; struggle"
+  },
+  {
+    "characters": "战胜",
+    "pinyin": "zhànshèng",
+    "english": "to prevail over; to defeat; to surmount"
+  },
+  {
+    "characters": "战士",
+    "pinyin": "zhànshì",
+    "english": "fighter; soldier; warrior"
+  },
+  {
+    "characters": "战争",
+    "pinyin": "zhànzhēng",
+    "english": "war; conflict"
+  },
+  {
+    "characters": "丈夫",
+    "pinyin": "zhàngfu",
+    "english": "husband"
+  },
+  {
+    "characters": "招呼",
+    "pinyin": "zhāohu",
+    "english": "to call out to; to greet; to say hello to"
+  },
+  {
+    "characters": "着",
+    "pinyin": "zháo",
+    "english": "(chess) move; trick; all right!"
+  },
+  {
+    "characters": "着火",
+    "pinyin": "zháohuǒ",
+    "english": "to catch fire"
+  },
+  {
+    "characters": "着急",
+    "pinyin": "zháojí",
+    "english": "to worry; to feel anxious; to feel a sense of urgency; to be in a hurry; Taiwan pr. [zhāo jí]"
+  },
+  {
+    "characters": "召开",
+    "pinyin": "zhàokāi",
+    "english": "to convene (a conference or meeting); to convoke; to call together"
+  },
+  {
+    "characters": "折",
+    "pinyin": "zhé",
+    "english": "to snap; to break (a stick, a bone etc); (bound form) to sustain a loss (in business)"
+  },
+  {
+    "characters": "针",
+    "pinyin": "zhēn",
+    "english": "needle; pin; injection"
+  },
+  {
+    "characters": "针对",
+    "pinyin": "zhēnduì",
+    "english": "to target; to focus on; to be aimed at or against"
+  },
+  {
+    "characters": "阵",
+    "pinyin": "zhèn",
+    "english": "disposition of troops; wave; spate"
+  },
+  {
+    "characters": "争论",
+    "pinyin": "zhēnglùn",
+    "english": "to argue; to debate; to contend"
+  },
+  {
+    "characters": "征服",
+    "pinyin": "zhēngfú",
+    "english": "to conquer; to subdue; to vanquish"
+  },
+  {
+    "characters": "征求",
+    "pinyin": "zhēngqiú",
+    "english": "to solicit; to seek; to request (opinions, feedback etc)"
+  },
+  {
+    "characters": "政府",
+    "pinyin": "zhèngfǔ",
+    "english": "government"
+  },
+  {
+    "characters": "政治",
+    "pinyin": "zhèngzhì",
+    "english": "politics; political"
+  },
+  {
+    "characters": "之后",
+    "pinyin": "zhīhòu",
+    "english": "after; behind; (at the beginning of a sentence) afterwards; since then"
+  },
+  {
+    "characters": "之间",
+    "pinyin": "zhījiān",
+    "english": "(after a noun) between; among; amid; (used after certain bisyllabic words to form expressions indicating a short period of time, e.g. 弹指之间)"
+  },
+  {
+    "characters": "之前",
+    "pinyin": "zhīqián",
+    "english": "before; prior to; ago"
+  },
+  {
+    "characters": "之一",
+    "pinyin": "zhīyī",
+    "english": "one of (sth); one out of a multitude; one (third, quarter, percent etc)"
+  },
+  {
+    "characters": "支",
+    "pinyin": "zhī",
+    "english": "surname Zhi"
+  },
+  {
+    "characters": "植物",
+    "pinyin": "zhíwù",
+    "english": "plant; vegetation"
+  },
+  {
+    "characters": "指挥",
+    "pinyin": "zhǐhuī",
+    "english": "to conduct; to command; to direct"
+  },
+  {
+    "characters": "制订",
+    "pinyin": "zhìdìng",
+    "english": "to work out; to formulate"
+  },
+  {
+    "characters": "质量",
+    "pinyin": "zhìliàng",
+    "english": "quality; (physics) mass"
+  },
+  {
+    "characters": "治",
+    "pinyin": "zhì",
+    "english": "to rule; to govern; to manage"
+  },
+  {
+    "characters": "治疗",
+    "pinyin": "zhìliáo",
+    "english": "to treat (an illness); medical treatment; therapy"
+  },
+  {
+    "characters": "智力",
+    "pinyin": "zhìlì",
+    "english": "intelligence; intellect"
+  },
+  {
+    "characters": "智能",
+    "pinyin": "zhìnéng",
+    "english": "intelligent; able; smart (phone, system, bomb etc)"
+  },
+  {
+    "characters": "中介",
+    "pinyin": "zhōngjiè",
+    "english": "to act as intermediary; to link; intermediate"
+  },
+  {
+    "characters": "种类",
+    "pinyin": "zhǒnglèi",
+    "english": "kind; genus; type"
+  },
+  {
+    "characters": "中奖",
+    "pinyin": "zhòngjiǎng",
+    "english": "to win a prize (in a lottery etc)"
+  },
+  {
+    "characters": "种",
+    "pinyin": "zhòng",
+    "english": "seed; species; kind"
+  },
+  {
+    "characters": "种植",
+    "pinyin": "zhòngzhí",
+    "english": "to plant; to grow (a crop); to cultivate"
+  },
+  {
+    "characters": "重量",
+    "pinyin": "zhòngliàng",
+    "english": "weight"
+  },
+  {
+    "characters": "逐步",
+    "pinyin": "zhúbù",
+    "english": "progressively; step by step"
+  },
+  {
+    "characters": "逐渐",
+    "pinyin": "zhújiàn",
+    "english": "gradually"
+  },
+  {
+    "characters": "主题",
+    "pinyin": "zhǔtí",
+    "english": "theme; subject"
+  },
+  {
+    "characters": "主席",
+    "pinyin": "zhǔxí",
+    "english": "chairperson; premier; chairman"
+  },
+  {
+    "characters": "祝福",
+    "pinyin": "zhùfú",
+    "english": "blessings; to wish sb well"
+  },
+  {
+    "characters": "著名",
+    "pinyin": "zhùmíng",
+    "english": "famous; noted; well-known"
+  },
+  {
+    "characters": "著作",
+    "pinyin": "zhùzuò",
+    "english": "to write; literary work; book"
+  },
+  {
+    "characters": "抓紧",
+    "pinyin": "zhuājǐn",
+    "english": "to keep a firm grip on; to pay close attention to; to lose no time in (doing sth)"
+  },
+  {
+    "characters": "专心",
+    "pinyin": "zhuānxīn",
+    "english": "to focus one's attention; to concentrate on (doing sth)"
+  },
+  {
+    "characters": "转动",
+    "pinyin": "zhuǎndòng",
+    "english": "to turn sth around; to swivel"
+  },
+  {
+    "characters": "转告",
+    "pinyin": "zhuǎngào",
+    "english": "to pass on; to communicate; to transmit"
+  },
+  {
+    "characters": "转身",
+    "pinyin": "zhuǎnshēn",
+    "english": "(of a person) to turn round; to face about; (of a widow) to remarry (archaic)"
+  },
+  {
+    "characters": "转弯",
+    "pinyin": "zhuǎnwān",
+    "english": "to turn; to go around a corner"
+  },
+  {
+    "characters": "转移",
+    "pinyin": "zhuǎnyí",
+    "english": "to shift; to relocate; to transfer; (fig.) to shift (attention); to change (the subject etc); (medicine) to metastasize"
+  },
+  {
+    "characters": "装修",
+    "pinyin": "zhuāngxiū",
+    "english": "to decorate; interior decoration; to fit up"
+  },
+  {
+    "characters": "装置",
+    "pinyin": "zhuāngzhì",
+    "english": "to install; installation; equipment"
+  },
+  {
+    "characters": "追求",
+    "pinyin": "zhuīqiú",
+    "english": "to pursue (a goal etc) stubbornly; to seek after; to woo"
+  },
+  {
+    "characters": "准时",
+    "pinyin": "zhǔnshí",
+    "english": "on time; punctual; on schedule"
+  },
+  {
+    "characters": "资料",
+    "pinyin": "zīliào",
+    "english": "material; resources; data"
+  },
+  {
+    "characters": "资源",
+    "pinyin": "zīyuán",
+    "english": "Ziyuan county in Guilin 林, Guangxi"
+  },
+  {
+    "characters": "自",
+    "pinyin": "zì",
+    "english": "self; oneself; from"
+  },
+  {
+    "characters": "自信",
+    "pinyin": "zìxìn",
+    "english": "to have confidence in oneself; self-confidence"
+  },
+  {
+    "characters": "字母",
+    "pinyin": "zìmǔ",
+    "english": "letter (of the alphabet)"
+  },
+  {
+    "characters": "综合",
+    "pinyin": "zōnghé",
+    "english": "comprehensive; composite; synthesized"
+  },
+  {
+    "characters": "总共",
+    "pinyin": "zǒnggòng",
+    "english": "altogether; in sum; in all; in total"
+  },
+  {
+    "characters": "总理",
+    "pinyin": "zǒnglǐ",
+    "english": "premier; prime minister"
+  },
+  {
+    "characters": "总统",
+    "pinyin": "zǒngtǒng",
+    "english": "president (of a country)"
+  },
+  {
+    "characters": "总之",
+    "pinyin": "zǒngzhī",
+    "english": "in a word; in short; in brief"
+  },
+  {
+    "characters": "阻止",
+    "pinyin": "zǔzhǐ",
+    "english": "to prevent; to block"
+  },
+  {
+    "characters": "嘴巴",
+    "pinyin": "zuǐba",
+    "english": "mouth; slap in the face"
+  },
+  {
+    "characters": "最初",
+    "pinyin": "zuìchū",
+    "english": "first; primary; initial"
+  },
+  {
+    "characters": "作出",
+    "pinyin": "zuòchū",
+    "english": "to put out; to come up with; to make (a choice, decision, proposal, response, comment etc)"
+  },
+  {
+    "characters": "作为",
+    "pinyin": "zuòwéi",
+    "english": "one's conduct; deed; activity"
+  },
+  {
+    "characters": "做梦",
+    "pinyin": "zuòmèng",
+    "english": "to dream; to have a dream; fig. illusion"
+  }
+]
