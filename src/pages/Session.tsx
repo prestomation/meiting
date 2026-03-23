@@ -52,7 +52,7 @@ function stopActiveAudio(audioRef: React.MutableRefObject<HTMLAudioElement | nul
     audioRef.current.currentTime = 0
     audioRef.current = null
   }
-  }
+}
 
 function playItem(
   item: ContentItem,
