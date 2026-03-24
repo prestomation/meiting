@@ -7,14 +7,10 @@ export default function Stats() {
 
   // Derived data
   const totalSessions = history.length
+  const totalCorrect = history.reduce((sum, s) => sum + s.correct, 0)
+  const totalQuestions = history.reduce((sum, s) => sum + s.total, 0)
   const overallAccuracy =
-    totalSessions > 0
-      ? Math.round(
-          (history.reduce((sum, s) => sum + s.correct, 0) /
-            history.reduce((sum, s) => sum + s.total, 0)) *
-            100
-        )
-      : null
+    totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : null
 
   // Accuracy by HSK level
   const byLevel: Record<number, { correct: number; total: number }> = {}
@@ -116,7 +112,7 @@ export default function Stats() {
             .reverse()
             .slice(0, 20)
             .map((s, i) => (
-              <div key={i} className="session-row">
+              <div key={`${s.date}-${s.hskLevel}-${s.answerMode}-${i}`} className="session-row">
                 <span className="session-date">{s.date}</span>
                 <span className="session-level">HSK {s.hskLevel}</span>
                 <span className="session-score">
