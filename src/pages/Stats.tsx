@@ -32,12 +32,12 @@ export default function Stats() {
     const day = String(d.getDate()).padStart(2, '0')
     return `${y}-${m}-${day}`
   }
-  const todayKey = toLocalDateKey(new Date())
-  const todayMs = new Date(todayKey).getTime()
-  const MS_PER_DAY = 24 * 60 * 60 * 1000
+  const now = new Date()
   const last30: Array<{ date: string; count: number }> = []
   for (let i = 29; i >= 0; i--) {
-    const key = toLocalDateKey(new Date(todayMs - i * MS_PER_DAY))
+    // Use local-time date constructor to correctly cross month/year boundaries
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i)
+    const key = toLocalDateKey(d)
     last30.push({ date: key, count: activityMap[key] ?? 0 })
   }
 
