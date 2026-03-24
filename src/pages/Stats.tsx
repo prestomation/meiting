@@ -27,11 +27,17 @@ export default function Stats() {
   }
 
   const today = new Date()
+  const toLocalDateKey = (d: Date): string => {
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${y}-${m}-${day}`
+  }
   const last30: Array<{ date: string; count: number }> = []
   for (let i = 29; i >= 0; i--) {
     const d = new Date(today)
     d.setDate(today.getDate() - i)
-    const key = d.toISOString().slice(0, 10)
+    const key = toLocalDateKey(d)
     last30.push({ date: key, count: activityMap[key] ?? 0 })
   }
 
@@ -63,7 +69,9 @@ export default function Stats() {
       {/* Overall accuracy */}
       <div className="stats-card">
         <div className="stats-card-title">Overall Accuracy</div>
-        <div className="stats-accuracy-big">{overallAccuracy}%</div>
+        <div className="stats-accuracy-big">
+          {overallAccuracy !== null ? `${overallAccuracy}%` : '—'}
+        </div>
         <div className="stats-subtitle">
           {totalSessions} session{totalSessions !== 1 ? 's' : ''}
         </div>
