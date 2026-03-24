@@ -26,18 +26,18 @@ export default function Stats() {
     activityMap[s.date] = (activityMap[s.date] ?? 0) + 1
   }
 
-  const today = new Date()
   const toLocalDateKey = (d: Date): string => {
     const y = d.getFullYear()
     const m = String(d.getMonth() + 1).padStart(2, '0')
     const day = String(d.getDate()).padStart(2, '0')
     return `${y}-${m}-${day}`
   }
+  const todayKey = toLocalDateKey(new Date())
+  const todayMs = new Date(todayKey).getTime()
+  const MS_PER_DAY = 24 * 60 * 60 * 1000
   const last30: Array<{ date: string; count: number }> = []
   for (let i = 29; i >= 0; i--) {
-    const d = new Date(today)
-    d.setDate(today.getDate() - i)
-    const key = toLocalDateKey(d)
+    const key = toLocalDateKey(new Date(todayMs - i * MS_PER_DAY))
     last30.push({ date: key, count: activityMap[key] ?? 0 })
   }
 
