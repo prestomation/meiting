@@ -424,9 +424,12 @@ export default function Session() {
           ▶ Replay
         </button>
 
-        {/* Characters (show in answered phase, or type-it during answering) */}
+        {/* Characters + pinyin (show in answered phase) */}
         {phase === 'answered' && (
-          <div className="characters-display">{currentItem.characters}</div>
+          <div className="characters-answered-block">
+            <div className="characters-display">{currentItem.characters}</div>
+            <div className="pinyin-reveal">{currentItem.pinyin}</div>
+          </div>
         )}
 
         {/* Answer UI */}
@@ -480,6 +483,7 @@ export default function Session() {
                 Correct: <span className="correct-chars">{currentItem.characters}</span>
               </div>
             )}
+
 
             {/* Submit button */}
             {phase === 'playing' && (
