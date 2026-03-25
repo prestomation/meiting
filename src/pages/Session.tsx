@@ -94,6 +94,7 @@ export default function Session() {
 
   // Batch / SRS tracking
   const [batchCorrectMap, setBatchCorrectMap] = useState<Record<string, boolean>>({})
+  const batchCorrectMapRef = useRef<Record<string, boolean>>({})
   const [missedItems, setMissedItems] = useState<ContentItem[]>([])
 
   // Audio element ref (per-instance, no module-level state)
@@ -269,7 +270,11 @@ export default function Session() {
       })
     }
     if (currentItem) {
-      setBatchCorrectMap((prev) => ({ ...prev, [currentItem.id]: correct }))
+      setBatchCorrectMap((prev) => {
+        const next = { ...prev, [currentItem.id]: correct }
+        batchCorrectMapRef.current = next
+        return next
+      })
     }
     setPhase('answered')
   }
@@ -305,8 +310,8 @@ export default function Session() {
     const nextIndex = currentIndex + 1
     if (nextIndex >= items.length) {
       // Batch is done — persist SRS data
-      const finalCorrectMap = { ...batchCorrectMap }
-      // Ensure current item is recorded (advanceToAnswered already set it, but use latest state)
+      // Use ref to get the latest map, avoiding stale closure issues
+      const finalCorrectMap = batchCorrectMapRef.current
       for (const item of items) {
         updateItemData(hskLevel, item.id, finalCorrectMap[item.id] ?? false)
       }
