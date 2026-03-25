@@ -211,7 +211,7 @@ export function updateItemData(level: number, id: string, correct: boolean): voi
   let { interval, easeFactor } = existing
 
   if (correct) {
-    interval = Math.min(Math.round(interval * easeFactor), 180)
+    interval = interval === 1 ? 1 : Math.min(Math.round(interval * easeFactor), 180)
     easeFactor = Math.min(2.5, easeFactor + 0.1)
   } else {
     interval = 1

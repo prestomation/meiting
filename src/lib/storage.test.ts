@@ -88,8 +88,8 @@ describe('updateItemData — correct path', () => {
     const data = getItemData(1)
     const item = data['test-id']
     expect(item).toBeDefined()
-    // First correct: interval = round(1 * 2.5) = 3, capped at 180
-    expect(item.interval).toBeGreaterThan(1)
+    // First correct: interval stays at 1 (SM-2 initial step)
+    expect(item.interval).toBe(1)
     expect(item.correct).toBe(1)
     expect(item.wrong).toBe(0)
   })

@@ -93,7 +93,7 @@ export default function Session() {
   const [correctCount, setCorrectCount] = useState(0)
 
   // Batch / SRS tracking
-  const [batchCorrectMap, setBatchCorrectMap] = useState<Record<string, boolean>>({})
+  // Use a ref (not state) so handleNext always reads the latest value without stale closure issues
   const batchCorrectMapRef = useRef<Record<string, boolean>>({})
   const [missedItems, setMissedItems] = useState<ContentItem[]>([])
 
@@ -248,7 +248,7 @@ export default function Session() {
     setItems(batch)
     setCurrentIndex(0)
     setCorrectCount(0)
-    setBatchCorrectMap({})
+    batchCorrectMapRef.current = {}
     setMissedItems([])
     setSelectedChoice(null)
     setTypedInput('')
@@ -270,11 +270,7 @@ export default function Session() {
       })
     }
     if (currentItem) {
-      setBatchCorrectMap((prev) => {
-        const next = { ...prev, [currentItem.id]: correct }
-        batchCorrectMapRef.current = next
-        return next
-      })
+      batchCorrectMapRef.current = { ...batchCorrectMapRef.current, [currentItem.id]: correct }
     }
     setPhase('answered')
   }
@@ -313,7 +309,10 @@ export default function Session() {
       // Use ref to get the latest map, avoiding stale closure issues
       const finalCorrectMap = batchCorrectMapRef.current
       for (const item of items) {
-        updateItemData(hskLevel, item.id, finalCorrectMap[item.id] ?? false)
+        const wasCorrect = finalCorrectMap[item.id]
+        if (wasCorrect !== undefined) {
+          updateItemData(hskLevel, item.id, wasCorrect)
+        }
       }
       markIdsAsSeen(hskLevel, items.map((i) => i.id))
 
