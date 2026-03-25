@@ -151,3 +151,29 @@
   color: #3b5bdb;
   font-weight: 600;
 }
+
+/* Level progress card */
+.level-progress-row {
+  margin-bottom: 0.9rem;
+}
+.level-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.level-progress-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+.level-progress-counts {
+  font-size: 0.85rem;
+  color: #666;
+}
+.level-progress-accuracy {
+  font-size: 0.85rem;
+  color: #888;
+}
