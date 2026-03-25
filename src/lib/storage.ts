@@ -8,6 +8,10 @@ export const KEYS = {
   LAST_ACTIVE_DATE: 'meiting_last_active',
   SESSION_HISTORY: 'meiting_history',
   PLAYBACK_RATE: 'meiting_playback_rate',
+  BATCH_SIZE: 'meiting_batch_size',
+  // Dynamic keys (functions, not string constants)
+  SEEN_IDS: (level: number) => `meiting_seen_hsk${level}`,
+  ITEM_DATA: (level: number) => `meiting_item_data_hsk${level}`,
 } as const
 
 export type KeyName = (typeof KEYS)[keyof typeof KEYS]
@@ -135,6 +139,116 @@ export function setPlaybackRate(rate: number): void {
   const clamped = Math.min(PLAYBACK_RATE_MAX, Math.max(PLAYBACK_RATE_MIN, rate))
   setStorage(KEYS.PLAYBACK_RATE, String(clamped))
 }
+
+// ── SRS / Batching ──────────────────────────────────────────────────────────
+
+export interface ItemData {
+  correct: number      // total correct answers
+  wrong: number        // total wrong answers
+  interval: number     // days until next review (SM-2)
+  easeFactor: number   // SM-2 ease factor (default 2.5)
+  nextReview: string   // ISO date 'YYYY-MM-DD', or '1970-01-01' if new/overdue
+  lastSeen: string     // ISO date 'YYYY-MM-DD'
+}
+
+function todayISO(): string {
+  return new Date().toISOString().slice(0, 10)
+}
+
+function addDays(dateISO: string, days: number): string {
+  const d = new Date(dateISO + 'T00:00:00Z')
+  d.setUTCDate(d.getUTCDate() + days)
+  return d.toISOString().slice(0, 10)
+}
+
+export function getSeenIds(level: number): Set<string> {
+  try {
+    const data = getStorage(KEYS.SEEN_IDS(level))
+    if (!data) return new Set()
+    const parsed = JSON.parse(data)
+    if (!Array.isArray(parsed)) return new Set()
+    return new Set(parsed as string[])
+  } catch {
+    return new Set()
+  }
+}
+
+export function markIdsAsSeen(level: number, ids: string[]): void {
+  const seen = getSeenIds(level)
+  for (const id of ids) seen.add(id)
+  setStorage(KEYS.SEEN_IDS(level), JSON.stringify([...seen]))
+}
+
+export function resetLevelProgress(level: number): void {
+  removeStorage(KEYS.SEEN_IDS(level))
+  removeStorage(KEYS.ITEM_DATA(level))
+}
+
+export function getItemData(level: number): Record<string, ItemData> {
+  try {
+    const data = getStorage(KEYS.ITEM_DATA(level))
+    if (!data) return {}
+    const parsed = JSON.parse(data)
+    if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) return {}
+    return parsed as Record<string, ItemData>
+  } catch {
+    return {}
+  }
+}
+
+export function updateItemData(level: number, id: string, correct: boolean): void {
+  const allData = getItemData(level)
+  const today = todayISO()
+  const existing: ItemData = allData[id] ?? {
+    correct: 0,
+    wrong: 0,
+    interval: 1,
+    easeFactor: 2.5,
+    nextReview: '1970-01-01',
+    lastSeen: today,
+  }
+
+  let { interval, easeFactor } = existing
+
+  if (correct) {
+    interval = interval === 1 ? 1 : Math.min(Math.round(interval * easeFactor), 180)
+    easeFactor = Math.min(2.5, easeFactor + 0.1)
+  } else {
+    interval = 1
+    easeFactor = Math.max(1.3, easeFactor - 0.2)
+  }
+
+  allData[id] = {
+    correct: existing.correct + (correct ? 1 : 0),
+    wrong: existing.wrong + (correct ? 0 : 1),
+    interval,
+    easeFactor,
+    nextReview: addDays(today, interval),
+    lastSeen: today,
+  }
+
+  setStorage(KEYS.ITEM_DATA(level), JSON.stringify(allData))
+}
+
+export function getItemsDueForReview(level: number, allItems: { id: string }[]): string[] {
+  const itemData = getItemData(level)
+  const seenIds = getSeenIds(level)
+  const today = todayISO()
+  return allItems
+    .filter((item) => seenIds.has(item.id) && itemData[item.id] && itemData[item.id].nextReview <= today)
+    .map((item) => item.id)
+}
+
+export function getBatchSize(): number {
+  const parsed = parseInt(getStorage(KEYS.BATCH_SIZE) ?? '20', 10)
+  return isNaN(parsed) ? 20 : parsed
+}
+
+export function setBatchSize(n: number): void {
+  setStorage(KEYS.BATCH_SIZE, String(n))
+}
+
+// ── Session Results ──────────────────────────────────────────────────────────
 
 /** Alias for addSessionResult — saves a completed session result */
 export function saveSessionResult(result: SessionResult): void {

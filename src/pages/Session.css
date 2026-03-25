@@ -555,3 +555,76 @@
   gap: 0.4rem;
   text-align: center;
 }
+/* Batch complete */
+.score-pct {
+  font-size: 1.1rem;
+  color: #888;
+  margin-top: 0.25rem;
+}
+.level-progress-wrap {
+  margin: 1rem 0;
+  text-align: left;
+  width: 100%;
+  max-width: 340px;
+}
+.level-progress-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.35rem;
+}
+.level-bar-bg {
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.level-bar-fill {
+  height: 100%;
+  background: #3b5bdb;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+.misses-section {
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+}
+.misses-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  margin: 0 0 0.5rem;
+}
+.misses-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.miss-item {
+  font-size: 0.95rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  line-height: 1.5;
+}
+.miss-chars { font-weight: 700; color: #333; }
+.miss-pinyin { color: #888; font-size: 0.88rem; }
+.miss-sep { color: #ccc; }
+.miss-english { color: #555; }
+.batch-complete-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+.complete-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0.5rem 0;
+}
+.complete-hint {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0 0 1rem;
+}

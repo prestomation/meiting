@@ -5,6 +5,9 @@ import {
   setHskLevel,
   getAnswerMode,
   setAnswerMode,
+  getBatchSize,
+  setBatchSize,
+  resetLevelProgress,
   type AnswerMode,
 } from '../lib/storage'
 import { canUseSpeech } from '../lib/tts'
@@ -12,19 +15,34 @@ import './Settings.css'
 
 const AVAILABLE_HSK_LEVELS = [1, 2]
 const ALL_HSK_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const BATCH_SIZE_OPTIONS = [10, 20, 30]
 
 export default function Settings() {
   const navigate = useNavigate()
   const [hskLevel, setHskLevelState] = useState(() => getHskLevel())
   const [answerMode, setAnswerModeState] = useState<AnswerMode>(() => getAnswerMode())
+  const [batchSize, setBatchSizeState] = useState(() => getBatchSize())
+  const [resetConfirm, setResetConfirm] = useState(false)
+
   function handleHskLevel(level: number) {
     setHskLevelState(level)
     setHskLevel(level)
+    setResetConfirm(false)
   }
 
   function handleAnswerMode(mode: AnswerMode) {
     setAnswerModeState(mode)
     setAnswerMode(mode)
+  }
+
+  function handleBatchSize(size: number) {
+    setBatchSizeState(size)
+    setBatchSize(size)
+  }
+
+  function handleResetConfirm() {
+    resetLevelProgress(hskLevel)
+    setResetConfirm(false)
   }
 
   return (
@@ -79,6 +97,55 @@ export default function Settings() {
               </button>
             )}
           </div>
+        </section>
+
+        {/* Batch Size */}
+        <section className="settings-section">
+          <h2 className="settings-label">Batch Size</h2>
+          <div className="mode-toggle">
+            {BATCH_SIZE_OPTIONS.map((size) => (
+              <button
+                key={size}
+                className={`mode-toggle-btn${batchSize === size ? ' active' : ''}`}
+                onClick={() => handleBatchSize(size)}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+          <p className="settings-hint">Sentences per session</p>
+        </section>
+
+        {/* Reset Level Progress */}
+        <section className="settings-section">
+          <h2 className="settings-label">Reset Level Progress</h2>
+          {!resetConfirm ? (
+            <>
+              <p className="settings-hint">
+                Clear all progress for HSK {hskLevel} (seen items, SRS data).
+              </p>
+              <button
+                className="btn-danger"
+                onClick={() => setResetConfirm(true)}
+              >
+                🗑️ Reset HSK {hskLevel} Progress
+              </button>
+            </>
+          ) : (
+            <div className="reset-confirm">
+              <p className="reset-confirm-text">
+                Are you sure? This will erase all HSK {hskLevel} seen items and review data.
+              </p>
+              <div className="reset-confirm-actions">
+                <button className="btn-secondary" onClick={() => setResetConfirm(false)}>
+                  Cancel
+                </button>
+                <button className="btn-danger" onClick={handleResetConfirm}>
+                  Yes, reset
+                </button>
+              </div>
+            </div>
+          )}
         </section>
 
         <button className="btn-primary btn-large" onClick={() => navigate('/')}>

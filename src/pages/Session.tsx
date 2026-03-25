@@ -11,6 +11,11 @@ import {
   getPlaybackRate,
   setPlaybackRate,
   saveSessionResult,
+  getSeenIds,
+  markIdsAsSeen,
+  updateItemData,
+  getItemsDueForReview,
+  getBatchSize,
   type AnswerMode,
   type SessionResult,
 } from '../lib/storage'
@@ -34,7 +39,7 @@ const HSK_DATA: Record<number, ContentItem[]> = {
   2: hsk2Data as ContentItem[],
 }
 
-type Phase = 'start' | 'playing' | 'answered' | 'complete'
+type Phase = 'start' | 'playing' | 'answered' | 'complete' | 'batch-complete'
 type SpeechState = 'idle' | 'listening' | 'processing'
 
 function shuffle<T>(arr: T[]): T[] {
@@ -86,6 +91,11 @@ export default function Session() {
   const [items, setItems] = useState<ContentItem[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
+
+  // Batch / SRS tracking
+  // Use a ref (not state) so handleNext always reads the latest value without stale closure issues
+  const batchCorrectMapRef = useRef<Record<string, boolean>>({})
+  const [missedItems, setMissedItems] = useState<ContentItem[]>([])
 
   // Audio element ref (per-instance, no module-level state)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -213,11 +223,33 @@ export default function Session() {
   }, [currentIndex])
 
   function startSession() {
-    const data = HSK_DATA[hskLevel] ?? []
-    if (data.length === 0) return
-    setItems(shuffle(data))
+    const allData = HSK_DATA[hskLevel] ?? []
+    if (allData.length === 0) return
+
+    const batchSize = getBatchSize()
+    const seenIds = getSeenIds(hskLevel)
+    const reviewDueIds = new Set(getItemsDueForReview(hskLevel, allData))
+    const unseenItems = allData.filter((item) => !seenIds.has(item.id))
+
+    // Compose batch: up to 25% review, rest new
+    const reviewCount = Math.min(reviewDueIds.size, Math.floor(batchSize * 0.25))
+    const newCount = batchSize - reviewCount
+
+    const reviewItems = shuffle(allData.filter((item) => reviewDueIds.has(item.id))).slice(0, reviewCount)
+    const newItems = shuffle(unseenItems).slice(0, newCount)
+
+    const batch = shuffle([...reviewItems, ...newItems])
+
+    // Level complete: nothing new and nothing due
+    if (batch.length === 0) {
+      setPhase('complete')
+      return
+    }
+    setItems(batch)
     setCurrentIndex(0)
     setCorrectCount(0)
+    batchCorrectMapRef.current = {}
+    setMissedItems([])
     setSelectedChoice(null)
     setTypedInput('')
     setTypeResult(null)
@@ -230,6 +262,16 @@ export default function Session() {
 
   function advanceToAnswered(correct: boolean) {
     if (correct) setCorrectCount((c) => c + 1)
+    if (!correct && currentItem) {
+      setMissedItems((prev) => {
+        // Avoid duplicates
+        if (prev.some((m) => m.id === currentItem.id)) return prev
+        return [...prev, currentItem]
+      })
+    }
+    if (currentItem) {
+      batchCorrectMapRef.current = { ...batchCorrectMapRef.current, [currentItem.id]: correct }
+    }
     setPhase('answered')
   }
 
@@ -263,6 +305,17 @@ export default function Session() {
   function handleNext() {
     const nextIndex = currentIndex + 1
     if (nextIndex >= items.length) {
+      // Batch is done — persist SRS data
+      // Use ref to get the latest map, avoiding stale closure issues
+      const finalCorrectMap = batchCorrectMapRef.current
+      for (const item of items) {
+        const wasCorrect = finalCorrectMap[item.id]
+        if (wasCorrect !== undefined) {
+          updateItemData(hskLevel, item.id, wasCorrect)
+        }
+      }
+      markIdsAsSeen(hskLevel, items.map((i) => i.id))
+
       const correct = correctCount
       const total = items.length
       const sessionResult: SessionResult = {
@@ -273,7 +326,7 @@ export default function Session() {
         answerMode,
       }
       saveSessionResult(sessionResult)
-      setPhase('complete')
+      setPhase('batch-complete')
     } else {
       setCurrentIndex(nextIndex)
       setSelectedChoice(null)
@@ -376,22 +429,83 @@ export default function Session() {
     )
   }
 
-  if (phase === 'complete') {
+  if (phase === 'batch-complete') {
     const total = items.length
     const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0
     const streak = getStreakDays()
+    const allLevelData = HSK_DATA[hskLevel] ?? []
+    const seenCount = getSeenIds(hskLevel).size
+    const totalCount = allLevelData.length
+    const seenPct = totalCount > 0 ? (seenCount / totalCount) * 100 : 0
     return (
       <div className="session-container">
         <div className="session-card complete-card">
           <h1 className="session-title">Session Complete! 🎉</h1>
           <div className="score-display">
-            <span className="score-big">{correctCount} / {total} correct ({pct}%)</span>
+            <span className="score-big">{correctCount} / {total} correct</span>
+            <span className="score-pct">({pct}%)</span>
+          </div>
+          <div className="level-progress-wrap">
+            <div className="level-progress-label">
+              {seenCount} / {totalCount} HSK {hskLevel} sentences seen
+            </div>
+            <div className="level-bar-bg">
+              <div className="level-bar-fill" style={{ width: `${seenPct}%` }} />
+            </div>
           </div>
           {streak > 0 && (
             <div className="streak-badge">🔥 {streak} day streak!</div>
           )}
-          <button className="btn-primary btn-large" onClick={startSession}>Play Again</button>
-          <button className="btn-secondary" onClick={() => navigate('/settings')}>⚙️ Settings</button>
+          {missedItems.length > 0 && (
+            <div className="misses-section">
+              <h3 className="misses-title">Review Your Misses</h3>
+              <ul className="misses-list">
+                {missedItems.map((item) => (
+                  <li key={item.id} className="miss-item">
+                    <span className="miss-chars">{item.characters}</span>
+                    <span className="miss-pinyin"> ({item.pinyin})</span>
+                    <span className="miss-sep"> — </span>
+                    <span className="miss-english">{item.english}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="batch-complete-actions">
+            <button className="btn-secondary" onClick={() => navigate('/stats')}>
+              See you tomorrow 👋
+            </button>
+            <button className="btn-primary btn-large" onClick={startSession}>
+              Keep going → (next {getBatchSize()})
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (phase === 'complete') {
+    // Level truly complete — no unseen items, no reviews due
+    const allLevelData = HSK_DATA[hskLevel] ?? []
+    const totalCount = allLevelData.length
+    const streak = getStreakDays()
+    return (
+      <div className="session-container">
+        <div className="session-card complete-card">
+          <h1 className="session-title">🏆 Level Complete!</h1>
+          <p className="complete-subtitle">
+            You've seen all {totalCount} HSK {hskLevel} sentences.
+          </p>
+          <p className="complete-hint">Check back tomorrow for your review session.</p>
+          {streak > 0 && (
+            <div className="streak-badge">🔥 {streak} day streak!</div>
+          )}
+          <button className="btn-secondary" onClick={() => navigate('/stats')}>
+            📊 View Stats
+          </button>
+          <button className="btn-secondary" onClick={() => navigate('/settings')}>
+            ⚙️ Settings
+          </button>
         </div>
       </div>
     )

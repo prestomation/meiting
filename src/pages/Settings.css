@@ -181,3 +181,31 @@
   color: #fff;
   border-color: #6a6a8a;
 }
+
+/* Batch size / reset */
+.btn-danger {
+  background: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+.btn-danger:hover { background: #d32f2f; }
+.reset-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.reset-confirm-text {
+  font-size: 0.9rem;
+  color: #c62828;
+  margin: 0;
+}
+.reset-confirm-actions {
+  display: flex;
+  gap: 0.75rem;
+}
