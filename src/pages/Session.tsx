@@ -149,6 +149,7 @@ export default function Session() {
         .filter((item) => saved.correctMap[item.id] === false)
       setMissedItems(missed)
       setAnswerModeState(saved.answerMode)
+      setAnswerMode(saved.answerMode) // keep localStorage in sync with restored mode
       setPhase('playing')
     }
     isRestoringRef.current = false
