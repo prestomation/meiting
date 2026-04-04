@@ -143,6 +143,11 @@ export default function Session() {
       setCurrentIndex(saved.currentIndex)
       setCorrectCount(saved.correctCount)
       batchCorrectMapRef.current = saved.correctMap
+      // Rebuild missedItems from correctMap so the batch-complete review list is accurate
+      const missed = saved.items
+        .slice(0, saved.currentIndex)
+        .filter((item) => saved.correctMap[item.id] === false)
+      setMissedItems(missed)
       setAnswerModeState(saved.answerMode)
       setPhase('playing')
     }
