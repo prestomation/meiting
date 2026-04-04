@@ -134,9 +134,10 @@ export default function Session() {
   // Restore active batch on mount — resume mid-session if navigated away
   useEffect(() => {
     const saved = getActiveBatch()
-    if (saved) {
+    if (saved && saved.hskLevel === getHskLevel()) {
       setItems(saved.items)
       setCurrentIndex(saved.currentIndex)
+      setCorrectCount(saved.correctCount)
       batchCorrectMapRef.current = saved.correctMap
       setAnswerModeState(saved.answerMode)
       setPhase('playing')
@@ -264,7 +265,7 @@ export default function Session() {
     setSpeechState('idle')
     setTranscript('')
     setPhoneticScore(null)
-    setActiveBatch({ items: batch, currentIndex: 0, correctMap: {}, hskLevel, answerMode })
+    setActiveBatch({ items: batch, currentIndex: 0, correctCount: 0, correctMap: {}, hskLevel, answerMode })
     setPhase('playing')
   }
 
@@ -338,7 +339,8 @@ export default function Session() {
       setPhase('batch-complete')
     } else {
       setCurrentIndex(nextIndex)
-      setActiveBatch({ items, currentIndex: nextIndex, correctMap: batchCorrectMapRef.current, hskLevel, answerMode })
+      const updatedCorrectCount = Object.values(batchCorrectMapRef.current).filter(Boolean).length
+      setActiveBatch({ items, currentIndex: nextIndex, correctCount: updatedCorrectCount, correctMap: batchCorrectMapRef.current, hskLevel, answerMode })
       setSelectedChoice(null)
       setTypedInput('')
       setTypeResult(null)

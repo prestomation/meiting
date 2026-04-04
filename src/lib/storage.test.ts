@@ -244,6 +244,7 @@ describe('ActiveBatch persistence', () => {
       },
     ],
     currentIndex: 0,
+    correctCount: 0,
     correctMap: {},
     hskLevel: 1,
     answerMode: 'multiple-choice',
@@ -288,10 +289,11 @@ describe('ActiveBatch persistence', () => {
   })
 
   it('persists correctMap entries', () => {
-    const batch: ActiveBatch = { ...sampleBatch, correctMap: { 'item-1': true } }
+    const batch: ActiveBatch = { ...sampleBatch, correctMap: { 'item-1': true }, correctCount: 1 }
     setActiveBatch(batch)
     const result = getActiveBatch()
     expect(result!.correctMap['item-1']).toBe(true)
+    expect(result!.correctCount).toBe(1)
   })
 
   it('persists currentIndex correctly', () => {
@@ -299,5 +301,14 @@ describe('ActiveBatch persistence', () => {
     setActiveBatch(batch)
     const result = getActiveBatch()
     expect(result!.currentIndex).toBe(3)
+  })
+
+  it('rejects data missing correctCount field', () => {
+    const incomplete = { ...sampleBatch }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete (incomplete as any).correctCount
+    localStorage.setItem('meiting_active_batch', JSON.stringify(incomplete))
+    localStorage.setItem('meiting_active_batch_ts', String(Date.now()))
+    expect(getActiveBatch()).toBeNull()
   })
 })

@@ -259,9 +259,23 @@ const ACTIVE_BATCH_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
 export interface ActiveBatch {
   items: ContentItem[]
   currentIndex: number
+  correctCount: number
   correctMap: Record<string, boolean>
   hskLevel: number
   answerMode: AnswerMode
+}
+
+function isValidActiveBatch(value: unknown): value is ActiveBatch {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) return false
+  const v = value as Record<string, unknown>
+  return (
+    Array.isArray(v.items) &&
+    typeof v.currentIndex === 'number' &&
+    typeof v.correctCount === 'number' &&
+    v.correctMap !== null && typeof v.correctMap === 'object' && !Array.isArray(v.correctMap) &&
+    typeof v.hskLevel === 'number' &&
+    (v.answerMode === 'multiple-choice' || v.answerMode === 'type' || v.answerMode === 'speak')
+  )
 }
 
 export function getActiveBatch(): ActiveBatch | null {
@@ -272,7 +286,9 @@ export function getActiveBatch(): ActiveBatch | null {
     if (!tsRaw) return null
     const ts = parseInt(tsRaw, 10)
     if (isNaN(ts) || Date.now() - ts > ACTIVE_BATCH_TTL_MS) return null
-    return JSON.parse(data) as ActiveBatch
+    const parsed: unknown = JSON.parse(data)
+    if (!isValidActiveBatch(parsed)) return null
+    return parsed
   } catch {
     return null
   }
