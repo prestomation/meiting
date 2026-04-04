@@ -16,23 +16,16 @@ import {
   updateItemData,
   getItemsDueForReview,
   getBatchSize,
+  getActiveBatch,
+  setActiveBatch,
+  clearActiveBatch,
   type AnswerMode,
   type SessionResult,
 } from '../lib/storage'
+import type { ContentItem } from '../lib/types'
 import hsk1Data from '../data/hsk1.json'
 import hsk2Data from '../data/hsk2.json'
 import './Session.css'
-
-interface ContentItem {
-  id: string
-  hsk: number
-  type: 'sentence'
-  characters: string
-  pinyin: string
-  english: string
-  audio?: string
-  distractors: string[]
-}
 
 const HSK_DATA: Record<number, ContentItem[]> = {
   1: hsk1Data as ContentItem[],
@@ -136,6 +129,19 @@ export default function Session() {
       stopRecognitionRef.current?.()
       stopRecognitionRef.current = null
     }
+  }, [])
+
+  // Restore active batch on mount — resume mid-session if navigated away
+  useEffect(() => {
+    const saved = getActiveBatch()
+    if (saved) {
+      setItems(saved.items)
+      setCurrentIndex(saved.currentIndex)
+      batchCorrectMapRef.current = saved.correctMap
+      setAnswerModeState(saved.answerMode)
+      setPhase('playing')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Shuffle choices when item changes
@@ -242,6 +248,7 @@ export default function Session() {
 
     // Level complete: nothing new and nothing due
     if (batch.length === 0) {
+      clearActiveBatch()
       setPhase('complete')
       return
     }
@@ -257,6 +264,7 @@ export default function Session() {
     setSpeechState('idle')
     setTranscript('')
     setPhoneticScore(null)
+    setActiveBatch({ items: batch, currentIndex: 0, correctMap: {}, hskLevel, answerMode })
     setPhase('playing')
   }
 
@@ -326,9 +334,11 @@ export default function Session() {
         answerMode,
       }
       saveSessionResult(sessionResult)
+      clearActiveBatch()
       setPhase('batch-complete')
     } else {
       setCurrentIndex(nextIndex)
+      setActiveBatch({ items, currentIndex: nextIndex, correctMap: batchCorrectMapRef.current, hskLevel, answerMode })
       setSelectedChoice(null)
       setTypedInput('')
       setTypeResult(null)

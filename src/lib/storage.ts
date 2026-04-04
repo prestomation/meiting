@@ -1,5 +1,7 @@
 // localStorage schema + typed helpers
 
+import type { ContentItem } from './types'
+
 export const KEYS = {
   PREFERRED_VOICE: 'meiting_preferred_voice',
   HSK_LEVEL: 'meiting_hsk_level',
@@ -9,6 +11,8 @@ export const KEYS = {
   SESSION_HISTORY: 'meiting_history',
   PLAYBACK_RATE: 'meiting_playback_rate',
   BATCH_SIZE: 'meiting_batch_size',
+  ACTIVE_BATCH: 'meiting_active_batch',
+  ACTIVE_BATCH_TS: 'meiting_active_batch_ts',
   // Dynamic keys (functions, not string constants)
   SEEN_IDS: (level: number) => `meiting_seen_hsk${level}`,
   ITEM_DATA: (level: number) => `meiting_item_data_hsk${level}`,
@@ -246,6 +250,42 @@ export function getBatchSize(): number {
 
 export function setBatchSize(n: number): void {
   setStorage(KEYS.BATCH_SIZE, String(n))
+}
+
+// ── Active Batch Persistence ─────────────────────────────────────────────────
+
+const ACTIVE_BATCH_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
+
+export interface ActiveBatch {
+  items: ContentItem[]
+  currentIndex: number
+  correctMap: Record<string, boolean>
+  hskLevel: number
+  answerMode: AnswerMode
+}
+
+export function getActiveBatch(): ActiveBatch | null {
+  try {
+    const data = getStorage(KEYS.ACTIVE_BATCH)
+    if (!data) return null
+    const tsRaw = getStorage(KEYS.ACTIVE_BATCH_TS)
+    if (!tsRaw) return null
+    const ts = parseInt(tsRaw, 10)
+    if (isNaN(ts) || Date.now() - ts > ACTIVE_BATCH_TTL_MS) return null
+    return JSON.parse(data) as ActiveBatch
+  } catch {
+    return null
+  }
+}
+
+export function setActiveBatch(batch: ActiveBatch): void {
+  setStorage(KEYS.ACTIVE_BATCH, JSON.stringify(batch))
+  setStorage(KEYS.ACTIVE_BATCH_TS, String(Date.now()))
+}
+
+export function clearActiveBatch(): void {
+  removeStorage(KEYS.ACTIVE_BATCH)
+  removeStorage(KEYS.ACTIVE_BATCH_TS)
 }
 
 // ── Session Results ──────────────────────────────────────────────────────────

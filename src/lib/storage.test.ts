@@ -8,6 +8,10 @@ import {
   getItemsDueForReview,
   getBatchSize,
   setBatchSize,
+  getActiveBatch,
+  setActiveBatch,
+  clearActiveBatch,
+  type ActiveBatch,
 } from './storage'
 
 // Mock localStorage with a simple in-memory implementation
@@ -223,5 +227,77 @@ describe('getBatchSize / setBatchSize', () => {
     expect(getBatchSize()).toBe(10)
     setBatchSize(30)
     expect(getBatchSize()).toBe(30)
+  })
+})
+
+describe('ActiveBatch persistence', () => {
+  const sampleBatch: ActiveBatch = {
+    items: [
+      {
+        id: 'item-1',
+        hsk: 1,
+        type: 'sentence',
+        characters: '你好',
+        pinyin: 'nǐ hǎo',
+        english: 'Hello',
+        distractors: ['再见', '谢谢', '对不起'],
+      },
+    ],
+    currentIndex: 0,
+    correctMap: {},
+    hskLevel: 1,
+    answerMode: 'multiple-choice',
+  }
+
+  it('round-trips setActiveBatch / getActiveBatch', () => {
+    setActiveBatch(sampleBatch)
+    const result = getActiveBatch()
+    expect(result).not.toBeNull()
+    expect(result!.currentIndex).toBe(0)
+    expect(result!.hskLevel).toBe(1)
+    expect(result!.answerMode).toBe('multiple-choice')
+    expect(result!.items).toHaveLength(1)
+    expect(result!.items[0].id).toBe('item-1')
+  })
+
+  it('returns null when no data stored', () => {
+    expect(getActiveBatch()).toBeNull()
+  })
+
+  it('returns null when timestamp is older than 24 hours', () => {
+    setActiveBatch(sampleBatch)
+    // Overwrite timestamp with a value > 24h in the past
+    const oldTs = Date.now() - (25 * 60 * 60 * 1000)
+    localStorage.setItem('meiting_active_batch_ts', String(oldTs))
+    expect(getActiveBatch()).toBeNull()
+  })
+
+  it('clearActiveBatch removes both keys', () => {
+    setActiveBatch(sampleBatch)
+    clearActiveBatch()
+    expect(getActiveBatch()).toBeNull()
+    // Keys should be gone from storage
+    expect(localStorage.getItem('meiting_active_batch')).toBeNull()
+    expect(localStorage.getItem('meiting_active_batch_ts')).toBeNull()
+  })
+
+  it('returns null on corrupt JSON', () => {
+    localStorage.setItem('meiting_active_batch', '{not valid json}')
+    localStorage.setItem('meiting_active_batch_ts', String(Date.now()))
+    expect(getActiveBatch()).toBeNull()
+  })
+
+  it('persists correctMap entries', () => {
+    const batch: ActiveBatch = { ...sampleBatch, correctMap: { 'item-1': true } }
+    setActiveBatch(batch)
+    const result = getActiveBatch()
+    expect(result!.correctMap['item-1']).toBe(true)
+  })
+
+  it('persists currentIndex correctly', () => {
+    const batch: ActiveBatch = { ...sampleBatch, currentIndex: 3 }
+    setActiveBatch(batch)
+    const result = getActiveBatch()
+    expect(result!.currentIndex).toBe(3)
   })
 })
