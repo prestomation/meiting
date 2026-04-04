@@ -320,4 +320,11 @@ describe('ActiveBatch persistence', () => {
     localStorage.setItem('meiting_active_batch_ts', String(Date.now()))
     expect(getActiveBatch()).toBeNull()
   })
+
+  it('rejects data with empty items array', () => {
+    const emptyItems = { ...sampleBatch, items: [] }
+    localStorage.setItem('meiting_active_batch', JSON.stringify(emptyItems))
+    localStorage.setItem('meiting_active_batch_ts', String(Date.now()))
+    expect(getActiveBatch()).toBeNull()
+  })
 })

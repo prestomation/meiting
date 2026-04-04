@@ -84,6 +84,8 @@ export default function Session() {
   const [items, setItems] = useState<ContentItem[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
+  // Guards startSession() from running while the mount restoration effect is in progress
+  const isRestoringRef = useRef(true)
 
   // Batch / SRS tracking
   // Use a ref (not state) so handleNext always reads the latest value without stale closure issues
@@ -131,7 +133,9 @@ export default function Session() {
     }
   }, [])
 
-  // Restore active batch on mount — resume mid-session if navigated away
+  // Restore active batch on mount — resume mid-session if navigated away.
+  // isRestoringRef is true until this effect completes, preventing startSession()
+  // from racing with the restoration logic.
   useEffect(() => {
     const saved = getActiveBatch()
     if (saved && saved.hskLevel === getHskLevel()) {
@@ -142,6 +146,7 @@ export default function Session() {
       setAnswerModeState(saved.answerMode)
       setPhase('playing')
     }
+    isRestoringRef.current = false
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -230,6 +235,7 @@ export default function Session() {
   }, [currentIndex])
 
   function startSession() {
+    if (isRestoringRef.current) return
     const allData = HSK_DATA[hskLevel] ?? []
     if (allData.length === 0) return
 

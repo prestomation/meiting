@@ -268,7 +268,7 @@ export interface ActiveBatch {
 function isValidActiveBatch(value: unknown): value is ActiveBatch {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) return false
   const v = value as Record<string, unknown>
-  if (!Array.isArray(v.items)) return false
+  if (!Array.isArray(v.items) || (v.items as unknown[]).length === 0) return false
   if (typeof v.currentIndex !== 'number') return false
   if (v.currentIndex < 0 || v.currentIndex >= (v.items as unknown[]).length) return false
   if (typeof v.correctCount !== 'number') return false
