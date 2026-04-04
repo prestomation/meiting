@@ -16,23 +16,16 @@ import {
   updateItemData,
   getItemsDueForReview,
   getBatchSize,
+  getActiveBatch,
+  setActiveBatch,
+  clearActiveBatch,
   type AnswerMode,
   type SessionResult,
 } from '../lib/storage'
+import type { ContentItem } from '../lib/types'
 import hsk1Data from '../data/hsk1.json'
 import hsk2Data from '../data/hsk2.json'
 import './Session.css'
-
-interface ContentItem {
-  id: string
-  hsk: number
-  type: 'sentence'
-  characters: string
-  pinyin: string
-  english: string
-  audio?: string
-  distractors: string[]
-}
 
 const HSK_DATA: Record<number, ContentItem[]> = {
   1: hsk1Data as ContentItem[],
@@ -87,15 +80,40 @@ export default function Session() {
     setAnswerMode(mode)
   }
 
-  const [phase, setPhase] = useState<Phase>('start')
-  const [items, setItems] = useState<ContentItem[]>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [correctCount, setCorrectCount] = useState(0)
+  // Synchronously check for a saved batch on first render to avoid start-screen flicker.
+  // All batch state is initialized in one pass from the saved batch (or defaults) so the
+  // component never renders the 'start' phase if there is a valid in-progress session.
+  const savedBatchRef = useRef<ReturnType<typeof getActiveBatch>>(null)
+  const [phase, setPhase] = useState<Phase>(() => {
+    const saved = getActiveBatch()
+    if (saved && saved.hskLevel === getHskLevel() && HSK_DATA[saved.hskLevel]) {
+      savedBatchRef.current = saved
+      return 'playing'
+    }
+    return 'start'
+  })
+  const [items, setItems] = useState<ContentItem[]>(() => savedBatchRef.current?.items ?? [])
+  const [currentIndex, setCurrentIndex] = useState<number>(() => savedBatchRef.current?.currentIndex ?? 0)
+  const [correctCount, setCorrectCount] = useState<number>(() => {
+    const saved = savedBatchRef.current
+    if (!saved) return 0
+    // Derive from correctMap rather than trusting the persisted correctCount
+    // to ensure consistency if the stored value ever diverges
+    return Object.values(saved.correctMap).filter(Boolean).length
+  })
+  // Guards startSession() from running while the mount restoration effect is in progress
+  const isRestoringRef = useRef(savedBatchRef.current !== null)
 
   // Batch / SRS tracking
   // Use a ref (not state) so handleNext always reads the latest value without stale closure issues
-  const batchCorrectMapRef = useRef<Record<string, boolean>>({})
-  const [missedItems, setMissedItems] = useState<ContentItem[]>([])
+  const batchCorrectMapRef = useRef<Record<string, boolean>>(savedBatchRef.current?.correctMap ?? {})
+  const [missedItems, setMissedItems] = useState<ContentItem[]>(() => {
+    const saved = savedBatchRef.current
+    if (!saved) return []
+    return saved.items
+      .slice(0, saved.currentIndex)
+      .filter((item) => saved.correctMap[item.id] === false)
+  })
 
   // Audio element ref (per-instance, no module-level state)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -136,6 +154,18 @@ export default function Session() {
       stopRecognitionRef.current?.()
       stopRecognitionRef.current = null
     }
+  }, [])
+
+  // On mount: if a batch was restored synchronously, sync answerMode to localStorage
+  // and clear the restoration guard so startSession() is unblocked.
+  useEffect(() => {
+    const saved = savedBatchRef.current
+    if (saved) {
+      setAnswerModeState(saved.answerMode)
+      setAnswerMode(saved.answerMode) // keep localStorage in sync with restored mode
+    }
+    isRestoringRef.current = false
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Shuffle choices when item changes
@@ -223,6 +253,7 @@ export default function Session() {
   }, [currentIndex])
 
   function startSession() {
+    if (isRestoringRef.current) return
     const allData = HSK_DATA[hskLevel] ?? []
     if (allData.length === 0) return
 
@@ -242,6 +273,7 @@ export default function Session() {
 
     // Level complete: nothing new and nothing due
     if (batch.length === 0) {
+      clearActiveBatch()
       setPhase('complete')
       return
     }
@@ -257,6 +289,7 @@ export default function Session() {
     setSpeechState('idle')
     setTranscript('')
     setPhoneticScore(null)
+    setActiveBatch({ items: batch, currentIndex: 0, correctCount: 0, correctMap: {}, hskLevel, answerMode })
     setPhase('playing')
   }
 
@@ -326,9 +359,12 @@ export default function Session() {
         answerMode,
       }
       saveSessionResult(sessionResult)
+      clearActiveBatch()
       setPhase('batch-complete')
     } else {
       setCurrentIndex(nextIndex)
+      const updatedCorrectCount = Object.values(batchCorrectMapRef.current).filter(Boolean).length
+      setActiveBatch({ items, currentIndex: nextIndex, correctCount: updatedCorrectCount, correctMap: batchCorrectMapRef.current, hskLevel, answerMode })
       setSelectedChoice(null)
       setTypedInput('')
       setTypeResult(null)
