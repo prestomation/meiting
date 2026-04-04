@@ -94,7 +94,13 @@ export default function Session() {
   })
   const [items, setItems] = useState<ContentItem[]>(() => savedBatchRef.current?.items ?? [])
   const [currentIndex, setCurrentIndex] = useState<number>(() => savedBatchRef.current?.currentIndex ?? 0)
-  const [correctCount, setCorrectCount] = useState<number>(() => savedBatchRef.current?.correctCount ?? 0)
+  const [correctCount, setCorrectCount] = useState<number>(() => {
+    const saved = savedBatchRef.current
+    if (!saved) return 0
+    // Derive from correctMap rather than trusting the persisted correctCount
+    // to ensure consistency if the stored value ever diverges
+    return Object.values(saved.correctMap).filter(Boolean).length
+  })
   // Guards startSession() from running while the mount restoration effect is in progress
   const isRestoringRef = useRef(savedBatchRef.current !== null)
 
