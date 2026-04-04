@@ -265,10 +265,25 @@ export interface ActiveBatch {
   answerMode: AnswerMode
 }
 
+function isValidContentItem(item: unknown): item is ContentItem {
+  if (item === null || typeof item !== 'object' || Array.isArray(item)) return false
+  const i = item as Record<string, unknown>
+  return (
+    typeof i.id === 'string' &&
+    typeof i.hsk === 'number' &&
+    i.type === 'sentence' &&
+    typeof i.characters === 'string' &&
+    typeof i.pinyin === 'string' &&
+    typeof i.english === 'string' &&
+    Array.isArray(i.distractors)
+  )
+}
+
 function isValidActiveBatch(value: unknown): value is ActiveBatch {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) return false
   const v = value as Record<string, unknown>
   if (!Array.isArray(v.items) || (v.items as unknown[]).length === 0) return false
+  if (!(v.items as unknown[]).every(isValidContentItem)) return false
   if (typeof v.currentIndex !== 'number') return false
   if (v.currentIndex < 0 || v.currentIndex >= (v.items as unknown[]).length) return false
   if (typeof v.correctCount !== 'number') return false

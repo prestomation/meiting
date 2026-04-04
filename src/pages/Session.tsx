@@ -80,17 +80,34 @@ export default function Session() {
     setAnswerMode(mode)
   }
 
-  const [phase, setPhase] = useState<Phase>('start')
-  const [items, setItems] = useState<ContentItem[]>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [correctCount, setCorrectCount] = useState(0)
+  // Synchronously check for a saved batch on first render to avoid start-screen flicker.
+  // All batch state is initialized in one pass from the saved batch (or defaults) so the
+  // component never renders the 'start' phase if there is a valid in-progress session.
+  const savedBatchRef = useRef<ReturnType<typeof getActiveBatch>>(null)
+  const [phase, setPhase] = useState<Phase>(() => {
+    const saved = getActiveBatch()
+    if (saved && saved.hskLevel === getHskLevel() && HSK_DATA[saved.hskLevel]) {
+      savedBatchRef.current = saved
+      return 'playing'
+    }
+    return 'start'
+  })
+  const [items, setItems] = useState<ContentItem[]>(() => savedBatchRef.current?.items ?? [])
+  const [currentIndex, setCurrentIndex] = useState<number>(() => savedBatchRef.current?.currentIndex ?? 0)
+  const [correctCount, setCorrectCount] = useState<number>(() => savedBatchRef.current?.correctCount ?? 0)
   // Guards startSession() from running while the mount restoration effect is in progress
-  const isRestoringRef = useRef(true)
+  const isRestoringRef = useRef(savedBatchRef.current !== null)
 
   // Batch / SRS tracking
   // Use a ref (not state) so handleNext always reads the latest value without stale closure issues
-  const batchCorrectMapRef = useRef<Record<string, boolean>>({})
-  const [missedItems, setMissedItems] = useState<ContentItem[]>([])
+  const batchCorrectMapRef = useRef<Record<string, boolean>>(savedBatchRef.current?.correctMap ?? {})
+  const [missedItems, setMissedItems] = useState<ContentItem[]>(() => {
+    const saved = savedBatchRef.current
+    if (!saved) return []
+    return saved.items
+      .slice(0, saved.currentIndex)
+      .filter((item) => saved.correctMap[item.id] === false)
+  })
 
   // Audio element ref (per-instance, no module-level state)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -133,24 +150,13 @@ export default function Session() {
     }
   }, [])
 
-  // Restore active batch on mount — resume mid-session if navigated away.
-  // isRestoringRef is true until this effect completes, preventing startSession()
-  // from racing with the restoration logic.
+  // On mount: if a batch was restored synchronously, sync answerMode to localStorage
+  // and clear the restoration guard so startSession() is unblocked.
   useEffect(() => {
-    const saved = getActiveBatch()
-    if (saved && saved.hskLevel === getHskLevel()) {
-      setItems(saved.items)
-      setCurrentIndex(saved.currentIndex)
-      setCorrectCount(saved.correctCount)
-      batchCorrectMapRef.current = saved.correctMap
-      // Rebuild missedItems from correctMap so the batch-complete review list is accurate
-      const missed = saved.items
-        .slice(0, saved.currentIndex)
-        .filter((item) => saved.correctMap[item.id] === false)
-      setMissedItems(missed)
+    const saved = savedBatchRef.current
+    if (saved) {
       setAnswerModeState(saved.answerMode)
       setAnswerMode(saved.answerMode) // keep localStorage in sync with restored mode
-      setPhase('playing')
     }
     isRestoringRef.current = false
   // eslint-disable-next-line react-hooks/exhaustive-deps
