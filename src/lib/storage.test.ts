@@ -297,10 +297,12 @@ describe('ActiveBatch persistence', () => {
   })
 
   it('persists currentIndex correctly', () => {
-    const batch: ActiveBatch = { ...sampleBatch, currentIndex: 3 }
+    // sampleBatch has 1 item, so currentIndex 0 is the only valid index
+    const batch: ActiveBatch = { ...sampleBatch, currentIndex: 0 }
     setActiveBatch(batch)
     const result = getActiveBatch()
-    expect(result!.currentIndex).toBe(3)
+    expect(result).not.toBeNull()
+    expect(result!.currentIndex).toBe(0)
   })
 
   it('rejects data missing correctCount field', () => {
@@ -308,6 +310,13 @@ describe('ActiveBatch persistence', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (incomplete as any).correctCount
     localStorage.setItem('meiting_active_batch', JSON.stringify(incomplete))
+    localStorage.setItem('meiting_active_batch_ts', String(Date.now()))
+    expect(getActiveBatch()).toBeNull()
+  })
+
+  it('rejects data with out-of-bounds currentIndex', () => {
+    const outOfBounds: ActiveBatch = { ...sampleBatch, currentIndex: 99 } // items has 1 entry
+    localStorage.setItem('meiting_active_batch', JSON.stringify(outOfBounds))
     localStorage.setItem('meiting_active_batch_ts', String(Date.now()))
     expect(getActiveBatch()).toBeNull()
   })

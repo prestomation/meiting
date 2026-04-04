@@ -268,14 +268,14 @@ export interface ActiveBatch {
 function isValidActiveBatch(value: unknown): value is ActiveBatch {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) return false
   const v = value as Record<string, unknown>
-  return (
-    Array.isArray(v.items) &&
-    typeof v.currentIndex === 'number' &&
-    typeof v.correctCount === 'number' &&
-    v.correctMap !== null && typeof v.correctMap === 'object' && !Array.isArray(v.correctMap) &&
-    typeof v.hskLevel === 'number' &&
-    (v.answerMode === 'multiple-choice' || v.answerMode === 'type' || v.answerMode === 'speak')
-  )
+  if (!Array.isArray(v.items)) return false
+  if (typeof v.currentIndex !== 'number') return false
+  if (v.currentIndex < 0 || v.currentIndex >= (v.items as unknown[]).length) return false
+  if (typeof v.correctCount !== 'number') return false
+  if (v.correctMap === null || typeof v.correctMap !== 'object' || Array.isArray(v.correctMap)) return false
+  if (typeof v.hskLevel !== 'number') return false
+  if (v.answerMode !== 'multiple-choice' && v.answerMode !== 'type' && v.answerMode !== 'speak') return false
+  return true
 }
 
 export function getActiveBatch(): ActiveBatch | null {
