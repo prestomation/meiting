@@ -13,6 +13,7 @@ export const KEYS = {
   BATCH_SIZE: 'meiting_batch_size',
   ACTIVE_BATCH: 'meiting_active_batch',
   ACTIVE_BATCH_TS: 'meiting_active_batch_ts',
+  VOICE_PROVIDER: 'meiting_voice',
   // Dynamic keys (functions, not string constants)
   SEEN_IDS: (level: number) => `meiting_seen_hsk${level}`,
   ITEM_DATA: (level: number) => `meiting_item_data_hsk${level}`,
@@ -250,6 +251,25 @@ export function getBatchSize(): number {
 
 export function setBatchSize(n: number): void {
   setStorage(KEYS.BATCH_SIZE, String(n))
+}
+
+// ── Voice Provider ────────────────────────────────────────────────────────────
+
+export type VoiceProvider = 'polly-zhiyu' | 'elevenlabs-haoran'
+
+export const VOICE_OPTIONS: { id: VoiceProvider; label: string; description: string }[] = [
+  { id: 'polly-zhiyu', label: 'Zhiyu', description: 'Female · Clear & professional (Polly Neural)' },
+  { id: 'elevenlabs-haoran', label: 'Haoran', description: 'Male · Deep & calm (ElevenLabs)' },
+]
+
+export function getVoiceProvider(): VoiceProvider {
+  const stored = getStorage(KEYS.VOICE_PROVIDER)
+  if (stored === 'polly-zhiyu' || stored === 'elevenlabs-haoran') return stored
+  return 'polly-zhiyu' // default
+}
+
+export function setVoiceProvider(voice: VoiceProvider): void {
+  setStorage(KEYS.VOICE_PROVIDER, voice)
 }
 
 // ── Active Batch Persistence ─────────────────────────────────────────────────
