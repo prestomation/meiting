@@ -8,7 +8,11 @@ import {
   getBatchSize,
   setBatchSize,
   resetLevelProgress,
+  getVoiceProvider,
+  setVoiceProvider,
+  VOICE_OPTIONS,
   type AnswerMode,
+  type VoiceProvider,
 } from '../lib/storage'
 import { canUseSpeech } from '../lib/tts'
 import './Settings.css'
@@ -22,6 +26,7 @@ export default function Settings() {
   const [hskLevel, setHskLevelState] = useState(() => getHskLevel())
   const [answerMode, setAnswerModeState] = useState<AnswerMode>(() => getAnswerMode())
   const [batchSize, setBatchSizeState] = useState(() => getBatchSize())
+  const [voice, setVoiceState] = useState<VoiceProvider>(() => getVoiceProvider())
   const [resetConfirm, setResetConfirm] = useState(false)
 
   function handleHskLevel(level: number) {
@@ -38,6 +43,11 @@ export default function Settings() {
   function handleBatchSize(size: number) {
     setBatchSizeState(size)
     setBatchSize(size)
+  }
+
+  function handleVoiceChange(v: VoiceProvider) {
+    setVoiceState(v)
+    setVoiceProvider(v)
   }
 
   function handleResetConfirm() {
@@ -114,6 +124,24 @@ export default function Settings() {
             ))}
           </div>
           <p className="settings-hint">Sentences per session</p>
+        </section>
+
+        {/* Voice */}
+        <section className="settings-section">
+          <h2 className="settings-label">Voice</h2>
+          <div className="mode-toggle">
+            {VOICE_OPTIONS.map((opt) => (
+              <button
+                key={opt.id}
+                className={`mode-toggle-btn${voice === opt.id ? ' active' : ''}`}
+                onClick={() => handleVoiceChange(opt.id)}
+              >
+                {opt.label}
+                <br />
+                <small>{opt.description}</small>
+              </button>
+            ))}
+          </div>
         </section>
 
         {/* Reset Level Progress */}

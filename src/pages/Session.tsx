@@ -24,12 +24,20 @@ import {
 } from '../lib/storage'
 import type { ContentItem } from '../lib/types'
 import hsk1Data from '../data/hsk1.json'
+import hsk1HaoranData from '../data/hsk1-haoran.json'
 import hsk2Data from '../data/hsk2.json'
+import { getVoiceProvider, type VoiceProvider } from '../lib/storage'
 import './Session.css'
 
-const HSK_DATA: Record<number, ContentItem[]> = {
-  1: hsk1Data as ContentItem[],
-  2: hsk2Data as ContentItem[],
+const HSK_DATA: Record<number, Record<VoiceProvider, ContentItem[]>> = {
+  1: {
+    'polly-zhiyu': hsk1Data as ContentItem[],
+    'elevenlabs-haoran': hsk1HaoranData as ContentItem[],
+  },
+  2: {
+    'polly-zhiyu': hsk2Data as ContentItem[],
+    'elevenlabs-haoran': hsk2Data as ContentItem[], // fallback until Haoran HSK2 is generated
+  },
 }
 
 type Phase = 'start' | 'playing' | 'answered' | 'complete' | 'batch-complete'
@@ -254,7 +262,8 @@ export default function Session() {
 
   function startSession() {
     if (isRestoringRef.current) return
-    const allData = HSK_DATA[hskLevel] ?? []
+    const voice = getVoiceProvider()
+    const allData = HSK_DATA[hskLevel]?.[voice] ?? HSK_DATA[hskLevel]?.['polly-zhiyu'] ?? []
     if (allData.length === 0) return
 
     const batchSize = getBatchSize()
@@ -452,7 +461,7 @@ export default function Session() {
             )}
           </div>
           <p className="start-hint">
-            {HSK_DATA[hskLevel]?.length ?? 0} sentences · Audio plays automatically
+            {HSK_DATA[hskLevel]?.['polly-zhiyu']?.length ?? 0} sentences · Audio plays automatically
           </p>
           <button className="btn-primary btn-large" onClick={startSession}>
             Start Session ▶
@@ -469,7 +478,7 @@ export default function Session() {
     const total = items.length
     const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0
     const streak = getStreakDays()
-    const allLevelData = HSK_DATA[hskLevel] ?? []
+    const allLevelData = HSK_DATA[hskLevel]?.['polly-zhiyu'] ?? []
     const seenCount = getSeenIds(hskLevel).size
     const totalCount = allLevelData.length
     const seenPct = totalCount > 0 ? (seenCount / totalCount) * 100 : 0
@@ -522,7 +531,7 @@ export default function Session() {
 
   if (phase === 'complete') {
     // Level truly complete — no unseen items, no reviews due
-    const allLevelData = HSK_DATA[hskLevel] ?? []
+    const allLevelData = HSK_DATA[hskLevel]?.['polly-zhiyu'] ?? []
     const totalCount = allLevelData.length
     const streak = getStreakDays()
     return (
