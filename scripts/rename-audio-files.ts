@@ -87,14 +87,11 @@ async function copyR2Object(
   accountId: string,
   bucket: string,
 ): Promise<void> {
-  // R2 COPY via S3-compatible API using Cloudflare API
-  // We use the Cloudflare API to copy objects between keys in the same bucket
-  const copyUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${destKey}`;
+  // GET the source object, then PUT it to the new key
+  const sourceUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${sourceKey}`;
+  const destUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${destKey}`;
 
   await withRetry(async (): Promise<void> => {
-    // First, GET the object and PUT it to the new key
-    const sourceUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${sourceKey}`;
-    
     // Read the source object
     const getResponse = await fetch(sourceUrl, {
       method: 'GET',
@@ -104,8 +101,7 @@ async function copyR2Object(
     });
 
     if (getResponse.status === 404) {
-      console.log(`  ⚠️ Source key not found: ${sourceKey} — skipping`);
-      return;
+      throw new Error(`Source key not found in R2: ${sourceKey} — cannot rename a missing file`);
     }
 
     if (!getResponse.ok) {
@@ -116,7 +112,7 @@ async function copyR2Object(
     const bodyBuffer = Buffer.from(await getResponse.arrayBuffer());
 
     // Write to the new key
-    const putResponse = await fetch(copyUrl, {
+    const putResponse = await fetch(destUrl, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -228,11 +224,11 @@ async function main() {
       process.stdout.write(`  [${i + 1}/${needsRename.length}] ${item.id}: ${oldFilename} -> ${newFilename} ... `);
 
       try {
-        // Copy to new key
+        // Step 1: Copy old key to new key in R2
         await copyR2Object(oldKey, newKey, cfToken, cfAccountId, cfBucket);
-        // Delete old key
+        // Step 2: Delete old key (only after copy succeeds)
         await deleteR2Object(oldKey, cfToken, cfAccountId, cfBucket);
-        // Update URL
+        // Step 3: Update URL in JSON (only after both R2 ops succeed)
         const newUrl = `${cfPublicBase}/${newKey}`;
         item.audio = newUrl;
         process.stdout.write('✓\n');
