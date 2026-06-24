@@ -45,9 +45,25 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - run: npm ci
+      # Skip cleanly (green) when the audio secrets aren't configured yet — e.g.
+      # before the user adds them, or on forks. Avoids a spurious red X.
+      - name: Check secrets
+        id: check
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::notice::Audio secrets not configured — skipping generation."
+            echo "has_secrets=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_secrets=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.check.outputs.has_secrets == 'true'
+        run: npm ci
 
       - name: Generate audio
+        if: steps.check.outputs.has_secrets == 'true'
         env:
           # Cloudflare R2 (required for every voice)
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -94,6 +110,7 @@ jobs:
           done
 
       - name: Commit generated audio URLs
+        if: steps.check.outputs.has_secrets == 'true'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
