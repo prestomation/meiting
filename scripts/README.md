@@ -57,7 +57,14 @@ The same script can be run locally if you do have the secrets:
 # Per level AND voice
 npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1 --voice polly-zhiyu
 npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1 --voice elevenlabs-haoran
+
+# Cap NEW syntheses per run while testing (cache hits don't count; 0 = unlimited)
+npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1 --voice elevenlabs-haoran --limit 10
 ```
+
+`--limit N` stops after N new files are synthesized; remaining items are picked
+up on the next run. The workflow exposes this as a `limit` input (default `10`
+while testing) — raise it or set `0` once you're happy.
 
 **Output:** MP3s uploaded to Cloudflare R2. The public URL is written into the
 per-voice `audio` map in `src/data/hsk[N].json`:

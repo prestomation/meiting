@@ -61,13 +61,15 @@ interface ContentItem {
 
 const VOICES = Object.keys(VOICE_RECIPES) as VoiceProvider[];
 
-function parseArgs(): { level: number; voice: VoiceProvider } {
+function parseArgs(): { level: number; voice: VoiceProvider; limit: number } {
   const args = process.argv.slice(2);
 
   const levelIndex = args.indexOf('--level');
   const voiceIndex = args.indexOf('--voice');
   if (levelIndex === -1 || !args[levelIndex + 1] || voiceIndex === -1 || !args[voiceIndex + 1]) {
-    console.error(`Usage: npx ts-node scripts/audio.ts --level <1-9> --voice <${VOICES.join('|')}>`);
+    console.error(
+      `Usage: npx ts-node scripts/audio.ts --level <1-9> --voice <${VOICES.join('|')}> [--limit N]`
+    );
     process.exit(1);
   }
 
@@ -83,7 +85,18 @@ function parseArgs(): { level: number; voice: VoiceProvider } {
     process.exit(1);
   }
 
-  return { level, voice };
+  // Optional cap on NEW syntheses per run (0 = unlimited). Cache hits don't count.
+  let limit = 0;
+  const limitIndex = args.indexOf('--limit');
+  if (limitIndex !== -1) {
+    limit = parseInt(args[limitIndex + 1], 10);
+    if (isNaN(limit) || limit < 0) {
+      console.error('--limit must be a non-negative integer (0 = unlimited)');
+      process.exit(1);
+    }
+  }
+
+  return { level, voice, limit };
 }
 
 // ---- Paths ----
@@ -263,7 +276,7 @@ async function main() {
     process.exit(1);
   }
 
-  const { level, voice } = parseArgs();
+  const { level, voice, limit } = parseArgs();
   const recipe = VOICE_RECIPES[voice];
 
   const dataPath = getDataPath(level);
@@ -304,6 +317,9 @@ async function main() {
   console.log(
     `${needsAudio.length} items need audio for ${voice} (${items.length - needsAudio.length} already current)`
   );
+  if (limit > 0) {
+    console.log(`Limit: at most ${limit} new file(s) will be synthesized this run (cache hits don't count).`);
+  }
 
   if (needsAudio.length === 0) {
     console.log('All items already have current audio. Nothing to do.');
@@ -317,6 +333,10 @@ async function main() {
   let processed = 0;
   let cached = 0;
   let pendingSave = 0;
+  // Slots reserved for synthesis, incremented synchronously before the await so
+  // the limit is enforced exactly even with concurrent workers (no overage).
+  let reserved = 0;
+  let limitReached = false;
 
   const maybeSave = () => {
     pendingSave++;
@@ -330,20 +350,31 @@ async function main() {
     item.audio = { ...(item.audio ?? {}), [voice]: url };
   };
 
-  const processItem = async (item: ContentItem, index: number): Promise<void> => {
+  // Returns true if the item was handled, false if skipped because the synthesis
+  // limit was reached (the caller re-queues it for a future run).
+  const processItem = async (item: ContentItem, index: number): Promise<boolean> => {
     const key = audioCacheKey(voice, item.characters);
-    process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
 
     // Cache ladder step 2: object already in R2 (dup text, or manifest was lost/rebuilt).
+    // Cheap and free — always allowed, never counts against the limit.
     if (await r2ObjectExists(cfg, key)) {
+      process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
       setAudio(item, `${cfg.publicBase.replace(/\/+$/, '')}/${key}`);
       process.stdout.write('♻️  cached\n');
       cached++;
       maybeSave();
-      return;
+      return true;
     }
 
+    // Reserve a synthesis slot (check + increment with no await between → atomic).
+    if (limit > 0 && reserved >= limit) {
+      limitReached = true;
+      return false;
+    }
+    reserved++;
+
     // Cache ladder step 3: synthesize and upload.
+    process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
     const buffer =
       recipe.service === 'polly'
         ? await synthesizePolly(polly!, recipe, item.characters)
@@ -353,6 +384,7 @@ async function main() {
     process.stdout.write('✓\n');
     processed++;
     maybeSave();
+    return true;
   };
 
   // Concurrency queue — workers stop immediately on the first failure.
@@ -361,14 +393,19 @@ async function main() {
 
   const worker = async () => {
     while (true) {
-      if (abort.signal.aborted) break;
+      if (abort.signal.aborted || limitReached) break;
       const idx = queue.shift();
       if (idx === undefined) break;
       if (abort.signal.aborted) {
         queue.unshift(idx);
         break;
       }
-      await processItem(needsAudio[idx], idx);
+      const handled = await processItem(needsAudio[idx], idx);
+      if (!handled) {
+        // Skipped because the synthesis limit was reached — re-queue for next run and stop.
+        queue.unshift(idx);
+        break;
+      }
     }
   };
 
@@ -392,7 +429,12 @@ async function main() {
   }
 
   fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
-  console.log(`\n✅ Done! ${processed} synthesized, ${cached} cache hits.`);
+  if (limitReached) {
+    console.log(`\n🛑 Reached --limit of ${limit} new file(s). ${processed} synthesized, ${cached} cache hits.`);
+    console.log(`   Remaining items will be picked up on the next run.`);
+  } else {
+    console.log(`\n✅ Done! ${processed} synthesized, ${cached} cache hits.`);
+  }
 
   const withAudio = items.filter((item) => item.audio?.[voice]).length;
   console.log(`Final state: ${withAudio}/${items.length} items have ${voice} audio`);

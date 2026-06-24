@@ -25,6 +25,11 @@ on:
         default: 'all'
         type: choice
         options: ['all', 'polly-zhiyu', 'elevenlabs-haoran']
+      limit:
+        description: 'Max NEW files to synthesize per level/voice (0 = unlimited)'
+        required: true
+        default: '10'
+        type: string
 
 # One run per branch; a newer push/dispatch cancels an in-flight run on the same ref.
 concurrency:
@@ -76,9 +81,11 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           # ElevenLabs
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          # Inputs (empty on push → defaults to "all")
+          # Inputs (empty on push → defaults). While testing, cap NEW files per
+          # level/voice to keep credit spend small; set to 0 for unlimited.
           INPUT_LEVEL: ${{ github.event.inputs.level || 'all' }}
           INPUT_VOICE: ${{ github.event.inputs.voice || 'all' }}
+          INPUT_LIMIT: ${{ github.event.inputs.limit || '10' }}
         run: |
           set -euo pipefail
 
@@ -99,12 +106,14 @@ jobs:
 
           echo "Levels: $LEVELS"
           echo "Voices: $VOICES"
+          echo "Per level/voice synthesis limit: $INPUT_LIMIT (0 = unlimited)"
 
           for L in $LEVELS; do
             [ -f "src/data/hsk${L}.json" ] || { echo "skip: hsk${L}.json not found"; continue; }
             for V in $VOICES; do
               echo "::group::HSK $L · $V"
-              npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level "$L" --voice "$V"
+              npx ts-node --project scripts/tsconfig.json scripts/audio.ts \
+                --level "$L" --voice "$V" --limit "$INPUT_LIMIT"
               echo "::endgroup::"
             done
           done
