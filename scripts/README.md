@@ -46,37 +46,66 @@ Run it multiple times safely. It tracks which sentence characters already exist 
 
 ## Generate audio
 
-Generates MP3 audio for each sentence using AWS Polly (Zhiyu neural voice, Mandarin Chinese).
+Audio generation normally runs in **GitHub Actions**, not locally — the
+Cloudflare/AWS/ElevenLabs secrets live in the repo, so development can happen in
+environments that don't hold any secrets. See
+[`.github/workflows/generate-audio.yml`](../.github/workflows/generate-audio.yml).
+
+The same script can be run locally if you do have the secrets:
 
 ```bash
-# HSK 1
-npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1
-
-# HSK 2
-npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 2
+# Per level AND voice
+npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1 --voice polly-zhiyu
+npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1 --voice elevenlabs-haoran
 ```
 
-**Output:** `public/audio/hsk[N]-s-[NNNN].mp3` (one file per sentence)
+**Output:** MP3s uploaded to Cloudflare R2. The public URL is written into the
+per-voice `audio` map in `src/data/hsk[N].json`:
 
-Updates the `audio` field in `src/data/hsk[N].json` to `/audio/{id}.mp3`.
+```json
+"audio": {
+  "polly-zhiyu": "https://pub-xxx.r2.dev/polly-zhiyu-<hash>.mp3",
+  "elevenlabs-haoran": "https://pub-xxx.r2.dev/elevenlabs-haoran-<hash>.mp3"
+}
+```
 
-### How it works
+### Content-addressed caching (never generate the same file twice)
 
-1. Reads `src/data/hsk[N].json`
-2. For each item where `audio` is missing OR the file doesn't exist, calls Polly
-3. Saves the MP3 and updates the JSON immediately (progress preserved on failure)
-4. Uses Zhiyu neural voice (`cmn-CN`) for natural-sounding Mandarin
+The R2 object key is a SHA-256 hash over the voice **recipe** + sentence text
+(see [`scripts/lib/voices.ts`](lib/voices.ts)). The recipe pins every input that
+changes the output bytes — voice, model/engine, output format, **sample rate**,
+voice settings. Consequences:
 
-### Idempotency
+- Identical recipe + text → identical key → permanent cache hit.
+- Any knob changes (e.g. sample rate) → new key → regenerates.
+- Edited sentence text → new key → stale audio auto-invalidated.
+- Duplicate sentences dedupe automatically, even across levels.
 
-Run it multiple times safely. Items with `audio` set AND the file present are skipped entirely.
+Per item the generator: (1) skips if the JSON already records the expected URL;
+(2) else does a cheap R2 `HEAD` and reuses the object if it already exists;
+(3) else synthesizes, uploads, and records the URL. Re-runs are cheap no-ops.
+
+### GitHub Actions workflow
+
+`generate-audio.yml` triggers on pushes that touch `src/data/hsk*.json` (any
+branch) and via manual `workflow_dispatch` (pick a level + voice). It runs the
+generator for the relevant level × voice combinations and commits the updated
+`audio` URLs back to the branch with `[skip ci]`.
+
+**Repo secrets required:** `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`,
+`CLOUDFLARE_R2_PUBLIC_BASE`, `CLOUDFLARE_R2_BUCKET` (optional),
+`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `ELEVENLABS_API_KEY`.
 
 ## File layout
 
 ```
 scripts/
   generate.ts          ← sentence generation script
-  audio.ts             ← audio generation script
+  audio.ts             ← recipe-driven audio generator (--level, --voice)
+  migrate-audio-map.ts ← one-time: string audio → per-voice audio map
+  validate-content.ts  ← CI guard for content data integrity
+  lib/
+    voices.ts          ← voice recipes + content-addressed cache keys
   tsconfig.json        ← TypeScript config for scripts
   README.md            ← this file
   wordlists/
@@ -85,13 +114,10 @@ scripts/
     hsk3.json          ← (add future levels here)
 
 src/data/
-  hsk1.json            ← generated sentence content (HSK 1)
-  hsk2.json            ← generated sentence content (HSK 2)
+  hsk1.json            ← generated sentence content + per-voice audio URLs (HSK 1)
+  hsk2.json            ← generated sentence content + per-voice audio URLs (HSK 2)
 
-public/audio/
-  hsk1-s-0001.mp3      ← generated MP3 files
-  hsk1-s-0002.mp3
-  ...
+# Audio MP3s are hosted on Cloudflare R2, not committed to the repo.
 ```
 
 ## Adding a new HSK level
@@ -104,8 +130,9 @@ public/audio/
    ]
    ```
 2. Run: `npx ts-node --project scripts/tsconfig.json scripts/generate.ts --level N`
-3. Run: `npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level N`
-4. Commit `src/data/hsk[N].json` and `public/audio/hsk[N]-s-*.mp3`
+3. Commit `src/data/hsk[N].json`. Pushing it triggers the **Generate Audio**
+   workflow, which fills in the audio URLs for each voice and commits them back.
+   (Or run `scripts/audio.ts --level N --voice <voice>` locally if you have the secrets.)
 
 ## Cost estimates
 
@@ -120,5 +147,5 @@ Total to generate all HSK 1–6 content: approximately **$20–35** one-time cos
 ## Notes
 
 - Generated content is committed to the repo — no runtime API calls from the app
-- The app serves pre-generated JSON from `src/data/` and MP3s from `public/audio/`
-- Audio files can be large — consider git-lfs for `public/audio/` if the repo grows
+- The app serves pre-generated JSON from `src/data/`; MP3s are served from Cloudflare R2
+- Audio is content-addressed in R2, so identical sentences/voices are never stored twice

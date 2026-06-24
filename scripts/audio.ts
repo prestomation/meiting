@@ -1,37 +1,48 @@
 #!/usr/bin/env ts-node
 /**
- * audio.ts — AWS Polly audio generator for MěiTīng
+ * audio.ts — Recipe-driven audio generator for MěiTīng (Polly + ElevenLabs)
  *
- * Reads src/data/hsk[N].json
- * For each item missing audio, calls AWS Polly (Zhiyu neural voice)
- * Uploads MP3 directly to Cloudflare R2 (meiting-audio bucket)
- * Updates audio field in JSON with public R2 URL
- * Idempotent: skips items that already have an R2 audio URL
+ * Reads src/data/hsk[N].json and, for the selected voice, fills in any missing
+ * audio. Audio is content-addressed: the R2 object key is a hash over the voice
+ * recipe + sentence text (see scripts/lib/voices.ts), so an identical file is
+ * never synthesized twice — across runs, levels, or a lost manifest.
  *
- * Throttle handling: exponential backoff with jitter, up to MAX_RETRIES
+ * Cache ladder, per item:
+ *   1. JSON already records the expected URL → skip (no network).
+ *   2. Object already exists in R2 (HEAD)     → record URL, skip synth.
+ *   3. Otherwise                              → synthesize, upload, record URL.
+ *
+ * Idempotent and resumable: progress is saved periodically and on failure.
  *
  * Usage:
- *   npx ts-node scripts/audio.ts --level 1
- *   npx ts-node scripts/audio.ts --level 2
+ *   npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1 --voice polly-zhiyu
+ *   npx ts-node --project scripts/tsconfig.json scripts/audio.ts --level 1 --voice elevenlabs-haoran
  *
  * Required env vars:
- *   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION  (for Polly)
- *   CLOUDFLARE_API_TOKEN                                   (for R2 upload)
- *   CLOUDFLARE_ACCOUNT_ID                                  (CF account ID)
- *   CLOUDFLARE_R2_PUBLIC_BASE                              (e.g. https://pub-xxx.r2.dev)
- *   CLOUDFLARE_R2_BUCKET                                   (optional, default: meiting-audio)
+ *   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_R2_PUBLIC_BASE   (R2)
+ *   CLOUDFLARE_R2_BUCKET                                  (optional, default: meiting-audio)
+ *   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION  (Polly voices only)
+ *   ELEVENLABS_API_KEY                                    (ElevenLabs voices only)
  */
 
 import {
   PollyClient,
   SynthesizeSpeechCommand,
-  OutputFormat,
-  TextType,
-  VoiceId,
-  Engine,
+  type OutputFormat,
+  type TextType,
+  type VoiceId,
+  type Engine,
+  type LanguageCode,
 } from '@aws-sdk/client-polly';
 import * as fs from 'fs';
 import * as path from 'path';
+import {
+  VOICE_RECIPES,
+  audioCacheKey,
+  type VoiceProvider,
+  type PollyRecipe,
+  type ElevenLabsRecipe,
+} from './lib/voices';
 
 // ---- Types ----
 
@@ -42,37 +53,43 @@ interface ContentItem {
   characters: string;
   pinyin: string;
   english: string;
-  audio?: string;
+  audio?: Partial<Record<VoiceProvider, string>>;
   distractors: string[];
 }
 
 // ---- Args ----
 
-function parseArgs(): { level: number } {
+const VOICES = Object.keys(VOICE_RECIPES) as VoiceProvider[];
+
+function parseArgs(): { level: number; voice: VoiceProvider } {
   const args = process.argv.slice(2);
+
   const levelIndex = args.indexOf('--level');
-  if (levelIndex === -1 || !args[levelIndex + 1]) {
-    console.error('Usage: npx ts-node scripts/audio.ts --level <1-9>');
+  const voiceIndex = args.indexOf('--voice');
+  if (levelIndex === -1 || !args[levelIndex + 1] || voiceIndex === -1 || !args[voiceIndex + 1]) {
+    console.error(`Usage: npx ts-node scripts/audio.ts --level <1-9> --voice <${VOICES.join('|')}>`);
     process.exit(1);
   }
+
   const level = parseInt(args[levelIndex + 1], 10);
   if (isNaN(level) || level < 1 || level > 9) {
     console.error('Level must be between 1 and 9');
     process.exit(1);
   }
-  return { level };
+
+  const voice = args[voiceIndex + 1] as VoiceProvider;
+  if (!VOICES.includes(voice)) {
+    console.error(`Unknown voice "${voice}". Valid voices: ${VOICES.join(', ')}`);
+    process.exit(1);
+  }
+
+  return { level, voice };
 }
 
 // ---- Paths ----
 
 function getDataPath(level: number): string {
   return path.resolve(__dirname, '..', 'src', 'data', `hsk${level}.json`);
-}
-
-function getAudioR2Key(id: string): string {
-  // Sanitize ID: only allow alphanumeric, hyphen, underscore — prevent path traversal
-  const safe = id.replace(/[^a-zA-Z0-9\-_]/g, '_');
-  return `${safe}.mp3`;
 }
 
 // ---- Retry with exponential backoff ----
@@ -87,18 +104,16 @@ function isThrottleError(err: any): boolean {
     err?.Code === 'ThrottlingException' ||
     err?.$metadata?.httpStatusCode === 429 ||
     (err?.message ?? '').toLowerCase().includes('throttl') ||
-    (err?.message ?? '').toLowerCase().includes('rate exceeded')
+    (err?.message ?? '').toLowerCase().includes('rate exceeded') ||
+    (err?.message ?? '').toLowerCase().includes('rate limit')
   );
 }
 
 /**
- * Retry fn up to MAX_RETRIES times total.
- * Throttle errors use longer exponential backoff.
- * All other errors use shorter backoff.
+ * Retry fn up to MAX_RETRIES times total. Throttle errors use longer backoff.
  * After MAX_RETRIES attempts, throws — never silently skips.
  */
 async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
-  // attempt counts from 0; we allow attempts 0..MAX_RETRIES-1 (MAX_RETRIES total)
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
       return await fn();
@@ -114,11 +129,10 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
       await new Promise((r) => setTimeout(r, delay));
     }
   }
-  // TypeScript needs this — the loop above always returns or throws
   throw new Error(`${label}: unreachable`);
 }
 
-// ---- R2 upload via Cloudflare API ----
+// ---- Env ----
 
 function getRequiredEnv(name: string): string {
   const val = process.env[name];
@@ -126,21 +140,44 @@ function getRequiredEnv(name: string): string {
   return val;
 }
 
-async function uploadToR2(
-  key: string,
-  buffer: Buffer,
-  token: string,
-  accountId: string,
-  bucket: string,
-  publicBase: string,
-): Promise<string> {
-  const uploadUrl = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${bucket}/objects/${key}`;
+// ---- R2 operations ----
 
+interface R2Config {
+  token: string;
+  accountId: string;
+  bucket: string;
+  publicBase: string;
+}
+
+function r2ObjectUrl(cfg: R2Config, key: string): string {
+  return `https://api.cloudflare.com/client/v4/accounts/${cfg.accountId}/r2/buckets/${cfg.bucket}/objects/${key}`;
+}
+
+/** True if the object already exists in R2 (cache hit), false if absent. */
+async function r2ObjectExists(cfg: R2Config, key: string): Promise<boolean> {
+  return withRetry(async (): Promise<boolean> => {
+    const r = await fetch(r2ObjectUrl(cfg, key), {
+      method: 'HEAD',
+      headers: { Authorization: `Bearer ${cfg.token}` },
+    });
+    await r.body?.cancel();
+    if (r.status === 200) return true;
+    if (r.status === 404) return false;
+    if (r.status === 429) {
+      const err: any = new Error('R2 rate limit');
+      err.name = 'ThrottlingException';
+      throw err;
+    }
+    throw new Error(`R2 HEAD failed for ${key}: HTTP ${r.status} (${r.statusText})`);
+  }, `R2-HEAD:${key}`);
+}
+
+async function uploadToR2(cfg: R2Config, key: string, buffer: Buffer): Promise<string> {
   await withRetry(async (): Promise<void> => {
-    const r = await fetch(uploadUrl, {
+    const r = await fetch(r2ObjectUrl(cfg, key), {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${cfg.token}`,
         'Content-Type': 'audio/mpeg',
       },
       body: buffer,
@@ -151,36 +188,32 @@ async function uploadToR2(
       throw err;
     }
     if (!r.ok) {
-      await r.body?.cancel(); // drain/release the connection
-      throw new Error(`R2 upload failed: HTTP ${r.status} (${r.statusText})`);
+      await r.body?.cancel();
+      throw new Error(`R2 upload failed for ${key}: HTTP ${r.status} (${r.statusText})`);
     }
-    await r.body?.cancel(); // drain response body to release connection
-  }, `R2:${key}`);
+    await r.body?.cancel();
+  }, `R2-PUT:${key}`);
 
-  return `${publicBase}/${key}`;
+  return `${cfg.publicBase.replace(/\/+$/, '')}/${key}`;
 }
 
-// ---- Polly synthesize to buffer ----
+// ---- Synthesis (dispatched on the recipe's service) ----
 
-async function synthesizeToBuffer(
-  polly: PollyClient,
-  text: string,
-): Promise<Buffer> {
+async function synthesizePolly(polly: PollyClient, recipe: PollyRecipe, text: string): Promise<Buffer> {
   const command = new SynthesizeSpeechCommand({
     Text: text,
-    TextType: TextType.TEXT,
-    OutputFormat: OutputFormat.MP3,
-    VoiceId: VoiceId.Zhiyu,
-    Engine: Engine.NEURAL,
-    LanguageCode: 'cmn-CN',
+    TextType: recipe.textType as TextType,
+    OutputFormat: recipe.outputFormat as OutputFormat,
+    VoiceId: recipe.voiceId as VoiceId,
+    Engine: recipe.engine as Engine,
+    LanguageCode: recipe.languageCode as LanguageCode,
+    SampleRate: recipe.sampleRate,
   });
 
   const response = await withRetry(() => polly.send(command), `Polly:${text.slice(0, 20)}`);
-
   if (!response.AudioStream) {
     throw new Error('No audio stream returned from Polly');
   }
-
   const chunks: Uint8Array[] = [];
   for await (const chunk of response.AudioStream as AsyncIterable<Uint8Array>) {
     chunks.push(chunk);
@@ -188,21 +221,52 @@ async function synthesizeToBuffer(
   return Buffer.concat(chunks);
 }
 
+async function synthesizeElevenLabs(recipe: ElevenLabsRecipe, apiKey: string, text: string): Promise<Buffer> {
+  const url =
+    `https://api.elevenlabs.io/v1/text-to-speech/${recipe.voiceId}` +
+    `?output_format=${encodeURIComponent(recipe.outputFormat)}`;
 
+  const response = await withRetry(async () => {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'xi-api-key': apiKey,
+        'Content-Type': 'application/json',
+        Accept: 'audio/mpeg',
+      },
+      body: JSON.stringify({
+        text,
+        model_id: recipe.modelId,
+        voice_settings: recipe.voiceSettings,
+      }),
+    });
+    if (r.status === 429) {
+      const err: any = new Error('ElevenLabs rate limit');
+      err.name = 'ThrottlingException';
+      throw err;
+    }
+    if (!r.ok) {
+      const body = await r.text();
+      throw new Error(`ElevenLabs TTS failed: HTTP ${r.status} (${r.statusText}): ${body.slice(0, 200)}`);
+    }
+    return r;
+  }, `ElevenLabs:${text.slice(0, 20)}`);
+
+  return Buffer.from(await response.arrayBuffer());
+}
 
 // ---- Main ----
 
 async function main() {
-  // fetch is built-in from Node.js 18+; fail fast if not available
   if (typeof fetch === 'undefined') {
     console.error('❌ fetch is not available. Requires Node.js 18 or later.');
     process.exit(1);
   }
 
-  const { level } = parseArgs();
+  const { level, voice } = parseArgs();
+  const recipe = VOICE_RECIPES[voice];
 
   const dataPath = getDataPath(level);
-  // Load data
   if (!fs.existsSync(dataPath)) {
     console.error(`Data file not found: ${dataPath}`);
     console.error('Run generate.ts first to create the data file.');
@@ -210,47 +274,50 @@ async function main() {
   }
 
   const items: ContentItem[] = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  console.log(`Loaded ${items.length} items from HSK ${level} data`);
+  console.log(`Loaded ${items.length} items from HSK ${level} data (voice: ${voice})`);
 
-  // Ensure audio directory exists
-  // Find items that need audio — skip items already pointing at R2
+  // Validate R2 credentials (always needed) and service-specific credentials.
+  const cfg: R2Config = {
+    token: getRequiredEnv('CLOUDFLARE_API_TOKEN'),
+    accountId: getRequiredEnv('CLOUDFLARE_ACCOUNT_ID'),
+    publicBase: getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE'),
+    bucket: process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio',
+  };
+
+  let polly: PollyClient | undefined;
+  let elevenApiKey: string | undefined;
+  if (recipe.service === 'polly') {
+    getRequiredEnv('AWS_ACCESS_KEY_ID');
+    getRequiredEnv('AWS_SECRET_ACCESS_KEY');
+    polly = new PollyClient({ region: process.env.AWS_REGION || 'us-east-1' });
+  } else {
+    elevenApiKey = getRequiredEnv('ELEVENLABS_API_KEY');
+  }
+  console.log('Credentials validated ✓');
+
+  // Fast-path skip: items whose JSON already records the expected (content-addressed) URL.
   const needsAudio = items.filter((item) => {
-    if (!item.audio) return true;
-    // Already has an R2 URL — skip
-    if (item.audio.includes('r2.dev') || item.audio.includes('r2.cloudflarestorage')) return false;
-    return true;
+    const expectedUrl = `${cfg.publicBase.replace(/\/+$/, '')}/${audioCacheKey(voice, item.characters)}`;
+    return item.audio?.[voice] !== expectedUrl;
   });
 
   console.log(
-    `${needsAudio.length} items need audio (${items.length - needsAudio.length} already have it)`
+    `${needsAudio.length} items need audio for ${voice} (${items.length - needsAudio.length} already current)`
   );
 
   if (needsAudio.length === 0) {
-    console.log('All items already have audio. Nothing to do.');
+    console.log('All items already have current audio. Nothing to do.');
     return;
   }
 
-  // Validate all required credentials upfront — fail fast before any API calls
-  const cfToken = getRequiredEnv('CLOUDFLARE_API_TOKEN');
-  const cfAccountId = getRequiredEnv('CLOUDFLARE_ACCOUNT_ID');
-  const cfPublicBase = getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE');
-  const cfBucket = process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio';
-  getRequiredEnv('AWS_ACCESS_KEY_ID');
-  getRequiredEnv('AWS_SECRET_ACCESS_KEY');
-  console.log('Credentials validated ✓');
-
-  // Initialize Polly client
-  const polly = new PollyClient({
-    region: process.env.AWS_REGION || 'us-east-1',
-  });
-
-  const CONCURRENCY = 5; // parallel Polly calls
-  const SAVE_INTERVAL = 20; // write JSON every N completions
+  // ElevenLabs has stricter rate limits than Polly.
+  const CONCURRENCY = recipe.service === 'elevenlabs' ? 2 : 5;
+  const SAVE_INTERVAL = 20;
 
   let processed = 0;
+  let cached = 0;
   let pendingSave = 0;
 
-  // Save helper — debounced by SAVE_INTERVAL
   const maybeSave = () => {
     pendingSave++;
     if (pendingSave >= SAVE_INTERVAL) {
@@ -259,21 +326,36 @@ async function main() {
     }
   };
 
-  // Worker: synthesize via Polly, upload to R2, update item
-  // Throws on failure — no silent skips allowed
+  const setAudio = (item: ContentItem, url: string) => {
+    item.audio = { ...(item.audio ?? {}), [voice]: url };
+  };
+
   const processItem = async (item: ContentItem, index: number): Promise<void> => {
-    const key = getAudioR2Key(item.id);
+    const key = audioCacheKey(voice, item.characters);
     process.stdout.write(`[${index + 1}/${needsAudio.length}] ${item.id}: ${item.characters.slice(0, 15)} ... `);
-    const buffer = await synthesizeToBuffer(polly, item.characters);
-    const url = await uploadToR2(key, buffer, cfToken, cfAccountId, cfBucket, cfPublicBase);
-    item.audio = url;
+
+    // Cache ladder step 2: object already in R2 (dup text, or manifest was lost/rebuilt).
+    if (await r2ObjectExists(cfg, key)) {
+      setAudio(item, `${cfg.publicBase.replace(/\/+$/, '')}/${key}`);
+      process.stdout.write('♻️  cached\n');
+      cached++;
+      maybeSave();
+      return;
+    }
+
+    // Cache ladder step 3: synthesize and upload.
+    const buffer =
+      recipe.service === 'polly'
+        ? await synthesizePolly(polly!, recipe, item.characters)
+        : await synthesizeElevenLabs(recipe, elevenApiKey!, item.characters);
+    const url = await uploadToR2(cfg, key, buffer);
+    setAudio(item, url);
     process.stdout.write('✓\n');
     processed++;
     maybeSave();
   };
 
-  // Concurrency queue — workers pull from a shared queue of indices
-  // Uses a shared AbortController so all workers stop immediately on first failure
+  // Concurrency queue — workers stop immediately on the first failure.
   const abort = new AbortController();
   const queue: number[] = needsAudio.map((_, i) => i);
 
@@ -283,7 +365,7 @@ async function main() {
       const idx = queue.shift();
       if (idx === undefined) break;
       if (abort.signal.aborted) {
-        queue.unshift(idx); // put it back — another run can retry
+        queue.unshift(idx);
         break;
       }
       await processItem(needsAudio[idx], idx);
@@ -291,33 +373,30 @@ async function main() {
   };
 
   try {
-    await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
-      try {
-        await worker();
-      } catch (err) {
-        abort.abort(); // Signal all other workers to stop
-        throw err;     // Re-throw so Promise.all rejects
-      }
-    }));
+    await Promise.all(
+      Array.from({ length: CONCURRENCY }, async () => {
+        try {
+          await worker();
+        } catch (err) {
+          abort.abort();
+          throw err;
+        }
+      })
+    );
   } catch (err) {
-    // Save progress for items that succeeded before the failure
     fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
     console.error(`\n\n❌ Audio generation failed: ${(err as Error).message}`);
-    console.error(`   ${processed} items succeeded before failure.`);
+    console.error(`   ${processed} synthesized, ${cached} cache hits before failure.`);
     console.error(`   Saved progress. Fix the issue and rerun to continue from where it left off.`);
     process.exit(1);
   }
 
-  console.log(`\n✅ Done! All ${processed} items processed successfully.`);
-
-  // Final save
   fs.writeFileSync(dataPath, JSON.stringify(items, null, 2), 'utf-8');
+  console.log(`\n✅ Done! ${processed} synthesized, ${cached} cache hits.`);
 
-  // Summary
-  const withAudio = items.filter((item) => item.audio).length;
-  console.log(`\nFinal state: ${withAudio}/${items.length} items have audio`);
-
-  console.log(`Audio hosted at: ${cfPublicBase}/`);
+  const withAudio = items.filter((item) => item.audio?.[voice]).length;
+  console.log(`Final state: ${withAudio}/${items.length} items have ${voice} audio`);
+  console.log(`Audio hosted at: ${cfg.publicBase}/`);
 }
 
 main().catch((err) => {

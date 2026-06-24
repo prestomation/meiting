@@ -1,5 +1,7 @@
 // Shared domain types used across multiple modules
 
+import type { VoiceProvider } from './storage'
+
 export interface ContentItem {
   id: string
   hsk: number
@@ -7,6 +9,8 @@ export interface ContentItem {
   characters: string
   pinyin: string
   english: string
-  audio?: string
+  // Audio URLs keyed by voice provider, e.g. { 'polly-zhiyu': url, 'elevenlabs-haoran': url }.
+  // Partial: a voice is present only once its audio has been generated.
+  audio?: Partial<Record<VoiceProvider, string>>
   distractors: string[]
 }

@@ -24,20 +24,21 @@ import {
 } from '../lib/storage'
 import type { ContentItem } from '../lib/types'
 import hsk1Data from '../data/hsk1.json'
-import hsk1HaoranData from '../data/hsk1-haoran.json'
 import hsk2Data from '../data/hsk2.json'
-import { getVoiceProvider, type VoiceProvider } from '../lib/storage'
+import { getVoiceProvider } from '../lib/storage'
 import './Session.css'
 
-const HSK_DATA: Record<number, Record<VoiceProvider, ContentItem[]>> = {
-  1: {
-    'polly-zhiyu': hsk1Data as ContentItem[],
-    'elevenlabs-haoran': hsk1HaoranData as ContentItem[],
-  },
-  2: {
-    'polly-zhiyu': hsk2Data as ContentItem[],
-    'elevenlabs-haoran': hsk2Data as ContentItem[], // fallback until Haoran HSK2 is generated
-  },
+const HSK_DATA: Record<number, ContentItem[]> = {
+  1: hsk1Data as ContentItem[],
+  2: hsk2Data as ContentItem[],
+}
+
+const DEFAULT_VOICE = 'polly-zhiyu' as const
+
+// Resolve the audio URL for an item using the selected voice, falling back to
+// the default voice when the chosen voice hasn't been generated for this item.
+function resolveAudioUrl(item: ContentItem): string | undefined {
+  return item.audio?.[getVoiceProvider()] ?? item.audio?.[DEFAULT_VOICE]
 }
 
 type Phase = 'start' | 'playing' | 'answered' | 'complete' | 'batch-complete'
@@ -65,9 +66,10 @@ function playItem(
   audioRef: React.MutableRefObject<HTMLAudioElement | null>,
   rate: number = 1,
 ) {
-  if (!item.audio) return // No audio available — silent skip
+  const url = resolveAudioUrl(item)
+  if (!url) return // No audio available — silent skip
   stopActiveAudio(audioRef)
-  const audio = new Audio(item.audio)
+  const audio = new Audio(url)
   audio.playbackRate = rate
   audioRef.current = audio
   audio.play().catch(() => {
@@ -196,8 +198,9 @@ export default function Session() {
 
     for (let i = 1; i <= PREFETCH_AHEAD; i++) {
       const nextItem = items[currentIndex + i]
-      if (!nextItem?.audio) continue
-      const url = nextItem.audio
+      if (!nextItem) continue
+      const url = resolveAudioUrl(nextItem)
+      if (!url) continue
       // Reuse existing prefetched element if already loaded
       const existing = prefetchCache.current.get(url)
       if (existing) {
@@ -223,12 +226,13 @@ export default function Session() {
     if (phase !== 'playing' || !currentItem) return
     const t = setTimeout(() => {
       // Use prefetched Audio element if available, otherwise create fresh
-      if (currentItem.audio) {
-        const cached = prefetchCache.current.get(currentItem.audio)
+      const url = resolveAudioUrl(currentItem)
+      if (url) {
+        const cached = prefetchCache.current.get(url)
         if (cached) {
           // Remove from cache before making it the active element
           // so prefetch cleanup never nulls out a playing audio
-          prefetchCache.current.delete(currentItem.audio)
+          prefetchCache.current.delete(url)
           stopActiveAudio(audioRef)
           cached.playbackRate = playbackRateRef.current
           cached.currentTime = 0
@@ -262,8 +266,7 @@ export default function Session() {
 
   function startSession() {
     if (isRestoringRef.current) return
-    const voice = getVoiceProvider()
-    const allData = HSK_DATA[hskLevel]?.[voice] ?? HSK_DATA[hskLevel]?.['polly-zhiyu'] ?? []
+    const allData = HSK_DATA[hskLevel] ?? []
     if (allData.length === 0) return
 
     const batchSize = getBatchSize()
@@ -461,7 +464,7 @@ export default function Session() {
             )}
           </div>
           <p className="start-hint">
-            {HSK_DATA[hskLevel]?.['polly-zhiyu']?.length ?? 0} sentences · Audio plays automatically
+            {HSK_DATA[hskLevel]?.length ?? 0} sentences · Audio plays automatically
           </p>
           <button className="btn-primary btn-large" onClick={startSession}>
             Start Session ▶
@@ -478,7 +481,7 @@ export default function Session() {
     const total = items.length
     const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0
     const streak = getStreakDays()
-    const allLevelData = HSK_DATA[hskLevel]?.['polly-zhiyu'] ?? []
+    const allLevelData = HSK_DATA[hskLevel] ?? []
     const seenCount = getSeenIds(hskLevel).size
     const totalCount = allLevelData.length
     const seenPct = totalCount > 0 ? (seenCount / totalCount) * 100 : 0
@@ -531,7 +534,7 @@ export default function Session() {
 
   if (phase === 'complete') {
     // Level truly complete — no unseen items, no reviews due
-    const allLevelData = HSK_DATA[hskLevel]?.['polly-zhiyu'] ?? []
+    const allLevelData = HSK_DATA[hskLevel] ?? []
     const totalCount = allLevelData.length
     const streak = getStreakDays()
     return (
