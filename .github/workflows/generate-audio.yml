@@ -10,7 +10,10 @@ name: Generate Audio
 on:
   push:
     paths:
-      - 'src/data/hsk*.json'   # fires on any branch when sentence data changes
+      - 'src/data/hsk*.json'                  # sentence data changed
+      - 'scripts/lib/voices.ts'               # recipe changed → new CAS keys → may regenerate
+      - 'scripts/audio.ts'                     # generator changed
+      - '.github/workflows/generate-audio.yml' # this workflow changed
   workflow_dispatch:
     inputs:
       level:
