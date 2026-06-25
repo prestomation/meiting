@@ -3,6 +3,14 @@
 > Plan to generate the next HSK level (HSK 3) for MěiTīng. HSK 1 and HSK 2 are
 > already shipped; HSK 3 is the next level to add.
 
+## Status
+
+- [x] Wordlist (already authoritative, 973 words)
+- [x] Sentences generated — **1,909 sentences** via the subagent pipeline (98.8% vocab pass rate)
+- [x] HSK 3 registered in the app (Settings / Session / Stats)
+- [x] Build + 62 unit tests green
+- [ ] **Audio** — run the Generate Audio workflow (`level: 3, voice: all, limit: 0`); CI content-validation is red until these URLs are committed back
+
 ## Current state
 
 | Level | Wordlist | Sentence data (`src/data`) | Audio | App-registered |
@@ -20,14 +28,16 @@ vocabulary-validation rejects and dedupe (HSK 2 yielded ~1.8 sentences/word).
 
 ## How the pipeline works (recap)
 
-1. `scripts/generate.ts --level 3` reads `wordlists/hsk3.json`, asks Claude
-   (haiku-4-5) for 2 sentences per word in batches of 50, and validates every
-   sentence against the **cumulative** allowed-character set for levels 1–3
-   (`vocab.ts → buildAllowedChars(3)`). Length limit for HSK 3 is **16 chars**.
-   Out-of-vocabulary or too-long sentences are rejected, with one retry per
-   failed word. It writes `src/data/hsk3.json`, assigns IDs (`hsk3-s-0001…`),
-   and picks 3 phonetic distractors per sentence from the level pool.
-   Idempotent — safe to re-run; it skips sentences already in the file.
+1. **Sentence generation is subagent-driven — no API key.**
+   `scripts/emit-batches.ts --level 3` splits `wordlists/hsk3.json` into 50-word
+   batches and writes one prompt per batch under `scripts/.work/hsk3/`. Claude
+   Code runs each prompt through a subagent (these replace the old Anthropic API
+   call), saving a JSON array to the matching `raw/batch-NN.json`.
+   `scripts/assemble.ts --level 3` then validates every sentence against the
+   **cumulative** allowed-character set for levels 1–3 (`vocab.ts →
+   buildAllowedChars(3)`, limit **16 chars**), drops out-of-vocab/too-long ones,
+   dedupes, assigns IDs (`hsk3-s-0001…`), and picks 3 phonetic distractors per
+   sentence. Idempotent — safe to re-run; it skips sentences already in the file.
 2. Pushing `src/data/hsk3.json` triggers the **Generate Audio** workflow, which
    synthesizes Polly + ElevenLabs MP3s, uploads them to Cloudflare R2
    (content-addressed), and commits the `audio` URL map back to the branch.
