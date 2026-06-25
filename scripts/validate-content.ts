@@ -22,7 +22,7 @@ import type { VoiceProvider } from './lib/voices';
 
 const DATA_DIR = path.resolve(__dirname, '..', 'src', 'data');
 const R2_URL_PREFIX = 'https://pub-';
-const DEFAULT_VOICE: VoiceProvider = 'polly-zhiyu';
+const DEFAULT_VOICE: VoiceProvider = 'elevenlabs-haoran';
 
 interface ContentItem {
   id: string;

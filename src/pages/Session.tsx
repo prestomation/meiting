@@ -33,7 +33,7 @@ const HSK_DATA: Record<number, ContentItem[]> = {
   2: hsk2Data as ContentItem[],
 }
 
-const DEFAULT_VOICE = 'polly-zhiyu' as const
+const DEFAULT_VOICE = 'elevenlabs-haoran' as const
 
 // Resolve the audio URL for an item using the selected voice, falling back to
 // the default voice when the chosen voice hasn't been generated for this item.

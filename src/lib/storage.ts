@@ -258,14 +258,14 @@ export function setBatchSize(n: number): void {
 export type VoiceProvider = 'polly-zhiyu' | 'elevenlabs-haoran'
 
 export const VOICE_OPTIONS: { id: VoiceProvider; label: string; description: string }[] = [
-  { id: 'polly-zhiyu', label: 'Zhiyu', description: 'Female · Clear & professional (Polly Neural)' },
   { id: 'elevenlabs-haoran', label: 'Haoran', description: 'Male · Deep & calm (ElevenLabs)' },
+  { id: 'polly-zhiyu', label: 'Zhiyu', description: 'Female · Clear & professional (Polly Neural)' },
 ]
 
 export function getVoiceProvider(): VoiceProvider {
   const stored = getStorage(KEYS.VOICE_PROVIDER)
   if (stored === 'polly-zhiyu' || stored === 'elevenlabs-haoran') return stored
-  return 'polly-zhiyu' // default
+  return 'elevenlabs-haoran' // default
 }
 
 export function setVoiceProvider(voice: VoiceProvider): void {
