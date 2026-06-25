@@ -130,7 +130,8 @@ jobs:
             echo "No audio changes to commit."
             exit 0
           fi
-          # [skip ci] keeps the test workflow from re-running on this bot commit.
-          # (Pushes by GITHUB_TOKEN don't re-trigger this workflow, so there's no loop.)
-          git commit -m "chore: generate audio [skip ci]"
+          # No [skip ci]: pushes made with GITHUB_TOKEN don't trigger GitHub Actions
+          # (so no generate-audio/test loop), but Cloudflare Pages DOES watch every
+          # push — we want it to deploy the newly generated audio to the preview.
+          git commit -m "chore: generate audio"
           git push origin "HEAD:${GITHUB_REF_NAME}"
