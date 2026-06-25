@@ -12,7 +12,8 @@
       "马上吃饭。"
     ],
     "audio": {
-      "polly-zhiyu": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/hsk1-s-0001.mp3"
+      "polly-zhiyu": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/hsk1-s-0001.mp3",
+      "elevenlabs-haoran": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/elevenlabs-haoran-1425e2d827d5c79d.mp3"
     }
   },
   {
@@ -28,7 +29,8 @@
       "这个很白。"
     ],
     "audio": {
-      "polly-zhiyu": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/hsk1-s-0002.mp3"
+      "polly-zhiyu": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/hsk1-s-0002.mp3",
+      "elevenlabs-haoran": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/elevenlabs-haoran-c182aadd8a379752.mp3"
     }
   },
   {
@@ -44,7 +46,8 @@
       "我的女朋友很好。"
     ],
     "audio": {
-      "polly-zhiyu": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/hsk1-s-0003.mp3"
+      "polly-zhiyu": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/hsk1-s-0003.mp3",
+      "elevenlabs-haoran": "https://pub-8a634995dd094be9868574d25ca7dcd9.r2.dev/elevenlabs-haoran-366fd15510dc03ba.mp3"
     }
   },
   {
