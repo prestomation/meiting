@@ -25,12 +25,14 @@ import {
 import type { ContentItem } from '../lib/types'
 import hsk1Data from '../data/hsk1.json'
 import hsk2Data from '../data/hsk2.json'
+import hsk3Data from '../data/hsk3.json'
 import { getVoiceProvider } from '../lib/storage'
 import './Session.css'
 
 const HSK_DATA: Record<number, ContentItem[]> = {
   1: hsk1Data as ContentItem[],
   2: hsk2Data as ContentItem[],
+  3: hsk3Data as ContentItem[],
 }
 
 const DEFAULT_VOICE = 'elevenlabs-haoran' as const

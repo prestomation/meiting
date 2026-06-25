@@ -1,11 +1,13 @@
 import { getStreakDays, getSessionHistory, getSeenIds } from '../lib/storage'
 import hsk1Data from '../data/hsk1.json'
 import hsk2Data from '../data/hsk2.json'
+import hsk3Data from '../data/hsk3.json'
 import './Stats.css'
 
 const HSK_TOTALS: Record<number, number> = {
   1: (hsk1Data as { id: string }[]).length,
   2: (hsk2Data as { id: string }[]).length,
+  3: (hsk3Data as { id: string }[]).length,
 }
 
 export default function Stats() {
