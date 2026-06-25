@@ -9,7 +9,7 @@
  *
  * Cache ladder, per item:
  *   1. JSON already records the expected URL → skip (no network).
- *   2. Object already exists in R2 (HEAD)     → record URL, skip synth.
+ *   2. Object already exists in R2 (GET probe) → record URL, skip synth.
  *   3. Otherwise                              → synthesize, upload, record URL.
  *
  * Idempotent and resumable: progress is saved periodically and on failure.
@@ -174,29 +174,33 @@ function r2ObjectUrl(cfg: R2Config, key: string): string {
 /** True if the object already exists in R2 (cache hit), false if absent. */
 async function r2ObjectExists(cfg: R2Config, key: string): Promise<boolean> {
   return withRetry(async (): Promise<boolean> => {
+    // Use GET with a 1-byte Range instead of HEAD: HEAD is not a documented
+    // method on the Cloudflare R2 REST object endpoint and the origin returns a
+    // deterministic 405 for some keys. `Range: bytes=0-0` downloads at most one
+    // byte, so this stays cheap while using a supported method.
     const r = await fetch(r2ObjectUrl(cfg, key), {
-      method: 'HEAD',
-      headers: { Authorization: `Bearer ${cfg.token}` },
+      method: 'GET',
+      headers: { Authorization: `Bearer ${cfg.token}`, Range: 'bytes=0-0' },
     });
     await r.body?.cancel();
-    if (r.status === 200) return true;
+    // 206 Partial Content (range honored), 200 (range ignored), or 416 (object
+    // exists but is empty / range unsatisfiable) all mean the object is present.
+    if (r.status === 200 || r.status === 206 || r.status === 416) return true;
     if (r.status === 404) return false;
-    // Transient / rate-limit statuses — including 405, which the Cloudflare R2
-    // edge has been observed to return when the API is throttled under load.
-    // Retry these with exponential backoff; NEVER treat a failed check as
-    // "absent" (that could silently skip a real cache hit and re-synthesize).
-    // After MAX_RETRIES, withRetry throws and the run hard-fails.
+    // Transient / rate-limit statuses — retry with exponential backoff; NEVER
+    // treat a failed check as "absent" (that could silently skip a real cache
+    // hit and re-synthesize). After MAX_RETRIES, withRetry throws → hard fail.
     if (r.status === 405 || r.status === 408 || r.status === 425 || r.status === 429 || r.status >= 500) {
-      const err: any = new Error(`R2 HEAD throttled for ${key}: HTTP ${r.status} (${r.statusText})`);
+      const err: any = new Error(`R2 GET-probe throttled for ${key}: HTTP ${r.status} (${r.statusText})`);
       err.name = 'ThrottlingException'; // use the longer throttle backoff
       throw err;
     }
     // Genuinely permanent (e.g. 401/403 bad token/permissions, 400 bad request)
     // — won't fix on retry, so hard-fail immediately rather than spin.
-    const err: any = new Error(`R2 HEAD failed for ${key}: HTTP ${r.status} (${r.statusText})`);
+    const err: any = new Error(`R2 GET-probe failed for ${key}: HTTP ${r.status} (${r.statusText})`);
     err.noRetry = true;
     throw err;
-  }, `R2-HEAD:${key}`);
+  }, `R2-GET-probe:${key}`);
 }
 
 async function uploadToR2(cfg: R2Config, key: string, buffer: Buffer): Promise<string> {
