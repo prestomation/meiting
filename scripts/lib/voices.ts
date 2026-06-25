@@ -109,3 +109,32 @@ export function audioCacheKey(voice: VoiceProvider, text: string): string {
 export function audioCacheUrl(voice: VoiceProvider, text: string, publicBase: string): string {
   return `${publicBase.replace(/\/+$/, '')}/${audioCacheKey(voice, text)}`;
 }
+
+/** True if `url`'s filename is a content-addressed key this voice's generator would produce. */
+export function isCasUrl(url: string, voice: VoiceProvider): boolean {
+  const file = url.split('/').pop() ?? '';
+  return new RegExp(`^${voice}-[0-9a-f]{${HASH_LEN}}\\.mp3$`).test(file);
+}
+
+/**
+ * Whether the recorded audio URL is up to date for the given text, deciding if
+ * the generator should (re)synthesize:
+ *   - no URL                              → not current (generate)
+ *   - matches the expected CAS URL        → current (skip)
+ *   - a CAS URL for this voice, but stale → not current (text/recipe changed → regenerate)
+ *   - any other (legacy, non-CAS) URL     → current (respected as-is, no needless re-synthesis)
+ *
+ * The last case is what preserves existing pre-CAS audio (e.g. migrated Polly
+ * URLs) instead of regenerating it.
+ */
+export function audioIsCurrent(
+  url: string | undefined,
+  voice: VoiceProvider,
+  text: string,
+  publicBase: string,
+): boolean {
+  if (!url) return false;
+  if (url === audioCacheUrl(voice, text, publicBase)) return true;
+  if (isCasUrl(url, voice)) return false; // CAS-managed but no longer matches → stale
+  return true; // legacy / externally-named URL — leave it alone
+}

@@ -39,6 +39,7 @@ import * as path from 'path';
 import {
   VOICE_RECIPES,
   audioCacheKey,
+  audioIsCurrent,
   type VoiceProvider,
   type PollyRecipe,
   type ElevenLabsRecipe,
@@ -308,11 +309,12 @@ async function main() {
   }
   console.log('Credentials validated ✓');
 
-  // Fast-path skip: items whose JSON already records the expected (content-addressed) URL.
-  const needsAudio = items.filter((item) => {
-    const expectedUrl = `${cfg.publicBase.replace(/\/+$/, '')}/${audioCacheKey(voice, item.characters)}`;
-    return item.audio?.[voice] !== expectedUrl;
-  });
+  // Fast-path skip: items whose JSON already records up-to-date audio for this
+  // voice. Legacy (pre-CAS) URLs are respected; only missing or stale CAS-managed
+  // audio is (re)generated.
+  const needsAudio = items.filter(
+    (item) => !audioIsCurrent(item.audio?.[voice], voice, item.characters, cfg.publicBase)
+  );
 
   console.log(
     `${needsAudio.length} items need audio for ${voice} (${items.length - needsAudio.length} already current)`
