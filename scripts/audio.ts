@@ -181,13 +181,20 @@ async function r2ObjectExists(cfg: R2Config, key: string): Promise<boolean> {
     await r.body?.cancel();
     if (r.status === 200) return true;
     if (r.status === 404) return false;
-    if (r.status === 429) {
-      const err: any = new Error('R2 rate limit');
-      err.name = 'ThrottlingException';
+    // Transient / rate-limit statuses — including 405, which the Cloudflare R2
+    // edge has been observed to return when the API is throttled under load.
+    // Retry these with exponential backoff; NEVER treat a failed check as
+    // "absent" (that could silently skip a real cache hit and re-synthesize).
+    // After MAX_RETRIES, withRetry throws and the run hard-fails.
+    if (r.status === 405 || r.status === 408 || r.status === 425 || r.status === 429 || r.status >= 500) {
+      const err: any = new Error(`R2 HEAD throttled for ${key}: HTTP ${r.status} (${r.statusText})`);
+      err.name = 'ThrottlingException'; // use the longer throttle backoff
       throw err;
     }
+    // Genuinely permanent (e.g. 401/403 bad token/permissions, 400 bad request)
+    // — won't fix on retry, so hard-fail immediately rather than spin.
     const err: any = new Error(`R2 HEAD failed for ${key}: HTTP ${r.status} (${r.statusText})`);
-    if (r.status >= 400 && r.status < 500) err.noRetry = true; // bad token/permissions — won't fix on retry
+    err.noRetry = true;
     throw err;
   }, `R2-HEAD:${key}`);
 }
