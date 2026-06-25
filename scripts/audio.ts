@@ -125,6 +125,7 @@ function isThrottleError(err: any): boolean {
 
 /**
  * Retry fn up to MAX_RETRIES times total. Throttle errors use longer backoff.
+ * Errors flagged `noRetry` (permanent — auth, payment, bad request) throw at once.
  * After MAX_RETRIES attempts, throws — never silently skips.
  */
 async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
@@ -132,6 +133,9 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
     try {
       return await fn();
     } catch (err: any) {
+      if (err?.noRetry) {
+        throw new Error(`${label} failed (not retryable): ${err?.message ?? err}`);
+      }
       if (attempt === MAX_RETRIES - 1) {
         throw new Error(`${label} failed after ${MAX_RETRIES} attempts: ${err?.message ?? err}`);
       }
@@ -182,7 +186,9 @@ async function r2ObjectExists(cfg: R2Config, key: string): Promise<boolean> {
       err.name = 'ThrottlingException';
       throw err;
     }
-    throw new Error(`R2 HEAD failed for ${key}: HTTP ${r.status} (${r.statusText})`);
+    const err: any = new Error(`R2 HEAD failed for ${key}: HTTP ${r.status} (${r.statusText})`);
+    if (r.status >= 400 && r.status < 500) err.noRetry = true; // bad token/permissions — won't fix on retry
+    throw err;
   }, `R2-HEAD:${key}`);
 }
 
@@ -203,7 +209,9 @@ async function uploadToR2(cfg: R2Config, key: string, buffer: Buffer): Promise<s
     }
     if (!r.ok) {
       await r.body?.cancel();
-      throw new Error(`R2 upload failed for ${key}: HTTP ${r.status} (${r.statusText})`);
+      const err: any = new Error(`R2 upload failed for ${key}: HTTP ${r.status} (${r.statusText})`);
+      if (r.status >= 400 && r.status < 500) err.noRetry = true;
+      throw err;
     }
     await r.body?.cancel();
   }, `R2-PUT:${key}`);
@@ -261,7 +269,10 @@ async function synthesizeElevenLabs(recipe: ElevenLabsRecipe, apiKey: string, te
     }
     if (!r.ok) {
       const body = await r.text();
-      throw new Error(`ElevenLabs TTS failed: HTTP ${r.status} (${r.statusText}): ${body.slice(0, 200)}`);
+      const err: any = new Error(`ElevenLabs TTS failed: HTTP ${r.status} (${r.statusText}): ${body.slice(0, 200)}`);
+      // Non-429 4xx (e.g. 401 invalid key, 402 paid_plan_required) won't fix on retry.
+      if (r.status >= 400 && r.status < 500) err.noRetry = true;
+      throw err;
     }
     return r;
   }, `ElevenLabs:${text.slice(0, 20)}`);
