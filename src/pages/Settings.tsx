@@ -17,7 +17,7 @@ import {
 import { canUseSpeech } from '../lib/tts'
 import './Settings.css'
 
-const AVAILABLE_HSK_LEVELS = [1, 2]
+const AVAILABLE_HSK_LEVELS = [1, 2, 3]
 const ALL_HSK_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const BATCH_SIZE_OPTIONS = [10, 20, 30]
 
