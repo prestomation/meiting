@@ -290,24 +290,13 @@ async function main() {
   const items: ContentItem[] = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
   console.log(`Loaded ${items.length} items from HSK ${level} data (voice: ${voice})`);
 
-  // Validate R2 credentials (always needed) and service-specific credentials.
+  // R2 credentials are always needed to compute target URLs / detect existing work.
   const cfg: R2Config = {
     token: getRequiredEnv('CLOUDFLARE_API_TOKEN'),
     accountId: getRequiredEnv('CLOUDFLARE_ACCOUNT_ID'),
     publicBase: getRequiredEnv('CLOUDFLARE_R2_PUBLIC_BASE'),
     bucket: process.env.CLOUDFLARE_R2_BUCKET ?? 'meiting-audio',
   };
-
-  let polly: PollyClient | undefined;
-  let elevenApiKey: string | undefined;
-  if (recipe.service === 'polly') {
-    getRequiredEnv('AWS_ACCESS_KEY_ID');
-    getRequiredEnv('AWS_SECRET_ACCESS_KEY');
-    polly = new PollyClient({ region: process.env.AWS_REGION || 'us-east-1' });
-  } else {
-    elevenApiKey = getRequiredEnv('ELEVENLABS_API_KEY');
-  }
-  console.log('Credentials validated ✓');
 
   // Fast-path skip: items whose JSON already records up-to-date audio for this
   // voice. Legacy (pre-CAS) URLs are respected; only missing or stale CAS-managed
@@ -323,10 +312,24 @@ async function main() {
     console.log(`Limit: at most ${limit} new file(s) will be synthesized this run (cache hits don't count).`);
   }
 
+  // Nothing to do — exit before requiring this service's credentials, so a voice
+  // with no pending work (e.g. polly-zhiyu) succeeds even if its keys are absent.
   if (needsAudio.length === 0) {
     console.log('All items already have current audio. Nothing to do.');
     return;
   }
+
+  // Only now validate the credentials for the service that actually has work.
+  let polly: PollyClient | undefined;
+  let elevenApiKey: string | undefined;
+  if (recipe.service === 'polly') {
+    getRequiredEnv('AWS_ACCESS_KEY_ID');
+    getRequiredEnv('AWS_SECRET_ACCESS_KEY');
+    polly = new PollyClient({ region: process.env.AWS_REGION || 'us-east-1' });
+  } else {
+    elevenApiKey = getRequiredEnv('ELEVENLABS_API_KEY');
+  }
+  console.log('Credentials validated ✓');
 
   // ElevenLabs has stricter rate limits than Polly.
   const CONCURRENCY = recipe.service === 'elevenlabs' ? 2 : 5;
