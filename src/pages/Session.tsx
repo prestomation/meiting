@@ -25,11 +25,20 @@ import {
 import type { ContentItem } from '../lib/types'
 import hsk1Data from '../data/hsk1.json'
 import hsk2Data from '../data/hsk2.json'
+import { getVoiceProvider } from '../lib/storage'
 import './Session.css'
 
 const HSK_DATA: Record<number, ContentItem[]> = {
   1: hsk1Data as ContentItem[],
   2: hsk2Data as ContentItem[],
+}
+
+const DEFAULT_VOICE = 'elevenlabs-haoran' as const
+
+// Resolve the audio URL for an item using the selected voice, falling back to
+// the default voice when the chosen voice hasn't been generated for this item.
+function resolveAudioUrl(item: ContentItem): string | undefined {
+  return item.audio?.[getVoiceProvider()] ?? item.audio?.[DEFAULT_VOICE]
 }
 
 type Phase = 'start' | 'playing' | 'answered' | 'complete' | 'batch-complete'
@@ -57,9 +66,10 @@ function playItem(
   audioRef: React.MutableRefObject<HTMLAudioElement | null>,
   rate: number = 1,
 ) {
-  if (!item.audio) return // No audio available — silent skip
+  const url = resolveAudioUrl(item)
+  if (!url) return // No audio available — silent skip
   stopActiveAudio(audioRef)
-  const audio = new Audio(item.audio)
+  const audio = new Audio(url)
   audio.playbackRate = rate
   audioRef.current = audio
   audio.play().catch(() => {
@@ -188,8 +198,9 @@ export default function Session() {
 
     for (let i = 1; i <= PREFETCH_AHEAD; i++) {
       const nextItem = items[currentIndex + i]
-      if (!nextItem?.audio) continue
-      const url = nextItem.audio
+      if (!nextItem) continue
+      const url = resolveAudioUrl(nextItem)
+      if (!url) continue
       // Reuse existing prefetched element if already loaded
       const existing = prefetchCache.current.get(url)
       if (existing) {
@@ -215,12 +226,13 @@ export default function Session() {
     if (phase !== 'playing' || !currentItem) return
     const t = setTimeout(() => {
       // Use prefetched Audio element if available, otherwise create fresh
-      if (currentItem.audio) {
-        const cached = prefetchCache.current.get(currentItem.audio)
+      const url = resolveAudioUrl(currentItem)
+      if (url) {
+        const cached = prefetchCache.current.get(url)
         if (cached) {
           // Remove from cache before making it the active element
           // so prefetch cleanup never nulls out a playing audio
-          prefetchCache.current.delete(currentItem.audio)
+          prefetchCache.current.delete(url)
           stopActiveAudio(audioRef)
           cached.playbackRate = playbackRateRef.current
           cached.currentTime = 0

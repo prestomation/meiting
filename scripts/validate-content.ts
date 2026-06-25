@@ -3,7 +3,10 @@
  * validate-content.ts — CI guard for content data integrity
  *
  * Checks that every item in every src/data/hsk*.json:
- *   1. Has a non-empty audio URL pointing to R2 (not a local path, not empty)
+ *   1. Has a valid R2 audio URL for the DEFAULT voice (the shipped voice).
+ *      Other voices are optional — they're filled in asynchronously by the
+ *      generate-audio workflow and shouldn't block a merge — but if present
+ *      they must also be valid R2 URLs.
  *   2. Has non-empty characters, pinyin, english fields
  *   3. Has at least 3 non-empty distractors
  *
@@ -15,9 +18,11 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import type { VoiceProvider } from './lib/voices';
 
 const DATA_DIR = path.resolve(__dirname, '..', 'src', 'data');
 const R2_URL_PREFIX = 'https://pub-';
+const DEFAULT_VOICE: VoiceProvider = 'elevenlabs-haoran';
 
 interface ContentItem {
   id: string;
@@ -26,8 +31,16 @@ interface ContentItem {
   characters: string;
   pinyin: string;
   english: string;
-  audio?: string;
+  audio?: Partial<Record<VoiceProvider, string>>;
   distractors: string[];
+}
+
+/** Returns an error reason if the URL isn't a valid R2 URL, otherwise null. */
+function audioUrlError(url: string | undefined): string | null {
+  if (!url?.trim()) return 'missing';
+  if (url.startsWith('/') || url.startsWith('./')) return `local path (${url})`;
+  if (!url.startsWith(R2_URL_PREFIX)) return `invalid (${url.slice(0, 60)})`;
+  return null;
 }
 
 let totalErrors = 0;
@@ -80,16 +93,24 @@ for (const file of dataFiles) {
       fileErrors++;
     }
 
-    // Check audio (reject missing, empty string, whitespace)
-    if (!item.audio?.trim()) {
+    // Check audio. The default voice is required and must be a valid R2 URL.
+    const defaultErr = audioUrlError(item.audio?.[DEFAULT_VOICE]);
+    if (defaultErr === 'missing') {
       audioMissing.push(item.id);
       fileErrors++;
-    } else if (item.audio.startsWith('/') || item.audio.startsWith('./')) {
-      audioLocal.push(`${item.id} (${item.audio})`);
+    } else if (defaultErr) {
+      audioLocal.push(`${item.id} ${defaultErr}`);
       fileErrors++;
-    } else if (!item.audio.startsWith(R2_URL_PREFIX)) {
-      audioLocal.push(`${item.id} (${item.audio.slice(0, 60)})`);
-      fileErrors++;
+    }
+
+    // Other voices are optional, but if present they must be valid R2 URLs.
+    for (const [voice, url] of Object.entries(item.audio ?? {})) {
+      if (voice === DEFAULT_VOICE) continue;
+      const err = audioUrlError(url);
+      if (err && err !== 'missing') {
+        audioLocal.push(`${item.id} [${voice}] ${err}`);
+        fileErrors++;
+      }
     }
 
     // Check distractors — require at least 3 non-empty entries
