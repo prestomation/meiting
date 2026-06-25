@@ -294,7 +294,7 @@ async function main() {
   const dataPath = getDataPath(level);
   if (!fs.existsSync(dataPath)) {
     console.error(`Data file not found: ${dataPath}`);
-    console.error('Run generate.ts first to create the data file.');
+    console.error('Run emit-batches.ts + assemble.ts first to create the data file.');
     process.exit(1);
   }
 
